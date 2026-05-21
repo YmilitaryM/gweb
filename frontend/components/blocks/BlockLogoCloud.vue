@@ -15,4 +15,5 @@
 
 <script setup lang="ts">
 defineProps<{ config: Record<string, any>; content: Record<string, any> }>();
+const { locale } = useI18n();
 </script>
