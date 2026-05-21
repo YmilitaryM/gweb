@@ -1,12 +1,12 @@
 from sqlalchemy import select
 from app.core.database import async_session
 from app.core.security import hash_password, verify_password, create_access_token
-from app.apps.auth.models import User
+from app.apps.auth.models import User, UserRole
 
 
 async def create_user(username: str, password: str, role: str = "editor") -> User:
     async with async_session() as db:
-        user = User(username=username, password_hash=hash_password(password))
+        user = User(username=username, password_hash=hash_password(password), role=UserRole(role))
         db.add(user)
         await db.commit()
         await db.refresh(user)
