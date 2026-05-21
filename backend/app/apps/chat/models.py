@@ -1,5 +1,4 @@
-from datetime import datetime
-from sqlalchemy import String, Text, ForeignKey, Integer, JSON, Enum as SAEnum, func, DateTime
+from sqlalchemy import String, Text, ForeignKey, Integer, JSON, Enum as SAEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.shared.models import Base, TimestampMixin
 import enum
@@ -16,7 +15,8 @@ class ChatSession(Base, TimestampMixin):
     visitor_id: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     language: Mapped[str] = mapped_column(String(5), default="zh")
     messages: Mapped[list["ChatMessage"]] = relationship(
-        "ChatMessage", back_populates="session", order_by="ChatMessage.created_at"
+        "ChatMessage", back_populates="session", order_by="ChatMessage.created_at",
+        cascade="all, delete-orphan"
     )
 
 

@@ -14,6 +14,7 @@ class NewsArticle(Base, TimestampMixin):
     content_zh: Mapped[str] = mapped_column(Text, default="")
     content_en: Mapped[str] = mapped_column(Text, default="")
     cover_image_id: Mapped[int | None] = mapped_column(ForeignKey("media.id"), nullable=True)
+    cover_image: Mapped["Media | None"] = relationship("Media", foreign_keys=[cover_image_id])
     category: Mapped[str] = mapped_column(String(50), default="company_news")
     published_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     is_published: Mapped[bool] = mapped_column(Boolean, default=False)

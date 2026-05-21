@@ -55,7 +55,7 @@ class Block(Base, TimestampMixin):
 class Menu(Base, TimestampMixin):
     __tablename__ = "menus"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    parent_id: Mapped[int | None] = mapped_column(ForeignKey("menus.id"), nullable=True)
+    parent_id: Mapped[int | None] = mapped_column(ForeignKey("menus.id", ondelete="SET NULL"), nullable=True)
     name_zh: Mapped[str] = mapped_column(String(100), nullable=False)
     name_en: Mapped[str] = mapped_column(String(100), nullable=False)
     link: Mapped[str] = mapped_column(String(500), nullable=False, default="")
@@ -63,4 +63,5 @@ class Menu(Base, TimestampMixin):
     order: Mapped[int] = mapped_column(Integer, default=0)
     is_visible: Mapped[bool] = mapped_column(Boolean, default=True)
     location: Mapped[str] = mapped_column(String(20), nullable=False, default="header")
-    children: Mapped[list["Menu"]] = relationship("Menu")
+    parent: Mapped["Menu | None"] = relationship("Menu", remote_side=[id], back_populates="children")
+    children: Mapped[list["Menu"]] = relationship("Menu", back_populates="parent")
