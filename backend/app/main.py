@@ -15,6 +15,8 @@ from app.apps.inquiry.router import public_router as inquiry_public_router
 from app.apps.inquiry.router import admin_router as inquiry_admin_router
 from app.apps.theme.router import public_router as theme_public_router
 from app.apps.theme.router import admin_router as theme_admin_router
+from app.apps.chat.router_public import router as chat_public_router
+from app.apps.chat.router_admin import router as chat_admin_router
 
 
 @asynccontextmanager
@@ -40,6 +42,8 @@ app.include_router(inquiry_public_router)
 app.include_router(inquiry_admin_router)
 app.include_router(theme_public_router)
 app.include_router(theme_admin_router)
+app.include_router(chat_public_router)
+app.include_router(chat_admin_router)
 
 
 @app.get("/health")
