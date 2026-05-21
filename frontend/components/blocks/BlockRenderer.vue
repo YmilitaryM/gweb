@@ -26,6 +26,14 @@ const componentMap: Record<string, any> = {
   contact_form: defineAsyncComponent(() => import('./BlockContactForm.vue')),
   product_cards: defineAsyncComponent(() => import('./BlockProductCards.vue')),
   stats_counter: defineAsyncComponent(() => import('./BlockStatsCounter.vue')),
+  video_banner: defineAsyncComponent(() => import('./BlockVideoBanner.vue')),
+  image_gallery: defineAsyncComponent(() => import('./BlockImageGallery.vue')),
+  logo_cloud: defineAsyncComponent(() => import('./BlockLogoCloud.vue')),
+  cta_banner: defineAsyncComponent(() => import('./BlockCtaBanner.vue')),
+  digital_twin: defineAsyncComponent(() => import('./BlockDigitalTwin.vue')),
+  live_dashboard: defineAsyncComponent(() => import('./BlockLiveDashboard.vue')),
+  tech_icon_grid: defineAsyncComponent(() => import('./BlockTechIconGrid.vue')),
+  solution_cards: defineAsyncComponent(() => import('./BlockSolutionCards.vue')),
 };
 
 const component = computed(() => componentMap[props.block.type] || null);
