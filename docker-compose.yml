@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: gweb
+      POSTGRES_PASSWORD: gweb
+      POSTGRES_DB: gweb
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports: ["6333:6333", "6334:6334"]
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports: ["9000:9000", "9001:9001"]
+    volumes:
+      - minio_data:/data
+
+  backend:
+    build: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports: ["8000:8000"]
+    environment:
+      GWEB_DATABASE_URL: postgresql+asyncpg://gweb:gweb@postgres:5432/gweb
+      GWEB_REDIS_URL: redis://redis:6379/0
+      GWEB_MINIO_ENDPOINT: minio:9000
+      GWEB_QDRANT_URL: http://qdrant:6333
+      GWEB_DEBUG: "true"
+    volumes:
+      - ./backend:/app
+    depends_on: [postgres, redis, qdrant, minio]
+
+volumes:
+  pgdata:
+  qdrant_data:
+  minio_data:
