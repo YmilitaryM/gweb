@@ -37,6 +37,8 @@ services:
       GWEB_DATABASE_URL: postgresql+asyncpg://gweb:gweb@postgres:5432/gweb
       GWEB_REDIS_URL: redis://redis:6379/0
       GWEB_MINIO_ENDPOINT: minio:9000
+      GWEB_MINIO_ACCESS_KEY: minioadmin
+      GWEB_MINIO_SECRET_KEY: minioadmin
       GWEB_QDRANT_URL: http://qdrant:6333
       GWEB_DEBUG: "true"
     volumes:
