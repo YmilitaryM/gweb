@@ -4,6 +4,7 @@ from app.apps.auth.router import get_current_user
 from app.apps.cms.schemas import BlockCreate, BlockUpdate, PageCreate, PageOut, ReorderRequest
 from app.apps.cms.service_block import create_block, delete_block, reorder_blocks, update_block
 from app.apps.cms.service_media import delete_media, list_media, upload_media
+from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
 from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, update_page, delete_page as svc_delete_page
 from app.core.database import async_session
 from app.apps.cms.models import Page as PageModel
@@ -66,6 +67,11 @@ async def get_page(slug: str):
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
     return page
+
+
+@public_router.get("/menus")
+async def get_menus(location: str | None = None):
+    return await get_menu_tree(location)
 
 
 # ---------------------------------------------------------------------------
@@ -154,4 +160,31 @@ async def admin_delete_block(block_id: int):
     deleted = await delete_block(block_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Block not found")
+    return {"deleted": True}
+
+
+# ---------------------------------------------------------------------------
+# Admin menu CRUD
+# ---------------------------------------------------------------------------
+
+
+@page_admin_router.post("/menus", status_code=201)
+async def admin_create_menu(data: dict):
+    menu = await create_menu_item(**data)
+    return {"id": menu.id, "name_zh": menu.name_zh, "name_en": menu.name_en}
+
+
+@page_admin_router.put("/menus/{menu_id}")
+async def admin_update_menu(menu_id: int, data: dict):
+    menu = await update_menu_item(menu_id, **data)
+    if not menu:
+        raise HTTPException(status_code=404, detail="Menu not found")
+    return {"id": menu.id, "name_zh": menu.name_zh}
+
+
+@page_admin_router.delete("/menus/{menu_id}")
+async def admin_delete_menu(menu_id: int):
+    deleted = await delete_menu_item(menu_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Menu not found")
     return {"deleted": True}
