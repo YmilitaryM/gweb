@@ -7,6 +7,14 @@ from app.apps.cms.router import public_router as cms_public_router
 from app.apps.cms.router import page_admin_router
 from app.apps.settings.router import router_public as settings_public_router
 from app.apps.settings.router import router_admin as settings_admin_router
+from app.apps.news.router import public_router as news_public_router
+from app.apps.news.router import admin_router as news_admin_router
+from app.apps.faq.router import public_router as faq_public_router
+from app.apps.faq.router import admin_router as faq_admin_router
+from app.apps.inquiry.router import public_router as inquiry_public_router
+from app.apps.inquiry.router import admin_router as inquiry_admin_router
+from app.apps.theme.router import public_router as theme_public_router
+from app.apps.theme.router import admin_router as theme_admin_router
 
 
 @asynccontextmanager
@@ -24,6 +32,14 @@ app.include_router(settings_public_router)
 app.include_router(settings_admin_router)
 app.include_router(media_admin_router)
 app.include_router(page_admin_router)
+app.include_router(news_public_router)
+app.include_router(news_admin_router)
+app.include_router(faq_public_router)
+app.include_router(faq_admin_router)
+app.include_router(inquiry_public_router)
+app.include_router(inquiry_admin_router)
+app.include_router(theme_public_router)
+app.include_router(theme_admin_router)
 
 
 @app.get("/health")
