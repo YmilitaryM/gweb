@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import BlockRenderer from '~/components/blocks/BlockRenderer.vue';
 const route = useRoute();
 const { page } = await usePage(route.params.slug as string);
 </script>
