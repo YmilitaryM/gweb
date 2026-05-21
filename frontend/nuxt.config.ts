@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-05-21',
   devtools: { enabled: true },
   ssr: true,
-  modules: ['@nuxtjs/i18n', '@nuxt/image'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/ui'],
   i18n: {
     locales: ['zh', 'en'],
     defaultLocale: 'zh',
