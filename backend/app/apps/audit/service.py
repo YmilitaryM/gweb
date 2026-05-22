@@ -6,6 +6,33 @@ from sqlalchemy import select, func
 from app.core.database import async_session
 from app.apps.audit.models import AuditLog
 
+_EXPORT_LIMIT = 10000
+
+
+def _parse_date(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+    except ValueError:
+        raise ValueError(f"Invalid date format: {value!r}, expected ISO 8601 (e.g. 2026-01-01)")
+
+
+def _apply_filters(query, user_id=None, action=None, resource_type=None, start_date=None, end_date=None):
+    if user_id is not None:
+        query = query.where(AuditLog.user_id == user_id)
+    if action:
+        query = query.where(AuditLog.action == action)
+    if resource_type:
+        query = query.where(AuditLog.resource_type == resource_type)
+    start_dt = _parse_date(start_date)
+    end_dt = _parse_date(end_date)
+    if start_dt is not None:
+        query = query.where(AuditLog.created_at >= start_dt)
+    if end_dt is not None:
+        query = query.where(AuditLog.created_at <= end_dt)
+    return query
+
 
 async def create_audit_log(
     user_id: int,
@@ -30,6 +57,8 @@ async def create_audit_log(
         )
         db.add(log)
         await db.commit()
+        await db.refresh(log)
+        return log
 
 
 async def list_audit_logs(
@@ -45,23 +74,8 @@ async def list_audit_logs(
         query = select(AuditLog)
         count_query = select(func.count(AuditLog.id))
 
-        if user_id is not None:
-            query = query.where(AuditLog.user_id == user_id)
-            count_query = count_query.where(AuditLog.user_id == user_id)
-        if action:
-            query = query.where(AuditLog.action == action)
-            count_query = count_query.where(AuditLog.action == action)
-        if resource_type:
-            query = query.where(AuditLog.resource_type == resource_type)
-            count_query = count_query.where(AuditLog.resource_type == resource_type)
-        if start_date:
-            start_dt = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
-            query = query.where(AuditLog.created_at >= start_dt)
-            count_query = count_query.where(AuditLog.created_at >= start_dt)
-        if end_date:
-            end_dt = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc)
-            query = query.where(AuditLog.created_at <= end_dt)
-            count_query = count_query.where(AuditLog.created_at <= end_dt)
+        query = _apply_filters(query, user_id, action, resource_type, start_date, end_date)
+        count_query = _apply_filters(count_query, user_id, action, resource_type, start_date, end_date)
 
         result_total = await db.execute(count_query)
         total = result_total.scalar() or 0
@@ -80,20 +94,8 @@ async def export_csv_data(
 ) -> str:
     async with async_session() as db:
         query = select(AuditLog)
-        if user_id is not None:
-            query = query.where(AuditLog.user_id == user_id)
-        if action:
-            query = query.where(AuditLog.action == action)
-        if resource_type:
-            query = query.where(AuditLog.resource_type == resource_type)
-        if start_date:
-            start_dt = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
-            query = query.where(AuditLog.created_at >= start_dt)
-        if end_date:
-            end_dt = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc)
-            query = query.where(AuditLog.created_at <= end_dt)
-
-        query = query.order_by(AuditLog.created_at.desc())
+        query = _apply_filters(query, user_id, action, resource_type, start_date, end_date)
+        query = query.order_by(AuditLog.created_at.desc()).limit(_EXPORT_LIMIT)
         result = await db.execute(query)
         logs = result.scalars().all()
 

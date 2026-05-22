@@ -17,6 +17,7 @@ from app.apps.theme.models import Theme
 from app.apps.faq.models import FAQ
 from app.apps.chat.models import ChatSession, ChatMessage
 from app.apps.settings.models import Setting
+from app.apps.audit.models import AuditLog
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

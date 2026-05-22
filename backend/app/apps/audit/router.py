@@ -1,31 +1,34 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import Response
 
 from app.apps.audit.schemas import AuditLogOut
 from app.apps.audit.service import list_audit_logs, export_csv_data
-from app.apps.auth.router import get_current_user
+from app.apps.auth.router import require_admin
 
 router = APIRouter(
     prefix="/api/v1/admin/audit-logs",
     tags=["admin-audit"],
-    dependencies=[Depends(get_current_user)],
+    dependencies=[Depends(require_admin)],
 )
 
 
 @router.get("")
 async def list_logs(
-    page: int = 1,
-    size: int = 20,
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
     user_id: int | None = None,
     action: str | None = None,
     resource_type: str | None = None,
     start_date: str | None = None,
     end_date: str | None = None,
 ):
-    items, total = await list_audit_logs(
-        page=page, size=size, user_id=user_id, action=action,
-        resource_type=resource_type, start_date=start_date, end_date=end_date,
-    )
+    try:
+        items, total = await list_audit_logs(
+            page=page, size=size, user_id=user_id, action=action,
+            resource_type=resource_type, start_date=start_date, end_date=end_date,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     return {
         "items": [AuditLogOut.model_validate(item) for item in items],
         "total": total,
@@ -42,10 +45,13 @@ async def export_logs(
     start_date: str | None = None,
     end_date: str | None = None,
 ):
-    csv_content = await export_csv_data(
-        user_id=user_id, action=action,
-        resource_type=resource_type, start_date=start_date, end_date=end_date,
-    )
+    try:
+        csv_content = await export_csv_data(
+            user_id=user_id, action=action,
+            resource_type=resource_type, start_date=start_date, end_date=end_date,
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     return Response(
         content=csv_content,
         media_type="text/csv",
