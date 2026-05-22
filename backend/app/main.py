@@ -23,6 +23,7 @@ from app.apps.theme.router import admin_router as theme_admin_router
 from app.apps.users.router import router as users_router
 from app.apps.chat.router_public import router as chat_public_router
 from app.apps.chat.router_admin import router as chat_admin_router
+from app.apps.audit.router import router as audit_router
 from app.core.database import async_session
 from app.core.storage import storage
 
@@ -53,6 +54,7 @@ app.include_router(theme_public_router)
 app.include_router(theme_admin_router)
 app.include_router(chat_public_router)
 app.include_router(chat_admin_router)
+app.include_router(audit_router)
 
 
 @app.get("/health")
