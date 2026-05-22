@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
+from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
 from app.apps.news.schemas import NewsCreate, NewsResponse, NewsUpdate
 from app.apps.news.service import (
@@ -51,22 +52,51 @@ async def admin_list_articles(page: int = 1, size: int = 10, category: str | Non
 
 
 @admin_router.post("", response_model=NewsResponse, status_code=201)
-async def admin_create_article(data: NewsCreate):
+async def admin_create_article(data: NewsCreate, request: Request, current_user=Depends(get_current_user)):
     article = await create_article(**data.model_dump())
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="create",
+        resource_type="news",
+        resource_id=article.id,
+        resource_name=article.title_zh,
+        ip_address=request.client.host if request.client else None,
+    )
     return article
 
 
 @admin_router.put("/{article_id}", response_model=NewsResponse)
-async def admin_update_article(article_id: int, data: NewsUpdate):
+async def admin_update_article(article_id: int, data: NewsUpdate, request: Request, current_user=Depends(get_current_user)):
     article = await update_article(article_id, **data.model_dump(exclude_none=True))
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="news",
+        resource_id=article.id,
+        resource_name=article.title_zh,
+        ip_address=request.client.host if request.client else None,
+    )
     return article
 
 
 @admin_router.delete("/{article_id}")
-async def admin_delete_article(article_id: int):
+async def admin_delete_article(article_id: int, request: Request, current_user=Depends(get_current_user)):
+    article = await get_article_by_id(article_id)
+    name = article.title_zh if article else None
     deleted = await delete_article(article_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Article not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="news",
+        resource_id=article_id,
+        resource_name=name,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"deleted": True}
