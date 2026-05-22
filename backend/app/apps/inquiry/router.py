@@ -1,5 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
+from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
 from app.apps.inquiry.schemas import InquiryCreate, InquiryResponse
 from app.apps.inquiry.service import (
@@ -36,8 +37,17 @@ async def admin_list_inquiries(page: int = Query(1, ge=1), size: int = Query(20,
 
 
 @admin_router.put("/{inquiry_id}/read", response_model=InquiryResponse)
-async def admin_mark_read(inquiry_id: int):
+async def admin_mark_read(inquiry_id: int, request: Request, current_user=Depends(get_current_user)):
     inquiry = await mark_inquiry_read(inquiry_id)
     if not inquiry:
         raise HTTPException(status_code=404, detail="Inquiry not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="inquiry",
+        resource_id=inquiry.id,
+        resource_name=inquiry.company_name,
+        ip_address=request.client.host if request.client else None,
+    )
     return inquiry
