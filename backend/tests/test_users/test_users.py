@@ -1,6 +1,5 @@
 import pytest
 from httpx import AsyncClient
-from sqlalchemy.exc import IntegrityError
 
 
 @pytest.mark.asyncio
@@ -55,14 +54,13 @@ async def test_create_user_duplicate_username(client: AsyncClient, admin_auth_he
         json={"username": "dup", "password": "pass123", "role": "editor"},
         headers=admin_auth_headers,
     )
-    # SQLite unique constraint raises IntegrityError through the async stack;
-    # FastAPI/Starlette cannot catch it in the test transport, so it propagates directly.
-    with pytest.raises(IntegrityError, match="UNIQUE constraint failed"):
-        await client.post(
-            "/api/v1/admin/users",
-            json={"username": "dup", "password": "pass456", "role": "editor"},
-            headers=admin_auth_headers,
-        )
+    resp = await client.post(
+        "/api/v1/admin/users",
+        json={"username": "dup", "password": "pass456", "role": "editor"},
+        headers=admin_auth_headers,
+    )
+    assert resp.status_code == 409
+    assert "already exists" in resp.json()["detail"].lower()
 
 
 @pytest.mark.asyncio

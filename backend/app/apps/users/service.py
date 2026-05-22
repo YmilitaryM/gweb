@@ -1,7 +1,9 @@
+from fastapi import HTTPException
 from sqlalchemy import select, delete as sql_delete
+from sqlalchemy.exc import IntegrityError
 from app.core.database import async_session
 from app.core.security import hash_password
-from app.apps.auth.models import User, UserRole
+from app.apps.auth.models import User
 from app.apps.auth.service import create_user as auth_create_user, get_user_by_id
 
 
@@ -12,7 +14,10 @@ async def list_users() -> list[User]:
 
 
 async def create_user(**kwargs) -> User:
-    return await auth_create_user(**kwargs)
+    try:
+        return await auth_create_user(**kwargs)
+    except IntegrityError:
+        raise HTTPException(status_code=409, detail="Username already exists")
 
 
 async def update_user(user_id: int, **kwargs) -> User | None:
@@ -21,8 +26,10 @@ async def update_user(user_id: int, **kwargs) -> User | None:
         return None
     async with async_session() as db:
         merged = await db.merge(user)
-        if "password" in kwargs and kwargs["password"]:
-            merged.password_hash = hash_password(kwargs.pop("password"))
+        if "password" in kwargs:
+            pwd = kwargs.pop("password")
+            if pwd:
+                merged.password_hash = hash_password(pwd)
         for key, value in kwargs.items():
             if value is not None:
                 setattr(merged, key, value)
