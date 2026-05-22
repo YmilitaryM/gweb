@@ -62,6 +62,24 @@ async def health():
     return {"status": "ok"}
 
 
+@app.get("/media/id/{media_id}")
+async def serve_media_by_id(media_id: int):
+    async with async_session() as db:
+        result = await db.execute(
+            select(Media).where(Media.id == media_id)
+        )
+        media = result.scalar_one_or_none()
+    if media is None:
+        raise HTTPException(status_code=404, detail="Media not found")
+    filepath = Path(storage._local_storage) / media.path
+    resolved = filepath.resolve()
+    if not str(resolved).startswith(str(Path(storage._local_storage).resolve())):
+        raise HTTPException(status_code=404, detail="Media not found")
+    if not resolved.exists():
+        raise HTTPException(status_code=404, detail="Media not found")
+    return FileResponse(resolved, media_type=media.mime_type)
+
+
 @app.get("/media/{media_path:path}")
 async def serve_media(media_path: str):
     async with async_session() as db:
