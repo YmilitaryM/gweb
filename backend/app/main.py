@@ -4,6 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from sqlalchemy import select
 from app.apps.auth.router import router as auth_router
 from app.apps.cms.router import admin_router as media_admin_router
 from app.apps.cms.router import public_router as cms_public_router
@@ -59,13 +60,19 @@ async def health():
     return {"status": "ok"}
 
 
-@app.get("/media/{media_id}")
-async def serve_media(media_id: int):
+@app.get("/media/{media_path:path}")
+async def serve_media(media_path: str):
     async with async_session() as db:
-        media = await db.get(Media, media_id)
+        result = await db.execute(
+            select(Media).where(Media.path == media_path)
+        )
+        media = result.scalar_one_or_none()
     if media is None:
         raise HTTPException(status_code=404, detail="Media not found")
     filepath = Path(storage._local_storage) / media.path
-    if not filepath.exists():
-        raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(filepath, media_type=media.mime_type)
+    resolved = filepath.resolve()
+    if not str(resolved).startswith(str(Path(storage._local_storage).resolve())):
+        raise HTTPException(status_code=404, detail="Media not found")
+    if not resolved.exists():
+        raise HTTPException(status_code=404, detail="Media not found")
+    return FileResponse(resolved, media_type=media.mime_type)

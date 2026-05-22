@@ -30,9 +30,9 @@ async def client():
 async def auth_headers(client):
     from app.apps.auth.service import create_user
 
-    await create_user("admin", "password123")
+    await create_user("editor", "password123")
     resp = await client.post(
-        "/api/v1/admin/auth/login", json={"username": "admin", "password": "password123"}
+        "/api/v1/admin/auth/login", json={"username": "editor", "password": "password123"}
     )
     token = resp.json()["access_token"]
     return {"Authorization": f"Bearer {token}"}
