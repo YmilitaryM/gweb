@@ -1,10 +1,14 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from pathlib import Path
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from app.apps.auth.router import router as auth_router
 from app.apps.cms.router import admin_router as media_admin_router
 from app.apps.cms.router import public_router as cms_public_router
 from app.apps.cms.router import page_admin_router
+from app.apps.cms.models import Media
 from app.apps.settings.router import router_public as settings_public_router
 from app.apps.settings.router import router_admin as settings_admin_router
 from app.apps.news.router import public_router as news_public_router
@@ -15,8 +19,11 @@ from app.apps.inquiry.router import public_router as inquiry_public_router
 from app.apps.inquiry.router import admin_router as inquiry_admin_router
 from app.apps.theme.router import public_router as theme_public_router
 from app.apps.theme.router import admin_router as theme_admin_router
+from app.apps.users.router import router as users_router
 from app.apps.chat.router_public import router as chat_public_router
 from app.apps.chat.router_admin import router as chat_admin_router
+from app.core.database import async_session
+from app.core.storage import storage
 
 
 @asynccontextmanager
@@ -29,6 +36,7 @@ app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
 app.include_router(auth_router)
+app.include_router(users_router)
 app.include_router(cms_public_router)
 app.include_router(settings_public_router)
 app.include_router(settings_admin_router)
@@ -49,3 +57,15 @@ app.include_router(chat_admin_router)
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.get("/media/{media_id}")
+async def serve_media(media_id: int):
+    async with async_session() as db:
+        media = await db.get(Media, media_id)
+    if media is None:
+        raise HTTPException(status_code=404, detail="Media not found")
+    filepath = Path(storage._local_storage) / media.path
+    if not filepath.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(filepath, media_type=media.mime_type)
