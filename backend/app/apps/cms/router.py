@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
+from fastapi.responses import FileResponse
 
+from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
 from app.apps.cms.schemas import BlockCreate, BlockUpdate, PageCreate, PageOut, ReorderRequest
 from app.apps.cms.service_block import create_block, delete_block, reorder_blocks, update_block
@@ -7,7 +9,7 @@ from app.apps.cms.service_media import delete_media, list_media, upload_media
 from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
 from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, update_page, delete_page as svc_delete_page
 from app.core.database import async_session
-from app.apps.cms.models import Page as PageModel
+from app.apps.cms.models import Page as PageModel, Media
 from app.core.storage import storage
 from sqlalchemy import select
 
@@ -23,10 +25,23 @@ admin_router = APIRouter(
 
 
 @admin_router.post("/upload", status_code=201)
-async def upload(file: UploadFile = File(...)):
+async def upload(
+    file: UploadFile = File(...),
+    request: Request = None,
+    current_user=Depends(get_current_user),
+):
     data = await file.read()
     media = await upload_media(
         data, file.filename, file.content_type or "application/octet-stream"
+    )
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="create",
+        resource_type="media",
+        resource_id=media.id,
+        resource_name=media.original_name,
+        ip_address=request.client.host if request.client else None,
     )
     return {
         "id": media.id,
@@ -47,10 +62,23 @@ async def list_media_endpoint(page: int = 1, size: int = 20):
 
 
 @admin_router.delete("/{media_id}")
-async def delete_media_endpoint(media_id: int):
+async def delete_media_endpoint(
+    media_id: int,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     deleted = await delete_media(media_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Media not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="media",
+        resource_id=media_id,
+        resource_name=None,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"deleted": True}
 
 
@@ -101,7 +129,11 @@ async def admin_list_pages():
 
 
 @page_admin_router.post("/pages", status_code=201)
-async def admin_create_page(data: PageCreate):
+async def admin_create_page(
+    data: PageCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     # Check for duplicate slug
     async with async_session() as db:
         result = await db.execute(
@@ -110,32 +142,83 @@ async def admin_create_page(data: PageCreate):
         if result.scalar_one_or_none():
             raise HTTPException(status_code=409, detail="Slug already exists")
     page = await create_page(**data.model_dump())
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="create",
+        resource_type="page",
+        resource_id=page.id,
+        resource_name=data.name_zh,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"id": page.id, "slug": page.slug}
 
 
 @page_admin_router.put("/pages/{page_id}")
-async def admin_update_page(page_id: int, data: PageCreate):
+async def admin_update_page(
+    page_id: int,
+    data: PageCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     page = await update_page(page_id, **data.model_dump())
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="page",
+        resource_id=page.id,
+        resource_name=data.name_zh,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"id": page.id, "slug": page.slug}
 
 
 @page_admin_router.delete("/pages/{page_id}")
-async def admin_delete_page(page_id: int):
+async def admin_delete_page(
+    page_id: int,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    page = await get_page_by_id(page_id)
     deleted = await svc_delete_page(page_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Page not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="page",
+        resource_id=page_id,
+        resource_name=page.name_zh if page else None,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"deleted": True}
 
 
 @page_admin_router.post("/pages/{page_id}/blocks", status_code=201)
-async def admin_create_block(page_id: int, data: BlockCreate):
+async def admin_create_block(
+    page_id: int,
+    data: BlockCreate,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     pg = await get_page_by_id(page_id)
     if not pg:
         raise HTTPException(status_code=404, detail="Page not found")
     try:
         block = await create_block(page_id, data.type, data.config, data.content)
+        await create_audit_log(
+            user_id=current_user.id,
+            username=current_user.username,
+            action="create",
+            resource_type="block",
+            resource_id=block.id,
+            resource_name=f"block_{data.type}",
+            ip_address=request.client.host if request.client else None,
+        )
         return {"id": block.id, "type": block.type, "order": block.order}
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
@@ -148,18 +231,45 @@ async def admin_reorder_blocks(data: ReorderRequest):
 
 
 @page_admin_router.put("/blocks/{block_id}")
-async def admin_update_block(block_id: int, data: BlockUpdate):
+async def admin_update_block(
+    block_id: int,
+    data: BlockUpdate,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     block = await update_block(block_id, **data.model_dump(exclude_none=True))
     if not block:
         raise HTTPException(status_code=404, detail="Block not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="block",
+        resource_id=block.id,
+        resource_name=f"block_{block.type}",
+        ip_address=request.client.host if request.client else None,
+    )
     return {"id": block.id, "type": block.type}
 
 
 @page_admin_router.delete("/blocks/{block_id}")
-async def admin_delete_block(block_id: int):
+async def admin_delete_block(
+    block_id: int,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     deleted = await delete_block(block_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Block not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="block",
+        resource_id=block_id,
+        resource_name=None,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"deleted": True}
 
 
@@ -169,22 +279,62 @@ async def admin_delete_block(block_id: int):
 
 
 @page_admin_router.post("/menus", status_code=201)
-async def admin_create_menu(data: dict):
+async def admin_create_menu(
+    data: dict,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     menu = await create_menu_item(**data)
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="create",
+        resource_type="menu",
+        resource_id=menu.id,
+        resource_name=data.get("name_zh", ""),
+        ip_address=request.client.host if request.client else None,
+    )
     return {"id": menu.id, "name_zh": menu.name_zh, "name_en": menu.name_en}
 
 
 @page_admin_router.put("/menus/{menu_id}")
-async def admin_update_menu(menu_id: int, data: dict):
+async def admin_update_menu(
+    menu_id: int,
+    data: dict,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     menu = await update_menu_item(menu_id, **data)
     if not menu:
         raise HTTPException(status_code=404, detail="Menu not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="menu",
+        resource_id=menu.id,
+        resource_name=data.get("name_zh", ""),
+        ip_address=request.client.host if request.client else None,
+    )
     return {"id": menu.id, "name_zh": menu.name_zh}
 
 
 @page_admin_router.delete("/menus/{menu_id}")
-async def admin_delete_menu(menu_id: int):
+async def admin_delete_menu(
+    menu_id: int,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
     deleted = await delete_menu_item(menu_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Menu not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="menu",
+        resource_id=menu_id,
+        resource_name=None,
+        ip_address=request.client.host if request.client else None,
+    )
     return {"deleted": True}
