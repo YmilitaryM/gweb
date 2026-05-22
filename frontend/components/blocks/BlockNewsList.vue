@@ -1,35 +1,41 @@
 <template>
-  <section class="py-16 px-4 bg-gray-50 dark:bg-gray-900">
+  <section class="py-16 px-4">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-10">
+      <h2 class="text-3xl font-light text-center mb-10 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UCard v-for="article in items" :key="article.id">
+        <div
+          v-for="article in items"
+          :key="article.id"
+          class="bg-white border rounded-xl overflow-hidden transition-shadow hover:shadow-md"
+          style="border-color: #e8f5e9;"
+        >
           <img
             v-if="content.show_image && article.cover_image_id"
             :src="`${apiBase}/../media/${article.cover_image_id}`"
-            class="w-full h-48 object-cover rounded-t"
+            class="w-full h-48 object-cover"
           />
-          <template #header>
-            <h3 class="text-lg font-semibold">
+          <div class="p-5">
+            <h3 class="text-lg font-medium text-slate-800 mb-2 line-clamp-2">
               {{ locale === 'zh' ? article.title_zh : article.title_en }}
             </h3>
-          </template>
-          <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
-            {{ locale === 'zh' ? article.summary_zh : article.summary_en }}
-          </p>
-          <template #footer>
+            <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-4">
+              {{ locale === 'zh' ? article.summary_zh : article.summary_en }}
+            </p>
             <div class="flex justify-between items-center">
-              <span v-if="content.show_date" class="text-sm text-gray-500">
+              <span v-if="content.show_date" class="text-xs text-slate-400">
                 {{ new Date(article.published_at).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US') }}
               </span>
-              <UButton :to="`/news/${article.id}`" variant="link" size="sm">
-                {{ locale === 'zh' ? '阅读更多' : 'Read more' }}
-              </UButton>
+              <NuxtLink
+                :to="`/news/${article.id}`"
+                class="text-sm font-medium text-emerald-600 hover:text-emerald-700 no-underline"
+              >
+                {{ locale === 'zh' ? '阅读更多' : 'Read more' }} →
+              </NuxtLink>
             </div>
-          </template>
-        </UCard>
+          </div>
+        </div>
       </div>
     </div>
   </section>

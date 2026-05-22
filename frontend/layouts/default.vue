@@ -37,10 +37,15 @@
       <slot />
     </main>
     <AppFooter />
+
+    <ChatFloatingButton @toggle="panel?.show()" />
+    <ChatPanel ref="panel" />
   </div>
 </template>
 
 <script setup lang="ts">
 import AppHeader from '~/components/layout/AppHeader.vue';
 import AppFooter from '~/components/layout/AppFooter.vue';
+
+const panel = ref<InstanceType<typeof ChatPanel> | null>(null);
 </script>

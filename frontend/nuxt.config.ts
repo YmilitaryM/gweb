@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-05-21',
   devtools: { enabled: true },
   ssr: true,
+  css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/ui'],
   i18n: {
     locales: ['zh', 'en'],
@@ -19,6 +20,7 @@ export default defineNuxtConfig({
     '/news/**': { isr: 300 },
     '/chat': { ssr: false },
   },
+  devServer: { port: 5177 },
   runtimeConfig: {
     public: { apiBase: 'http://localhost:8000/api/v1' },
   },
