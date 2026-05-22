@@ -4,6 +4,7 @@ from httpx import ASGITransport, AsyncClient
 
 # Override database URL to use SQLite for testing before any app imports
 os.environ["GWEB_DATABASE_URL"] = "sqlite+aiosqlite:///file::memory:?cache=shared&uri=true"
+os.environ["GWEB_LLM_MOCK"] = "1"
 
 from app.main import app
 from app.core.database import engine
@@ -31,6 +32,18 @@ async def auth_headers(client):
     from app.apps.auth.service import create_user
 
     await create_user("admin", "password123")
+    resp = await client.post(
+        "/api/v1/admin/auth/login", json={"username": "admin", "password": "password123"}
+    )
+    token = resp.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
+@pytest_asyncio.fixture
+async def admin_auth_headers(client):
+    from app.apps.auth.service import create_user
+
+    await create_user("admin", "password123", "admin")
     resp = await client.post(
         "/api/v1/admin/auth/login", json={"username": "admin", "password": "password123"}
     )

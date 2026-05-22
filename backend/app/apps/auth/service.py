@@ -4,9 +4,25 @@ from app.core.security import hash_password, verify_password, create_access_toke
 from app.apps.auth.models import User, UserRole
 
 
-async def create_user(username: str, password: str, role: str = "editor") -> User:
+async def create_user(
+    username: str,
+    password: str,
+    role: str = "editor",
+    display_name: str | None = None,
+    phone: str | None = None,
+    email: str | None = None,
+    avatar: str | None = None,
+) -> User:
     async with async_session() as db:
-        user = User(username=username, password_hash=hash_password(password), role=UserRole(role))
+        user = User(
+            username=username,
+            password_hash=hash_password(password),
+            role=UserRole(role),
+            display_name=display_name,
+            phone=phone,
+            email=email,
+            avatar=avatar,
+        )
         db.add(user)
         await db.commit()
         await db.refresh(user)
