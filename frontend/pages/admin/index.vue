@@ -87,6 +87,7 @@ const links = [
   { to: '/admin/menus', label: '菜单管理', desc: '配置导航菜单结构' },
   { to: '/admin/users', label: '用户管理', desc: '管理后台管理员和编辑者账号' },
   { to: '/admin/inquiries', label: '咨询管理', desc: '查看用户提交的咨询' },
+  { to: '/admin/audit-logs', label: '审计日志', desc: '查看管理员操作记录' },
   { to: '/admin/settings', label: '系统设置', desc: '配置 LLM、站点信息等系统参数' },
 ];
 </script>
