@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     '/contact': { prerender: true },
     '/news': { isr: 300 },
     '/news/**': { isr: 300 },
+    '/faq': { isr: 300 },
     '/chat': { ssr: false },
     '/admin/**': { ssr: false },
   },

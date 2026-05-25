@@ -70,6 +70,18 @@
             </div>
           </div>
           <div>
+            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">关联页面</label>
+            <select v-model="form.page_id" class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg appearance-none" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;">
+              <option :value="0">— 无关联 —</option>
+              <option v-for="p in pageOptions" :key="p.id" :value="p.id">
+                /{{ p.slug }} — {{ p.name_zh }} ({{ p.type }})
+              </option>
+            </select>
+            <p v-if="selectedPageSlug" class="text-[11px] mt-1" style="color: #34d399;">
+              链接: /{{ selectedPageSlug === 'home' ? '' : selectedPageSlug }}
+            </p>
+          </div>
+          <div>
             <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">链接</label>
             <input v-model="form.link" class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;" placeholder="/about" />
           </div>
@@ -136,6 +148,8 @@ interface MenuNode {
   name_zh: string;
   name_en: string;
   link: string;
+  page_id: number | null;
+  page_slug: string | null;
   icon: string | null;
   order: number;
   is_visible: boolean;
@@ -167,7 +181,22 @@ const editing = ref<MenuNode | null>(null);
 const parentId = ref<number | null>(null);
 const form = ref({
   name_zh: '', name_en: '', link: '', icon: '',
-  order: 0, is_visible: true, location: 'header',
+  order: 0, is_visible: true, location: 'header', page_id: 0,
+});
+
+interface PageOption { id: number; name_zh: string; slug: string; type: string; }
+const pageOptions = ref<PageOption[]>([]);
+
+const fetchPageOptions = async () => {
+  try {
+    const data = await api<any[]>('/pages');
+    pageOptions.value = data.map((p: any) => ({ id: p.id, name_zh: p.name_zh, slug: p.slug, type: p.type }));
+  } catch {}
+};
+
+const selectedPageSlug = computed(() => {
+  if (!form.value.page_id || form.value.page_id === 0) return null;
+  return pageOptions.value.find(p => p.id === form.value.page_id)?.slug || null;
 });
 
 const openCreate = (parent: MenuNode | null) => {
@@ -175,7 +204,7 @@ const openCreate = (parent: MenuNode | null) => {
   parentId.value = parent?.id || null;
   form.value = {
     name_zh: '', name_en: '', link: '', icon: '',
-    order: 0, is_visible: true, location: parent?.location || 'header',
+    order: 0, is_visible: true, location: parent?.location || 'header', page_id: 0,
   };
   formError.value = '';
   modalOpen.value = true;
@@ -192,6 +221,7 @@ const openEdit = (menu: MenuNode) => {
     order: menu.order,
     is_visible: menu.is_visible,
     location: menu.location,
+    page_id: menu.page_id || 0,
   };
   formError.value = '';
   modalOpen.value = true;
@@ -205,6 +235,7 @@ const save = async () => {
   saving.value = true;
   formError.value = '';
   const body: any = { ...form.value };
+  if (!body.page_id || body.page_id === 0) body.page_id = null;
   if (parentId.value && !editing.value) body.parent_id = parentId.value;
   try {
     if (editing.value) {
@@ -238,5 +269,5 @@ const doDelete = async () => {
   } catch {}
 };
 
-onMounted(fetchMenus);
+onMounted(() => { fetchMenus(); fetchPageOptions(); });
 </script>

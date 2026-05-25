@@ -15,9 +15,9 @@
           class="relative group"
         >
         <NuxtLink
-          :to="item.link"
+          :to="menuLink(item)"
           class="text-sm transition-colors cursor-pointer"
-          :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
+          :class="$route.path === menuLink(item) ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
         >
           {{ locale === 'zh' ? item.name_zh : item.name_en }}
           <span class="ml-0.5 text-[10px] opacity-60">&#9660;</span>
@@ -30,9 +30,9 @@
           <NuxtLink
             v-for="child in item.children"
             :key="child.id"
-            :to="child.link"
+            :to="menuLink(child)"
             class="block px-4 py-2 text-sm transition-colors whitespace-nowrap"
-            :class="$route.path === child.link ? 'text-emerald-600 font-[550] bg-emerald-50' : 'text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50'"
+            :class="$route.path === menuLink(child) ? 'text-emerald-600 font-[550] bg-emerald-50' : 'text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50'"
           >
             {{ locale === 'zh' ? child.name_zh : child.name_en }}
           </NuxtLink>
@@ -44,9 +44,9 @@
       <template v-for="item in menu" :key="'link-' + item.id">
         <NuxtLink
           v-if="!item.children || item.children.length === 0"
-          :to="item.link"
+          :to="menuLink(item)"
           class="text-sm transition-colors"
-          :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
+          :class="$route.path === menuLink(item) ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
         >
           {{ locale === 'zh' ? item.name_zh : item.name_en }}
         </NuxtLink>
@@ -75,7 +75,16 @@ interface MenuItem {
   name_zh: string;
   name_en: string;
   link: string;
+  page_slug: string | null;
   children: MenuItem[];
+}
+
+function menuLink(item: MenuItem): string {
+  if (item.page_slug) {
+    if (item.page_slug === 'home') return '/';
+    return '/' + item.page_slug;
+  }
+  return item.link;
 }
 
 const { locale } = useI18n();

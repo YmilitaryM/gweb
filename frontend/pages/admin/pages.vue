@@ -51,6 +51,9 @@
                 <span class="text-[12px] px-2 py-0.5 rounded-full" :style="page.is_published ? 'background: rgba(5,150,105,0.12); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'">
                   {{ page.is_published ? '已发布' : '草稿' }}
                 </span>
+                <span class="text-[11px] px-2 py-0.5 rounded-full" :style="page.type === 'content' ? 'background: #f1f5f9; color: #64748b;' : 'background: rgba(59,130,246,0.08); color: #60a5fa;'">
+                  {{ page.type }}
+                </span>
               </div>
               <div class="text-[12px] mt-0.5" style="color: #94a3b8;">
                 /{{ page.slug }} &middot; {{ page.name_en }}
@@ -184,6 +187,20 @@
               @focus="pageFormFocused = 'slug'"
               @blur="pageFormFocused = null"
             />
+          </div>
+          <div>
+            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">页面类型</label>
+            <select
+              v-model="pageForm.type"
+              class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg appearance-none"
+              style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
+            >
+              <option value="content">content — 通用内容页</option>
+              <option value="news">news — 新闻中心</option>
+              <option value="products">products — 产品中心</option>
+              <option value="faq">faq — 常见问题</option>
+              <option value="contact">contact — 联系我们</option>
+            </select>
           </div>
           <div v-if="pageFormError" class="text-[12px]" style="color: #f87171;">{{ pageFormError }}</div>
           <div class="flex justify-end gap-3 pt-2">
@@ -335,6 +352,7 @@ interface Page {
   name_zh: string;
   name_en: string;
   slug: string;
+  type: string;
   is_published: boolean;
   _blocks?: Block[];
 }
@@ -370,18 +388,18 @@ const pageSaving = ref(false);
 const pageFormError = ref('');
 const pageFormFocused = ref<string | null>(null);
 const editingPage = ref<Page | null>(null);
-const pageForm = ref({ name_zh: '', name_en: '', slug: '' });
+const pageForm = ref({ name_zh: '', name_en: '', slug: '', type: 'content' });
 
 const openCreatePage = () => {
   editingPage.value = null;
-  pageForm.value = { name_zh: '', name_en: '', slug: '' };
+  pageForm.value = { name_zh: '', name_en: '', slug: '', type: 'content' };
   pageFormError.value = '';
   pageModal.value = true;
 };
 
 const openEditPage = (page: Page) => {
   editingPage.value = page;
-  pageForm.value = { name_zh: page.name_zh, name_en: page.name_en, slug: page.slug };
+  pageForm.value = { name_zh: page.name_zh, name_en: page.name_en, slug: page.slug, type: page.type };
   pageFormError.value = '';
   pageModal.value = true;
 };
