@@ -8,9 +8,43 @@
     </NuxtLink>
 
     <nav class="flex gap-7">
+      <!-- Items with children: dropdown menus -->
+      <div
+        v-for="item in menu"
+        :key="item.id"
+        v-if="item.children && item.children.length > 0"
+        class="relative group"
+      >
+        <NuxtLink
+          :to="item.link"
+          class="text-sm transition-colors cursor-pointer"
+          :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
+        >
+          {{ locale === 'zh' ? item.name_zh : item.name_en }}
+          <span class="ml-0.5 text-[10px] opacity-60">&#9660;</span>
+        </NuxtLink>
+
+        <!-- Dropdown -->
+        <div
+          class="absolute left-0 top-full mt-2 min-w-[160px] rounded-lg bg-white shadow-lg border border-emerald-100 py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50"
+        >
+          <NuxtLink
+            v-for="child in item.children"
+            :key="child.id"
+            :to="child.link"
+            class="block px-4 py-2 text-sm transition-colors whitespace-nowrap"
+            :class="$route.path === child.link ? 'text-emerald-600 font-[550] bg-emerald-50' : 'text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50'"
+          >
+            {{ locale === 'zh' ? child.name_zh : child.name_en }}
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Items without children: direct links -->
       <NuxtLink
         v-for="item in menu"
         :key="item.id"
+        v-if="!item.children || item.children.length === 0"
         :to="item.link"
         class="text-sm transition-colors"
         :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
@@ -36,9 +70,17 @@
 </template>
 
 <script setup lang="ts">
+interface MenuItem {
+  id: number;
+  name_zh: string;
+  name_en: string;
+  link: string;
+  children: MenuItem[];
+}
+
 const { locale } = useI18n();
 const config = useRuntimeConfig();
-const { data: menu } = await useFetch(`${config.public.apiBase}/menus?location=header`);
+const { data: menu } = await useFetch<MenuItem[]>(`${config.public.apiBase}/menus?location=header`);
 
 function toggleLang() {
   locale.value = locale.value === 'zh' ? 'en' : 'zh';
