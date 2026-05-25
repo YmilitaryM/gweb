@@ -73,11 +73,7 @@ const categoryFilter = computed(() => props.config.category_filter || undefined)
 
 const currentPage = ref(1);
 
-const { data, refresh } = await useNewsList(
-  currentPage.value,
-  count.value,
-  categoryFilter.value,
-);
+const { data } = useNewsList(currentPage, count, categoryFilter);
 
 const items = computed(() => data.value?.items || []);
 const total = computed(() => data.value?.total || 0);
@@ -85,6 +81,5 @@ const totalPages = computed(() => Math.ceil(total.value / count.value));
 
 function goToPage(p: number) {
   currentPage.value = p;
-  refresh();
 }
 </script>

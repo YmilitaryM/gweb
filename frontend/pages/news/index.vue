@@ -8,7 +8,7 @@
       <UCard v-for="article in items" :key="article.id" class="cursor-pointer" @click="navigateTo(`/news/${article.id}`)">
         <img
           v-if="article.cover_image_id"
-          :src="`${apiBase}/../media/${article.cover_image_id}`"
+          :src="`${apiBase}/../../media/${article.cover_image_id}`"
           class="w-full h-48 object-cover rounded-t"
         />
         <template #header>
@@ -51,13 +51,12 @@ const route = useRoute();
 const currentPage = ref(Number(route.query.page) || 1);
 const size = 9;
 
-const { data, refresh } = await useNewsList(currentPage.value, size);
+const { data } = useNewsList(currentPage, size);
 const items = computed(() => data.value?.items || []);
 const total = computed(() => data.value?.total || 0);
 const totalPages = computed(() => Math.ceil(total.value / size));
 
 const goToPage = (p: number) => {
   currentPage.value = p;
-  refresh();
 };
 </script>

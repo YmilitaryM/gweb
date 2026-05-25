@@ -1,11 +1,14 @@
-export const useNewsList = async (page = 1, size = 10, category?: string) => {
-  const config = useRuntimeConfig();
-  const params = new URLSearchParams({ page: String(page), size: String(size) });
-  if (category) params.set('category', category);
+import { computed, unref, type MaybeRef } from 'vue'
 
-  const { data, error, refresh } = await useFetch(
-    `${config.public.apiBase}/news?${params}`
-  );
+export const useNewsList = (page: MaybeRef<number> = 1, size: MaybeRef<number> = 10, category?: MaybeRef<string | undefined>) => {
+  const config = useRuntimeConfig();
+  const url = computed(() => {
+    const params = new URLSearchParams({ page: String(unref(page)), size: String(unref(size)) });
+    const cat = category ? unref(category) : undefined;
+    if (cat) params.set('category', cat);
+    return `${config.public.apiBase}/news?${params}`;
+  });
+  const { data, error, refresh } = useFetch(url);
   return { data, error, refresh };
 };
 
