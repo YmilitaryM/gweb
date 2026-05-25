@@ -8,13 +8,12 @@
     </NuxtLink>
 
     <nav class="flex gap-7">
-      <!-- Items with children: dropdown menus -->
-      <div
-        v-for="item in menu"
-        :key="item.id"
-        v-if="item.children && item.children.length > 0"
-        class="relative group"
-      >
+      <template v-for="item in menu" :key="item.id">
+        <!-- Items with children: dropdown menus -->
+        <div
+          v-if="item.children && item.children.length > 0"
+          class="relative group"
+        >
         <NuxtLink
           :to="item.link"
           class="text-sm transition-colors cursor-pointer"
@@ -38,19 +37,20 @@
             {{ locale === 'zh' ? child.name_zh : child.name_en }}
           </NuxtLink>
         </div>
-      </div>
+        </div>
+      </template>
 
       <!-- Items without children: direct links -->
-      <NuxtLink
-        v-for="item in menu"
-        :key="item.id"
-        v-if="!item.children || item.children.length === 0"
-        :to="item.link"
-        class="text-sm transition-colors"
-        :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
-      >
-        {{ locale === 'zh' ? item.name_zh : item.name_en }}
-      </NuxtLink>
+      <template v-for="item in menu" :key="'link-' + item.id">
+        <NuxtLink
+          v-if="!item.children || item.children.length === 0"
+          :to="item.link"
+          class="text-sm transition-colors"
+          :class="$route.path === item.link ? 'text-emerald-600 font-[550]' : 'text-slate-500 hover:text-slate-700'"
+        >
+          {{ locale === 'zh' ? item.name_zh : item.name_en }}
+        </NuxtLink>
+      </template>
     </nav>
 
     <button
@@ -80,7 +80,7 @@ interface MenuItem {
 
 const { locale } = useI18n();
 const config = useRuntimeConfig();
-const { data: menu } = await useFetch<MenuItem[]>(`${config.public.apiBase}/menus?location=header`);
+const { data: menu } = await useFetch<MenuItem[]>(`${config.public.apiBase}/menus?location=header`, { default: () => [] });
 
 function toggleLang() {
   locale.value = locale.value === 'zh' ? 'en' : 'zh';
