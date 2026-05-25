@@ -33,6 +33,7 @@ class Page(Base, TimestampMixin):
     name_zh: Mapped[str] = mapped_column(String(200), nullable=False)
     name_en: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
+    type: Mapped[str] = mapped_column(String(20), nullable=False, default="content")
     is_published: Mapped[bool] = mapped_column(Boolean, default=False)
     blocks: Mapped[list["Block"]] = relationship(
         "Block", back_populates="page", order_by="Block.order",
@@ -59,9 +60,11 @@ class Menu(Base, TimestampMixin):
     name_zh: Mapped[str] = mapped_column(String(100), nullable=False)
     name_en: Mapped[str] = mapped_column(String(100), nullable=False)
     link: Mapped[str] = mapped_column(String(500), nullable=False, default="")
+    page_id: Mapped[int | None] = mapped_column(ForeignKey("pages.id"), nullable=True)
     icon: Mapped[str | None] = mapped_column(String(100), nullable=True)
     order: Mapped[int] = mapped_column(Integer, default=0)
     is_visible: Mapped[bool] = mapped_column(Boolean, default=True)
     location: Mapped[str] = mapped_column(String(20), nullable=False, default="header")
+    page: Mapped["Page | None"] = relationship("Page")
     parent: Mapped["Menu | None"] = relationship("Menu", remote_side=[id], back_populates="children")
     children: Mapped[list["Menu"]] = relationship("Menu", back_populates="parent")
