@@ -60,7 +60,7 @@ class Menu(Base, TimestampMixin):
     name_zh: Mapped[str] = mapped_column(String(100), nullable=False)
     name_en: Mapped[str] = mapped_column(String(100), nullable=False)
     link: Mapped[str] = mapped_column(String(500), nullable=False, default="")
-    page_id: Mapped[int | None] = mapped_column(ForeignKey("pages.id"), nullable=True)
+    page_id: Mapped[int | None] = mapped_column(ForeignKey("pages.id", ondelete="SET NULL"), nullable=True)
     icon: Mapped[str | None] = mapped_column(String(100), nullable=True)
     order: Mapped[int] = mapped_column(Integer, default=0)
     is_visible: Mapped[bool] = mapped_column(Boolean, default=True)
