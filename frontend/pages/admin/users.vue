@@ -3,8 +3,8 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
       <div>
-        <h2 class="text-xl font-light text-white tracking-tight mb-1">用户管理</h2>
-        <p class="text-[13px]" style="color: rgba(255,255,255,0.25);">管理后台管理员和编辑者账号</p>
+        <h2 class="text-xl font-light tracking-tight mb-1" style="color: #1e293b;">用户管理</h2>
+        <p class="text-[13px]" style="color: #94a3b8;">管理后台管理员和编辑者账号</p>
       </div>
       <button
         @click="openCreate"
@@ -18,17 +18,17 @@
     <!-- Users table -->
     <div
       class="rounded-xl overflow-hidden"
-      style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);"
+      style="background: #ffffff; border: 1px solid #e8f5e9;"
     >
       <table class="w-full text-left">
         <thead>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">用户</th>
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">角色</th>
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">邮箱</th>
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">手机号</th>
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">创建时间</th>
-            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: rgba(255,255,255,0.2);">操作</th>
+          <tr style="border-bottom: 1px solid #e8f5e9;">
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">用户</th>
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">角色</th>
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">邮箱</th>
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">手机号</th>
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">创建时间</th>
+            <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
             v-for="user in users"
             :key="user.id"
             class="transition-colors duration-150"
-            style="border-bottom: 1px solid rgba(255,255,255,0.02);"
-            :style="hoverId === user.id ? { background: 'rgba(255,255,255,0.02)' } : {}"
+            style="border-bottom: 1px solid #e8f5e9;"
+            :style="hoverId === user.id ? { background: 'rgba(5,150,105,0.03)' } : {}"
             @mouseenter="hoverId = user.id"
             @mouseleave="hoverId = null"
           >
@@ -50,8 +50,8 @@
                   {{ avatarText(user) }}
                 </div>
                 <div>
-                  <div class="text-[13px] text-white font-medium">{{ user.display_name || user.username }}</div>
-                  <div class="text-[11px]" style="color: rgba(255,255,255,0.2);">{{ user.username }}</div>
+                  <div class="text-[13px] font-medium" style="color: #1e293b;">{{ user.display_name || user.username }}</div>
+                  <div class="text-[11px]" style="color: #94a3b8;">{{ user.username }}</div>
                 </div>
               </div>
             </td>
@@ -61,28 +61,28 @@
                 :style="roleBadgeStyle(user.role)"
               >{{ user.role === 'admin' ? '管理员' : '编辑者' }}</span>
             </td>
-            <td class="py-3 px-5 text-[13px]" style="color: rgba(255,255,255,0.35);">{{ user.email || '—' }}</td>
-            <td class="py-3 px-5 text-[13px]" style="color: rgba(255,255,255,0.35);">{{ user.phone || '—' }}</td>
-            <td class="py-3 px-5 text-[13px]" style="color: rgba(255,255,255,0.2);">{{ formatDate(user.created_at) }}</td>
+            <td class="py-3 px-5 text-[13px]" style="color: #64748b;">{{ user.email || '—' }}</td>
+            <td class="py-3 px-5 text-[13px]" style="color: #64748b;">{{ user.phone || '—' }}</td>
+            <td class="py-3 px-5 text-[13px]" style="color: #94a3b8;">{{ formatDate(user.created_at) }}</td>
             <td class="py-3 px-5">
               <div class="flex items-center gap-3">
                 <button
                   @click="openEdit(user)"
                   class="text-[12px] border-none bg-transparent cursor-pointer transition-colors"
-                  style="color: rgba(255,255,255,0.3);"
+                  style="color: #64748b;"
                 >编辑</button>
                 <button
                   v-if="user.id !== myId"
                   @click="confirmDelete(user)"
                   class="text-[12px] border-none bg-transparent cursor-pointer transition-colors"
-                  style="color: rgba(239,68,68,0.5);"
+                  style="color: #ef4444;"
                 >删除</button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <div v-if="users.length === 0" class="py-16 text-center text-[13px]" style="color: rgba(255,255,255,0.15);">
+      <div v-if="users.length === 0" class="py-16 text-center text-[13px]" style="color: #94a3b8;">
         暂无用户
       </div>
     </div>
@@ -97,9 +97,9 @@
       >
         <div
           class="w-full max-w-[480px] rounded-2xl p-8"
-          style="background: #111820; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.5);"
+          style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.15);"
         >
-          <h3 class="text-lg font-light text-white mb-6">
+          <h3 class="text-lg font-light mb-6" style="color: #1e293b;">
             {{ editingUser ? '编辑用户' : '新建用户' }}
           </h3>
 
@@ -110,11 +110,11 @@
                 class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-medium relative overflow-hidden cursor-pointer"
                 :style="formAvatarPreview
                   ? { backgroundImage: `url(${formAvatarPreview})`, backgroundSize: 'cover', backgroundPosition: 'center' }
-                  : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }"
+                  : { background: '#f1f5f9', border: '1px solid #d1d5db' }"
                 @click="triggerUpload"
                 :title="formAvatarPreview ? '点击更换头像' : '点击上传头像'"
               >
-                <span v-if="!formAvatarPreview" style="color: rgba(255,255,255,0.15);">+</span>
+                <span v-if="!formAvatarPreview" style="color: #94a3b8;">+</span>
                 <div
                   v-if="uploadingAvatar"
                   class="absolute inset-0 flex items-center justify-center"
@@ -131,72 +131,66 @@
                 @change="handleAvatarUpload"
               />
               <div>
-                <div class="text-[13px] text-white mb-1">头像</div>
-                <div class="text-[11px]" style="color: rgba(255,255,255,0.2);">点击上传，支持 JPG/PNG</div>
+                <div class="text-[13px] mb-1" style="color: #1e293b;">头像</div>
+                <div class="text-[11px]" style="color: #94a3b8;">点击上传，支持 JPG/PNG</div>
               </div>
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">用户名 *</label>
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">用户名 *</label>
               <input
                 v-model="form.username"
                 type="text"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border transition-colors"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border transition-colors" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               />
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">显示名称</label>
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">显示名称</label>
               <input
                 v-model="form.display_name"
                 type="text"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border transition-colors"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border transition-colors" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               />
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">
                 密码{{ editingUser ? ' (留空则不修改)' : ' *' }}
               </label>
               <input
                 v-model="form.password"
                 type="password"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border transition-colors"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border transition-colors" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               />
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">邮箱</label>
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">邮箱</label>
               <input
                 v-model="form.email"
                 type="email"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border transition-colors"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border transition-colors" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               />
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">手机号</label>
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">手机号</label>
               <input
                 v-model="form.phone"
                 type="text"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border transition-colors"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border transition-colors" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               />
             </div>
 
             <div>
-              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: rgba(255,255,255,0.25);">角色</label>
+              <label class="text-[11px] tracking-wider uppercase block mb-1.5" style="color: #94a3b8;">角色</label>
               <select
                 v-model="form.role"
-                class="w-full py-2.5 px-3 rounded-lg text-[14px] text-white outline-none border appearance-none cursor-pointer"
-                style="background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.06);"
+                class="w-full py-2.5 px-3 rounded-lg text-[14px] outline-none border appearance-none cursor-pointer" style="color: #1e293b; background: #ffffff; border-color: #d1d5db;"
               >
-                <option value="editor" style="background: #111820;">编辑者 (Editor)</option>
-                <option value="admin" style="background: #111820;">管理员 (Admin)</option>
+                <option value="editor" style="background: #ffffff;">编辑者 (Editor)</option>
+                <option value="admin" style="background: #ffffff;">管理员 (Admin)</option>
               </select>
             </div>
           </div>
@@ -215,7 +209,7 @@
             <button
               @click="closeModal"
               class="px-4 py-2 rounded-lg text-[13px] border-none cursor-pointer transition-colors"
-              style="background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4);"
+              style="background: #f1f5f9; color: #64748b;"
             >
               取消
             </button>
@@ -246,18 +240,18 @@
       >
         <div
           class="w-full max-w-[380px] rounded-2xl p-8"
-          style="background: #111820; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.5);"
+          style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.15);"
         >
-          <h3 class="text-lg font-light text-white mb-3">确认删除</h3>
-          <p class="text-[14px] mb-1" style="color: rgba(255,255,255,0.4);">
-            确定要删除用户 <span class="text-white font-medium">{{ deleteTarget.username }}</span> 吗？
+          <h3 class="text-lg font-light mb-3" style="color: #1e293b;">确认删除</h3>
+          <p class="text-[14px] mb-1" style="color: #64748b;">
+            确定要删除用户 <span style="color: #1e293b; font-weight: 500;">{{ deleteTarget.username }}</span> 吗？
           </p>
-          <p class="text-[12px] mb-6" style="color: rgba(239,68,68,0.4);">此操作不可撤销</p>
+          <p class="text-[12px] mb-6" style="color: #ef4444;">此操作不可撤销</p>
           <div class="flex justify-end gap-3">
             <button
               @click="deleteTarget = null"
               class="px-4 py-2 rounded-lg text-[13px] border-none cursor-pointer transition-colors"
-              style="background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4);"
+              style="background: #f1f5f9; color: #64748b;"
             >
               取消
             </button>
@@ -282,15 +276,7 @@ definePageMeta({
   middleware: ['admin-auth'],
 });
 
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase as string;
-
-const getHeaders = () => {
-  const token = import.meta.client ? localStorage.getItem('admin_token') : null;
-  return {
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+const { api, getHeaders } = useAdminApi();
 
 interface User {
   id: number;
@@ -324,7 +310,7 @@ const avatarStyle = (user: User) => {
   return {
     background: user.role === 'admin'
       ? 'linear-gradient(135deg, #059669, #0284c7)'
-      : 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.12))',
+      : 'linear-gradient(135deg, #cbd5e1, #94a3b8)',
   };
 };
 
@@ -337,9 +323,9 @@ const roleBadgeStyle = (role: string) => {
     };
   }
   return {
-    background: 'rgba(255,255,255,0.04)',
-    color: 'rgba(255,255,255,0.5)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: '#f1f5f9',
+    color: '#64748b',
+    border: '1px solid #e5e7eb',
   };
 };
 
@@ -356,7 +342,7 @@ const formatDate = (s: string) => {
 
 const fetchUsers = async () => {
   try {
-    const data = await $fetch<User[]>(`${apiBase}/admin/users`, { headers: getHeaders() });
+    const data = await api<User[]>('/admin/users');
     users.value = data;
   } catch (e: any) {
     if (e?.response?.status === 403) {
@@ -368,7 +354,7 @@ const fetchUsers = async () => {
 
 const fetchMe = async () => {
   try {
-    const data = await $fetch<User>(`${apiBase}/admin/auth/me`, { headers: getHeaders() });
+    const data = await api<User>('/admin/auth/me');
     myId.value = data.id;
   } catch {}
 };
@@ -408,9 +394,8 @@ const handleAvatarUpload = async (e: Event) => {
   try {
     const body = new FormData();
     body.append('file', file);
-    const result = await $fetch<{ url: string }>(`${apiBase}/admin/media/upload`, {
+    const result = await api<{ url: string }>('/admin/media/upload', {
       method: 'POST',
-      headers: { ...(getHeaders()) },
       body,
     });
     formAvatarPreview.value = result.url;
@@ -475,17 +460,9 @@ const submitForm = async () => {
     if (form.value.avatar) body.avatar = form.value.avatar;
 
     if (editingUser.value) {
-      await $fetch(`${apiBase}/admin/users/${editingUser.value.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', ...getHeaders() },
-        body: JSON.stringify(body),
-      });
+      await api(`/admin/users/${editingUser.value.id}`, { method: 'PUT', body });
     } else {
-      await $fetch(`${apiBase}/admin/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...getHeaders() },
-        body: JSON.stringify(body),
-      });
+      await api(`/admin/users`, { method: 'POST', body });
     }
     closeModal();
     await fetchUsers();
@@ -509,10 +486,7 @@ const doDelete = async () => {
   if (!deleteTarget.value) return;
   deleting.value = true;
   try {
-    await $fetch(`${apiBase}/admin/users/${deleteTarget.value.id}`, {
-      method: 'DELETE',
-      headers: getHeaders(),
-    });
+    await api(`/admin/users/${deleteTarget.value.id}`, { method: 'DELETE' });
     deleteTarget.value = null;
     await fetchUsers();
   } catch {}

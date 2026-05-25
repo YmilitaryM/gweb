@@ -1,12 +1,12 @@
 <template>
   <div class="p-8">
-    <NuxtLink to="/admin" class="inline-flex items-center gap-1.5 text-[12px] mb-4 no-underline transition-colors hover:opacity-80" style="color: rgba(255,255,255,0.25);">
+    <NuxtLink to="/admin" class="inline-flex items-center gap-1.5 text-[12px] mb-4 no-underline transition-colors hover:opacity-80" style="color: #94a3b8;">
       &larr; 返回控制台
     </NuxtLink>
     <div class="flex items-center justify-between mb-8">
       <div>
-        <h2 class="text-xl font-light text-white tracking-tight mb-1">审计日志</h2>
-        <p class="text-[13px]" style="color: rgba(255,255,255,0.25);">查看管理员和编辑者的操作记录</p>
+        <h2 class="text-xl font-light tracking-tight mb-1" style="color: #1e293b;">审计日志</h2>
+        <p class="text-[13px]" style="color: #94a3b8;">查看管理员和编辑者的操作记录</p>
       </div>
       <button
         @click="exportCsv"
@@ -19,13 +19,13 @@
 
     <!-- Filters -->
     <div class="flex flex-wrap items-center gap-3 mb-5">
-      <select v-model="filters.action" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] text-white outline-none rounded-lg appearance-none" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+      <select v-model="filters.action" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] outline-none rounded-lg appearance-none" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;">
         <option value="">全部操作</option>
         <option value="create">创建</option>
         <option value="update">编辑</option>
         <option value="delete">删除</option>
       </select>
-      <select v-model="filters.resource_type" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] text-white outline-none rounded-lg appearance-none" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+      <select v-model="filters.resource_type" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] outline-none rounded-lg appearance-none" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;">
         <option value="">全部资源</option>
         <option value="news">新闻</option>
         <option value="page">页面</option>
@@ -36,12 +36,12 @@
         <option value="inquiry">咨询</option>
         <option value="block">区块</option>
       </select>
-      <input v-model="filters.start_date" type="date" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] text-white outline-none rounded-lg" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);" />
-      <span class="text-[12px]" style="color: rgba(255,255,255,0.2);">至</span>
-      <input v-model="filters.end_date" type="date" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] text-white outline-none rounded-lg" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);" />
+      <input v-model="filters.start_date" type="date" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] outline-none rounded-lg" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;" />
+      <span class="text-[12px]" style="color: #94a3b8;">至</span>
+      <input v-model="filters.end_date" type="date" @change="page = 1; fetchLogs()" class="py-2 px-3 text-[13px] outline-none rounded-lg" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;" />
     </div>
 
-    <div v-if="loading" class="text-[13px] py-12 text-center" style="color: rgba(255,255,255,0.25);">加载中...</div>
+    <div v-if="loading" class="text-[13px] py-12 text-center" style="color: #94a3b8;">加载中...</div>
 
     <div
       v-else-if="error"
@@ -52,7 +52,7 @@
     </div>
 
     <template v-else>
-      <div v-if="logs.length === 0" class="text-[13px] py-12 text-center" style="color: rgba(255,255,255,0.25);">
+      <div v-if="logs.length === 0" class="text-[13px] py-12 text-center" style="color: #94a3b8;">
         暂无日志
       </div>
       <div v-else class="space-y-2">
@@ -60,24 +60,24 @@
           v-for="log in logs"
           :key="log.id"
           class="flex items-center justify-between px-5 py-3 rounded-xl cursor-pointer transition-colors"
-          style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);"
+          style="background: #ffffff; border: 1px solid #e8f5e9;"
           @click="detail = log"
         >
           <div class="flex items-center gap-5 flex-1 min-w-0">
-            <span class="text-[12px] flex-shrink-0 w-36" style="color: rgba(255,255,255,0.3); font-variant-numeric: tabular-nums;">
+            <span class="text-[12px] flex-shrink-0 w-36" style="color: #64748b; font-variant-numeric: tabular-nums;">
               {{ new Date(log.created_at).toLocaleString('zh-CN') }}
             </span>
-            <span class="text-[13px] text-white flex-shrink-0 w-20">{{ log.username }}</span>
+            <span class="text-[13px] flex-shrink-0 w-20" style="color: #1e293b;">{{ log.username }}</span>
             <span
               class="text-[11px] px-2 py-0.5 rounded-full flex-shrink-0 w-12 text-center"
               :style="actionStyle(log.action)"
             >
               {{ actionLabel(log.action) }}
             </span>
-            <span class="text-[12px] flex-shrink-0 w-16" style="color: rgba(255,255,255,0.25);">{{ resourceLabel(log.resource_type) }}</span>
-            <span class="text-[13px] truncate" style="color: rgba(255,255,255,0.6);">{{ log.resource_name || '—' }}</span>
+            <span class="text-[12px] flex-shrink-0 w-16" style="color: #94a3b8;">{{ resourceLabel(log.resource_type) }}</span>
+            <span class="text-[13px] truncate" style="color: #475569;">{{ log.resource_name || '—' }}</span>
           </div>
-          <span class="text-[11px] flex-shrink-0 ml-4" style="color: rgba(255,255,255,0.15);">{{ log.ip_address || '' }}</span>
+          <span class="text-[11px] flex-shrink-0 ml-4" style="color: #94a3b8;">{{ log.ip_address || '' }}</span>
         </div>
       </div>
 
@@ -88,7 +88,7 @@
           :key="p"
           @click="page = p; fetchLogs()"
           class="text-[12px] border-none cursor-pointer w-8 h-8 rounded-lg transition-colors"
-          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.35);'"
+          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
         >
           {{ p }}
         </button>
@@ -104,48 +104,48 @@
     >
       <div
         class="rounded-2xl p-6 w-full max-w-lg mx-4"
-        style="background: #11161e; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.5);"
+        style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.15);"
       >
-        <h3 class="text-[15px] font-medium text-white mb-5">操作详情</h3>
+        <h3 class="text-[15px] font-medium mb-5" style="color: #1e293b;">操作详情</h3>
         <div class="space-y-4">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">操作用户</div>
-              <div class="text-[14px] text-white">{{ detail.username }}</div>
+              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">操作用户</div>
+              <div class="text-[14px]" style="color: #1e293b;">{{ detail.username }}</div>
             </div>
             <div>
-              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">操作类型</div>
-              <div class="text-[14px] text-white">{{ actionLabel(detail.action) }}</div>
+              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">操作类型</div>
+              <div class="text-[14px]" style="color: #1e293b;">{{ actionLabel(detail.action) }}</div>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">资源类型</div>
-              <div class="text-[14px] text-white">{{ resourceLabel(detail.resource_type) }}</div>
+              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">资源类型</div>
+              <div class="text-[14px]" style="color: #1e293b;">{{ resourceLabel(detail.resource_type) }}</div>
             </div>
             <div>
-              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">资源名称</div>
-              <div class="text-[14px] text-white">{{ detail.resource_name || '—' }}</div>
+              <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">资源名称</div>
+              <div class="text-[14px]" style="color: #1e293b;">{{ detail.resource_name || '—' }}</div>
             </div>
           </div>
           <div>
-            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">操作时间</div>
-            <div class="text-[14px] text-white">{{ new Date(detail.created_at).toLocaleString('zh-CN') }}</div>
+            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">操作时间</div>
+            <div class="text-[14px]" style="color: #1e293b;">{{ new Date(detail.created_at).toLocaleString('zh-CN') }}</div>
           </div>
           <div v-if="detail.ip_address">
-            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">IP 地址</div>
-            <div class="text-[14px] text-white">{{ detail.ip_address }}</div>
+            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">IP 地址</div>
+            <div class="text-[14px]" style="color: #1e293b;">{{ detail.ip_address }}</div>
           </div>
           <div v-if="detail.detail">
-            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: rgba(255,255,255,0.25);">变更详情</div>
-            <pre class="text-[13px] text-white leading-relaxed whitespace-pre-wrap font-mono p-3 rounded-lg" style="background: rgba(255,255,255,0.04);">{{ JSON.stringify(detail.detail, null, 2) }}</pre>
+            <div class="text-[11px] tracking-wider uppercase mb-1" style="color: #94a3b8;">变更详情</div>
+            <pre class="text-[13px] leading-relaxed whitespace-pre-wrap font-mono p-3 rounded-lg" style="background: #f8fafc; color: #1e293b;">{{ JSON.stringify(detail.detail, null, 2) }}</pre>
           </div>
         </div>
-        <div class="flex justify-end pt-5 mt-2" style="border-top: 1px solid rgba(255,255,255,0.04);">
+        <div class="flex justify-end pt-5 mt-2" style="border-top: 1px solid #e5e7eb;">
           <button
             @click="detail = null"
             class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg"
-            style="color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04);"
+            style="color: #64748b; background: #f1f5f9;"
           >
             关闭
           </button>
@@ -158,16 +158,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: ['admin-auth'] });
 
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase as string;
-
-const getHeaders = () => {
-  const token = import.meta.client ? localStorage.getItem('admin_token') : null;
-  return {
-    'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+const { api, apiBase, getHeaders } = useAdminApi();
 
 interface AuditLog {
   id: number;
@@ -233,10 +224,7 @@ const fetchLogs = async () => {
   try {
     const params = buildParams();
     const qs = new URLSearchParams(params as any).toString();
-    const data = await $fetch<{ items: AuditLog[]; total: number; page: number; size: number }>(
-      `${apiBase}/admin/audit-logs?${qs}`,
-      { headers: getHeaders() }
-    );
+    const data = await api<{ items: AuditLog[]; total: number; page: number; size: number }>(`/admin/audit-logs?${qs}`);
     logs.value = data.items;
     totalPages.value = Math.ceil(data.total / data.size);
   } catch (e: any) {
@@ -254,10 +242,14 @@ const exportCsv = async () => {
     if (filters.value.start_date) params.start_date = filters.value.start_date;
     if (filters.value.end_date) params.end_date = filters.value.end_date;
     const qs = new URLSearchParams(params as any).toString();
-    const token = import.meta.client ? localStorage.getItem('admin_token') : null;
     const resp = await fetch(`${apiBase}/admin/audit-logs/export?${qs}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      headers: getHeaders(false),
     });
+    if (resp.status === 401) {
+      localStorage.removeItem('admin_token');
+      navigateTo('/admin/login');
+      return;
+    }
     const blob = await resp.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');

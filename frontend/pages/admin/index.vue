@@ -1,8 +1,8 @@
 <template>
   <div class="p-8">
     <div class="mb-8">
-      <h2 class="text-xl font-light text-white tracking-tight mb-1">控制台</h2>
-      <p class="text-[13px]" style="color: rgba(255,255,255,0.25);">欢迎回来</p>
+      <h2 class="text-xl font-light tracking-tight mb-1" style="color: #1e293b">控制台</h2>
+      <p class="text-[13px]" style="color: #94a3b8;">欢迎回来</p>
     </div>
 
     <!-- Quick stats -->
@@ -11,12 +11,12 @@
         v-for="card in stats"
         :key="card.label"
         class="rounded-xl p-5"
-        style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);"
+        style="background: #ffffff; border: 1px solid #e8f5e9;"
       >
-        <div class="text-[11px] tracking-wider uppercase mb-2" style="color: rgba(255,255,255,0.25);">
+        <div class="text-[11px] tracking-wider uppercase mb-2" style="color: #94a3b8;">
           {{ card.label }}
         </div>
-        <div class="text-2xl font-light text-white tracking-tight" style="font-variant-numeric: tabular-nums;">
+        <div class="text-2xl font-light tracking-tight" style="color: #1e293b; font-variant-numeric: tabular-nums;">
           {{ card.value }}
         </div>
       </div>
@@ -29,10 +29,10 @@
         :key="link.to"
         :to="link.to"
         class="rounded-xl p-5 no-underline transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);"
+        style="background: #ffffff; border: 1px solid #e8f5e9;"
       >
-        <div class="text-[13px] font-medium text-white mb-1">{{ link.label }}</div>
-        <div class="text-[12px]" style="color: rgba(255,255,255,0.25);">{{ link.desc }}</div>
+        <div class="text-[13px] font-medium mb-1" style="color: #1e293b">{{ link.label }}</div>
+        <div class="text-[12px]" style="color: #94a3b8;">{{ link.desc }}</div>
       </NuxtLink>
     </div>
   </div>
@@ -44,16 +44,7 @@ definePageMeta({
   middleware: ['admin-auth'],
 });
 
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase as string;
-
-const getHeaders = () => {
-  const token = import.meta.client ? localStorage.getItem('admin_token') : null;
-  return {
-    'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
+const { api, getHeaders } = useAdminApi();
 
 const pageCount = ref<number | null>(null);
 const newsCount = ref<number | null>(null);
@@ -67,15 +58,15 @@ const stats = computed(() => [
 
 onMounted(async () => {
   try {
-    const pages = await $fetch<any[]>(`${apiBase}/admin/pages`, { headers: getHeaders() });
+    const pages = await api<any[]>('/admin/pages');
     pageCount.value = Array.isArray(pages) ? pages.length : 0;
   } catch {}
   try {
-    const newsData = await $fetch<{ total: number }>(`${apiBase}/admin/news?page=1&size=1`, { headers: getHeaders() });
+    const newsData = await api<{ total: number }>('/admin/news?page=1&size=1');
     newsCount.value = newsData.total;
   } catch {}
   try {
-    const inquiryData = await $fetch<{ total: number }>(`${apiBase}/admin/inquiries?page=1&size=1`, { headers: getHeaders() });
+    const inquiryData = await api<{ total: number }>('/admin/inquiries?page=1&size=1');
     inquiryCount.value = inquiryData.total;
   } catch {}
 });

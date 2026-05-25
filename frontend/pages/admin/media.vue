@@ -1,12 +1,12 @@
 <template>
   <div class="p-8">
-    <NuxtLink to="/admin" class="inline-flex items-center gap-1.5 text-[12px] mb-4 no-underline transition-colors hover:opacity-80" style="color: rgba(255,255,255,0.25);">
+    <NuxtLink to="/admin" class="inline-flex items-center gap-1.5 text-[12px] mb-4 no-underline transition-colors hover:opacity-80" style="color: #94a3b8;">
       &larr; 返回控制台
     </NuxtLink>
     <div class="flex items-center justify-between mb-8">
       <div>
-        <h2 class="text-xl font-light text-white tracking-tight mb-1">媒体管理</h2>
-        <p class="text-[13px]" style="color: rgba(255,255,255,0.25);">上传和管理图片、视频等媒体资源</p>
+        <h2 class="text-xl font-light tracking-tight mb-1" style="color: #1e293b;">媒体管理</h2>
+        <p class="text-[13px]" style="color: #94a3b8;">上传和管理图片、视频等媒体资源</p>
       </div>
       <label
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
@@ -22,14 +22,14 @@
       {{ uploadError }}
     </div>
 
-    <div v-if="loading" class="text-[13px] py-12 text-center" style="color: rgba(255,255,255,0.25);">加载中...</div>
+    <div v-if="loading" class="text-[13px] py-12 text-center" style="color: #94a3b8;">加载中...</div>
 
     <div v-else-if="error" class="mb-6 px-4 py-3 rounded-lg text-[13px]" style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); color: #f87171;">
       {{ error }}
     </div>
 
     <template v-else>
-      <div v-if="items.length === 0" class="text-[13px] py-12 text-center" style="color: rgba(255,255,255,0.25);">
+      <div v-if="items.length === 0" class="text-[13px] py-12 text-center" style="color: #94a3b8;">
         暂无媒体文件
       </div>
       <div v-else class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -37,22 +37,22 @@
           v-for="m in items"
           :key="m.id"
           class="group rounded-xl overflow-hidden relative"
-          style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);"
+          style="background: #ffffff; border: 1px solid #e8f5e9;"
         >
-          <div class="aspect-video flex items-center justify-center overflow-hidden" style="background: rgba(0,0,0,0.3);">
+          <div class="aspect-video flex items-center justify-center overflow-hidden" style="background: #f1f5f9;">
             <img
               v-if="m.mime_type?.startsWith('image/')"
               :src="`${apiBase}/../../media/id/${m.id}`"
               class="w-full h-full object-cover"
               loading="lazy"
             />
-            <div v-else class="text-[11px] text-center px-2" style="color: rgba(255,255,255,0.25);">
+            <div v-else class="text-[11px] text-center px-2" style="color: #94a3b8;">
               {{ m.mime_type || 'unknown' }}
             </div>
           </div>
           <div class="p-2.5">
-            <div class="text-[12px] text-white truncate" :title="m.filename">{{ m.filename }}</div>
-            <div class="text-[10px] mt-0.5 flex items-center justify-between" style="color: rgba(255,255,255,0.25);">
+            <div class="text-[12px] truncate" :title="m.filename" style="color: #1e293b;">{{ m.filename }}</div>
+            <div class="text-[10px] mt-0.5 flex items-center justify-between" style="color: #94a3b8;">
               <span>{{ formatSize(m.size) }}</span>
               <a
                 :href="`${apiBase}/../../media/id/${m.id}`"
@@ -78,7 +78,7 @@
           :key="p"
           @click="page = p; fetchMedia()"
           class="text-[12px] border-none cursor-pointer w-8 h-8 rounded-lg transition-colors"
-          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.35);'"
+          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
         >
           {{ p }}
         </button>
@@ -92,11 +92,11 @@
       style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);"
       @click.self="deleteTarget = null"
     >
-      <div class="rounded-2xl p-6 w-full max-w-sm mx-4" style="background: #11161e; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
-        <p class="text-[14px] text-white mb-1">确认删除</p>
-        <p class="text-[12px] mb-5" style="color: rgba(255,255,255,0.3);">确定要删除文件 "{{ deleteTarget.filename }}" 吗？此操作不可撤销。</p>
+      <div class="rounded-2xl p-6 w-full max-w-sm mx-4" style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+        <p class="text-[14px] mb-1" style="color: #1e293b;">确认删除</p>
+        <p class="text-[12px] mb-5" style="color: #94a3b8;">确定要删除文件 "{{ deleteTarget.filename }}" 吗？此操作不可撤销。</p>
         <div class="flex justify-end gap-3">
-          <button @click="deleteTarget = null" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04);">取消</button>
+          <button @click="deleteTarget = null" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: #64748b; background: #f1f5f9;">取消</button>
           <button @click="doDelete" class="text-[13px] font-medium text-white border-none cursor-pointer px-4 py-2 rounded-lg" style="background: #ef4444;">删除</button>
         </div>
       </div>
@@ -107,16 +107,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: ['admin-auth'] });
 
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase as string;
-
-const getHeaders = (json = true) => {
-  const token = import.meta.client ? localStorage.getItem('admin_token') : null;
-  const h: Record<string, string> = {};
-  if (json) h['Content-Type'] = 'application/json';
-  if (token) h['Authorization'] = `Bearer ${token}`;
-  return h;
-};
+const { api, apiBase, getHeaders } = useAdminApi();
 
 interface MediaItem {
   id: number;
@@ -137,9 +128,9 @@ const fetchMedia = async () => {
   loading.value = true;
   error.value = '';
   try {
-    const data = await $fetch<{ items: MediaItem[]; total: number; pages: number }>(
-      `${apiBase}/admin/media?page=${page.value}&size=24`,
-      { headers: getHeaders() }
+    const data = await api<{ items: MediaItem[]; total: number; pages: number }>(
+      `/admin/media?page=${page.value}&size=24`,
+      {}
     );
     items.value = data.items;
     totalPages.value = data.pages;
@@ -163,7 +154,7 @@ const doUpload = async (e: Event) => {
     const token = import.meta.client ? localStorage.getItem('admin_token') : null;
     const fd = new FormData();
     fd.append('file', file);
-    await $fetch(`${apiBase}/admin/media/upload`, {
+    await api(`/admin/media/upload`, {
       method: 'POST',
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: fd,
@@ -183,8 +174,8 @@ const confirmDelete = (m: MediaItem) => { deleteTarget.value = m; };
 const doDelete = async () => {
   if (!deleteTarget.value) return;
   try {
-    await $fetch(`${apiBase}/admin/media/${deleteTarget.value.id}`, {
-      method: 'DELETE', headers: getHeaders(),
+    await api(`/admin/media/${deleteTarget.value.id}`, {
+      method: 'DELETE', 
     });
     deleteTarget.value = null;
     await fetchMedia();
