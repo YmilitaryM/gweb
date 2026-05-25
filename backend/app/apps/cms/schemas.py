@@ -56,3 +56,38 @@ class PageOut(BaseModel):
 class PageSlugOut(BaseModel):
     slug: str
     type: str
+
+
+class MenuCreate(BaseModel):
+    name_zh: str
+    name_en: str
+    link: str = ""
+    page_id: int | None = None
+    location: str = "header"
+    order: int = 0
+    parent_id: int | None = None
+    icon: str | None = None
+
+
+class MenuUpdate(BaseModel):
+    name_zh: str | None = None
+    name_en: str | None = None
+    link: str | None = None
+    page_id: int | None = None
+    location: str | None = None
+    order: int | None = None
+    parent_id: int | None = None
+    icon: str | None = None
+
+
+class MenuResponse(BaseModel):
+    id: int
+    name_zh: str
+    name_en: str
+    link: str
+    page_id: int | None
+    page_slug: str | None
+    icon: str | None
+    children: list["MenuResponse"] = []
+
+    model_config = {"from_attributes": True}

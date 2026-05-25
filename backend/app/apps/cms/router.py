@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 
 from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
-from app.apps.cms.schemas import BlockCreate, BlockUpdate, PageCreate, PageUpdate, PageOut, PageSlugOut, ReorderRequest
+from app.apps.cms.schemas import BlockCreate, BlockUpdate, MenuCreate, MenuUpdate, PageCreate, PageUpdate, PageOut, PageSlugOut, ReorderRequest
 from app.apps.cms.service_block import create_block, delete_block, reorder_blocks, update_block
 from app.apps.cms.service_media import delete_media, list_media, upload_media
 from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
@@ -286,18 +286,18 @@ async def admin_delete_block(
 
 @page_admin_router.post("/menus", status_code=201)
 async def admin_create_menu(
-    data: dict,
+    data: MenuCreate,
     request: Request,
     current_user=Depends(get_current_user),
 ):
-    menu = await create_menu_item(**data)
+    menu = await create_menu_item(**data.model_dump())
     await create_audit_log(
         user_id=current_user.id,
         username=current_user.username,
         action="create",
         resource_type="menu",
         resource_id=menu.id,
-        resource_name=data.get("name_zh", ""),
+        resource_name=data.name_zh,
         ip_address=request.client.host if request.client else None,
     )
     return {"id": menu.id, "name_zh": menu.name_zh, "name_en": menu.name_en}
@@ -306,11 +306,11 @@ async def admin_create_menu(
 @page_admin_router.put("/menus/{menu_id}")
 async def admin_update_menu(
     menu_id: int,
-    data: dict,
+    data: MenuUpdate,
     request: Request,
     current_user=Depends(get_current_user),
 ):
-    menu = await update_menu_item(menu_id, **data)
+    menu = await update_menu_item(menu_id, **data.model_dump(exclude_none=True))
     if not menu:
         raise HTTPException(status_code=404, detail="Menu not found")
     await create_audit_log(
@@ -319,7 +319,7 @@ async def admin_update_menu(
         action="update",
         resource_type="menu",
         resource_id=menu.id,
-        resource_name=data.get("name_zh", ""),
+        resource_name=data.name_zh,
         ip_address=request.client.host if request.client else None,
     )
     return {"id": menu.id, "name_zh": menu.name_zh}
