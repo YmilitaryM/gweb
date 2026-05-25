@@ -6,7 +6,7 @@
     </div>
 
     <!-- Quick stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
       <div
         v-for="card in stats"
         :key="card.label"
@@ -49,11 +49,13 @@ const { api, getHeaders } = useAdminApi();
 const pageCount = ref<number | null>(null);
 const newsCount = ref<number | null>(null);
 const inquiryCount = ref<number | null>(null);
+const productCount = ref<number | null>(null);
 
 const stats = computed(() => [
   { label: '页面', value: pageCount.value !== null ? String(pageCount.value) : '—' },
   { label: '新闻', value: newsCount.value !== null ? String(newsCount.value) : '—' },
   { label: '咨询', value: inquiryCount.value !== null ? String(inquiryCount.value) : '—' },
+  { label: '产品', value: productCount.value !== null ? String(productCount.value) : '—' },
 ]);
 
 onMounted(async () => {
@@ -69,11 +71,17 @@ onMounted(async () => {
     const inquiryData = await api<{ total: number }>('/admin/inquiries?page=1&size=1');
     inquiryCount.value = inquiryData.total;
   } catch {}
+  try {
+    const productStats = await api<{ product_count: number; category_count: number }>('/admin/product-stats');
+    productCount.value = productStats.product_count;
+  } catch {}
 });
 
 const links = [
   { to: '/admin/pages', label: '页面管理', desc: '编辑网站页面和内容区块' },
   { to: '/admin/news', label: '新闻管理', desc: '发布和管理新闻文章' },
+  { to: '/admin/products', label: '产品管理', desc: '管理产品信息和分类' },
+  { to: '/admin/product-categories', label: '产品分类', desc: '管理产品分类' },
   { to: '/admin/media', label: '媒体管理', desc: '上传和管理图片、视频等媒体资源' },
   { to: '/admin/menus', label: '菜单管理', desc: '配置导航菜单结构' },
   { to: '/admin/users', label: '用户管理', desc: '管理后台管理员和编辑者账号' },
