@@ -1,4 +1,5 @@
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 
 from app.apps.cms.models import Menu
 from app.core.database import async_session
@@ -8,6 +9,7 @@ async def create_menu_item(
     name_zh: str,
     name_en: str,
     link: str = "",
+    page_id: int | None = None,
     location: str = "header",
     order: int = 0,
     parent_id: int | None = None,
@@ -18,6 +20,7 @@ async def create_menu_item(
             name_zh=name_zh,
             name_en=name_en,
             link=link,
+            page_id=page_id,
             location=location,
             order=order,
             parent_id=parent_id,
@@ -31,6 +34,7 @@ async def create_menu_item(
 
 async def get_menu_tree(location: str | None = None) -> list[dict]:
     async with async_session() as db:
+        from app.apps.cms.models import Page
         q = select(Menu).where(Menu.is_visible == True)
         if location:
             q = q.where(Menu.location == location)
@@ -45,9 +49,26 @@ async def get_menu_tree(location: str | None = None) -> list[dict]:
             "name_zh": m.name_zh,
             "name_en": m.name_en,
             "link": m.link,
+            "page_id": m.page_id,
+            "page_slug": None,
             "icon": m.icon,
             "children": [],
         }
+
+    # Resolve page_slug for items with page_id
+    if items:
+        async with async_session() as db:
+            from app.apps.cms.models import Page
+            page_ids = [m.page_id for m in items if m.page_id]
+            if page_ids:
+                page_result = await db.execute(
+                    select(Page.id, Page.slug).where(Page.id.in_(page_ids))
+                )
+                slug_map = {row[0]: row[1] for row in page_result.all()}
+                for m in items:
+                    if m.page_id and m.page_id in slug_map:
+                        by_id[m.id]["page_slug"] = slug_map[m.page_id]
+
     tree: list[dict] = []
     for m in items:
         node = by_id[m.id]
