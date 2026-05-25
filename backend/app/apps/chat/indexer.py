@@ -16,7 +16,7 @@ async def index_content(content_type: str, data: dict):
             return
     if not chunks:
         return
-    provider = get_llm_provider()
+    provider = await get_llm_provider()
     texts = [c.text for c in chunks]
     vectors = await provider.embed(texts)
     points = []

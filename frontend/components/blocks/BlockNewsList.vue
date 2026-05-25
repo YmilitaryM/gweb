@@ -13,7 +13,7 @@
         >
           <img
             v-if="content.show_image && article.cover_image_id"
-            :src="`${apiBase}/../media/${article.cover_image_id}`"
+            :src="`${apiBase}/../../media/${article.cover_image_id}`"
             class="w-full h-48 object-cover"
           />
           <div class="p-5">

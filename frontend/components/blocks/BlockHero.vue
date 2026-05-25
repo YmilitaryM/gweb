@@ -66,7 +66,7 @@ const subtitle = computed(() =>
 
 const bgUrl = computed(() =>
   props.content.bg_image
-    ? `${config.public.apiBase}/../media/${props.content.bg_image}`
+    ? `${config.public.apiBase}/../../media/${props.content.bg_image}`
     : null
 );
 </script>

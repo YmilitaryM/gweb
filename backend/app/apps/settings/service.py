@@ -23,6 +23,19 @@ async def set_setting(key: str, value: str):
         await db.commit()
 
 
+async def list_all_settings() -> dict:
+    """Admin: list all settings including encrypted keys (values masked)."""
+    async with async_session() as db:
+        result = await db.execute(select(Setting))
+        settings_map = {}
+        for s in result.scalars():
+            if s.key in ENCRYPTED_KEYS and s.value:
+                settings_map[s.key] = "••••••••"
+            else:
+                settings_map[s.key] = s.value
+        return settings_map
+
+
 async def get_public_settings() -> dict:
     async with async_session() as db:
         result = await db.execute(

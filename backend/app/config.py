@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     qdrant_url: str = "http://localhost:6333"
     qdrant_collection: str = "gweb_knowledge"
 
+    # LLM mock mode (for testing only)
+    llm_mock: str = ""
+
     # LLM defaults
     llm_provider: str = "deepseek"
     llm_api_key: str = ""
