@@ -2,6 +2,11 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
+class ProductSpec(BaseModel):
+    key: str
+    value: str
+
+
 # --- ProductCategory ---
 
 class ProductCategoryCreate(BaseModel):
@@ -46,7 +51,7 @@ class ProductCreate(BaseModel):
     summary_en: str = ""
     description_zh: str = ""
     description_en: str = ""
-    specs: list[dict] | None = None
+    specs: list[ProductSpec] | None = None
     images: list[int] | None = None
     sort_order: int = 0
     is_published: bool = True
@@ -62,7 +67,7 @@ class ProductUpdate(BaseModel):
     summary_en: str | None = None
     description_zh: str | None = None
     description_en: str | None = None
-    specs: list[dict] | None = None
+    specs: list[ProductSpec] | None = None
     images: list[int] | None = None
     sort_order: int | None = None
     is_published: bool | None = None
@@ -79,7 +84,7 @@ class ProductResponse(BaseModel):
     summary_en: str
     description_zh: str
     description_en: str
-    specs: list[dict] | None
+    specs: list[ProductSpec] | None
     images: list[int] | None
     sort_order: int
     is_published: bool
