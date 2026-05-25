@@ -93,7 +93,7 @@ const fetchProduct = async () => {
   loading.value = true;
   error.value = '';
   try {
-    product.value = await $fetch<ProductDetail>(`${apiBase}/products/${route.params.id}`);
+    product.value = await $fetch<ProductDetail>(`${apiBase}/products/${route.params.slug}`);
   } catch (e: any) {
     error.value = e?.data?.detail || '产品不存在';
   } finally {
