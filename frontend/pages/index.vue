@@ -1,7 +1,7 @@
 <template>
-  <div class="page-home">
+  <div>
     <BlockRenderer v-for="block in page?.blocks" :key="block.id" :block="block" />
-    <p v-if="!page" class="loading">Loading...</p>
+    <p v-if="!page" class="text-center py-20 text-gray-500">Loading...</p>
   </div>
 </template>
 
