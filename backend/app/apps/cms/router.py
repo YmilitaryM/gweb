@@ -3,11 +3,11 @@ from fastapi.responses import FileResponse
 
 from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
-from app.apps.cms.schemas import BlockCreate, BlockUpdate, PageCreate, PageOut, ReorderRequest
+from app.apps.cms.schemas import BlockCreate, BlockUpdate, PageCreate, PageUpdate, PageOut, PageSlugOut, ReorderRequest
 from app.apps.cms.service_block import create_block, delete_block, reorder_blocks, update_block
 from app.apps.cms.service_media import delete_media, list_media, upload_media
 from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
-from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, update_page, delete_page as svc_delete_page
+from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, list_published_page_slugs, update_page, delete_page as svc_delete_page
 from app.core.database import async_session
 from app.apps.cms.models import Page as PageModel, Media
 from app.core.storage import storage
@@ -97,6 +97,11 @@ async def get_page(slug: str):
     return page
 
 
+@public_router.get("/pages/slugs", response_model=list[PageSlugOut])
+async def get_page_slugs():
+    return await list_published_page_slugs()
+
+
 @public_router.get("/menus")
 async def get_menus(location: str | None = None):
     return await get_menu_tree(location)
@@ -122,6 +127,7 @@ async def admin_list_pages():
             "name_zh": p.name_zh,
             "name_en": p.name_en,
             "slug": p.slug,
+            "type": p.type,
             "is_published": p.is_published,
         }
         for p in pages
@@ -157,11 +163,11 @@ async def admin_create_page(
 @page_admin_router.put("/pages/{page_id}")
 async def admin_update_page(
     page_id: int,
-    data: PageCreate,
+    data: PageUpdate,
     request: Request,
     current_user=Depends(get_current_user),
 ):
-    page = await update_page(page_id, **data.model_dump())
+    page = await update_page(page_id, **data.model_dump(exclude_none=True))
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
     await create_audit_log(
@@ -170,7 +176,7 @@ async def admin_update_page(
         action="update",
         resource_type="page",
         resource_id=page.id,
-        resource_name=data.name_zh,
+        resource_name=data.name_zh or page.name_zh,
         ip_address=request.client.host if request.client else None,
     )
     return {"id": page.id, "slug": page.slug}

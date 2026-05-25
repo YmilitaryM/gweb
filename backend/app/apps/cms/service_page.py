@@ -4,9 +4,9 @@ from app.core.database import async_session
 from app.apps.cms.models import Page
 
 
-async def create_page(name_zh: str, name_en: str, slug: str, is_published: bool = False) -> Page:
+async def create_page(name_zh: str, name_en: str, slug: str, type: str = "content", is_published: bool = False) -> Page:
     async with async_session() as db:
-        page = Page(name_zh=name_zh, name_en=name_en, slug=slug, is_published=is_published)
+        page = Page(name_zh=name_zh, name_en=name_en, slug=slug, type=type, is_published=is_published)
         db.add(page)
         await db.commit()
         await db.refresh(page)
@@ -32,6 +32,14 @@ async def list_pages() -> list[Page]:
     async with async_session() as db:
         result = await db.execute(select(Page).order_by(Page.id))
         return result.scalars().all()
+
+
+async def list_published_page_slugs() -> list[dict]:
+    async with async_session() as db:
+        result = await db.execute(
+            select(Page.slug, Page.type).where(Page.is_published == True).order_by(Page.id)
+        )
+        return [{"slug": row[0], "type": row[1]} for row in result.all()]
 
 
 async def update_page(page_id: int, **kwargs) -> Page | None:
