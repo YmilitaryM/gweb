@@ -4,11 +4,6 @@
       <p class="text-center py-20 text-gray-500">Loading...</p>
     </template>
 
-    <!-- type=content: blocks only -->
-    <template v-else-if="page.type === 'content'">
-      <BlockRenderer v-for="block in page.blocks" :key="block.id" :block="block" />
-    </template>
-
     <!-- type=news -->
     <template v-else-if="page.type === 'news'">
       <template v-if="!detailParam">
@@ -37,12 +32,7 @@
       <FaqPanel :config="{}" />
     </template>
 
-    <!-- type=contact: blocks only (contact_form block comes from DB) -->
-    <template v-else-if="page.type === 'contact'">
-      <BlockRenderer v-for="block in page.blocks" :key="block.id" :block="block" />
-    </template>
-
-    <!-- type=page (home, solutions, about, cooperation etc): blocks only -->
+    <!-- type=page (home, about, solutions, cooperation, contact) and type=content (cases, privacy, terms): blocks only -->
     <template v-else>
       <BlockRenderer v-for="block in page.blocks" :key="block.id" :block="block" />
     </template>

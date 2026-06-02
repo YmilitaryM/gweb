@@ -71,13 +71,18 @@ async def seed():
         "company_name_zh": "金捷利科技有限公司",
         "company_name_en": "GOLDGINNY Technology Co., Ltd.",
         "company_description_zh": (
-            "专注建筑智能运维领域，以技术赋能建筑全生命周期高效管理，"
-            "致力于成为中国领先的智慧建筑服务商。"
+            "金捷利科技（北京）有限公司成立于2018年12月，总部位于北京，"
+            '是专精特新中小企业，国高新/村高新技术企业。公司以“让每一栋建筑都拥有智慧大脑”为使命，'
+            "聚焦建筑智能运维领域，自主研发AI冷热源优化算法、边缘计算物联网关、"
+            "数字孪生可视化平台等核心产品，已为全国超过500栋建筑提供智慧运维服务。"
         ),
         "company_description_en": (
-            "Focused on intelligent building operations, empowering full-lifecycle "
-            "building management with technology, committed to becoming China's "
-            "leading smart building service provider."
+            "GOLDGINNY Technology (Beijing) Co., Ltd., founded in December 2018 and "
+            "headquartered in Beijing, is a specialized and sophisticated SME and a national "
+            "high-tech enterprise. With the mission of 'giving every building a smart brain,' "
+            "we focus on intelligent building operations, developing core products including "
+            "AI HVAC optimization algorithms, edge computing IoT gateways, and digital twin "
+            "visualization platforms. We have served over 500 buildings nationwide."
         ),
         "hotline": "400-888-0000",
         "contact_email": "aaqiuaa@gmail.com",
@@ -115,41 +120,42 @@ async def seed():
         await create_block(pg.id, "hero", config={}, content={
             "slides": [
                 {
-                    "title_zh": "智慧建筑 · 智领未来",
-                    "title_en": "Smart Buildings, Smarter Future",
-                    "subtitle_zh": "以AI与物联网技术为核心，打造高效、节能、安全的建筑运维新范式",
-                    "subtitle_en": "Powered by AI and IoT, creating a new paradigm for efficient, energy-saving, and safe building operations",
+                    "title_zh": "金捷利AI绿色空间运营商",
+                    "title_en": "GOLDGINNY AI Green Space Operator",
+                    "subtitle_zh": "智能研发低碳算法与设备集群控制，全面赋能高能效智慧建筑运行",
+                    "subtitle_en": "Intelligent R&D of low-carbon algorithms and device cluster control, fully empowering high-efficiency smart building operations",
                     "image": "",
                     "buttons": [
-                        {"label_zh": "了解产品", "label_en": "Products", "link": "/products", "variant": "primary"},
-                        {"label_zh": "联系我们", "label_en": "Contact", "link": "/contact", "variant": "outline"},
+                        {"label_zh": "了解更多", "label_en": "Learn More", "link": "/cooperation", "variant": "primary"},
+                        {"label_zh": "免费咨询", "label_en": "Free Consultation", "link": "/contact", "variant": "outline"},
                     ],
                 },
                 {
-                    "title_zh": "全生命周期智慧运维",
-                    "title_en": "Full-Lifecycle Smart Operations",
-                    "subtitle_zh": "从设计、建造到运营，覆盖建筑全生命周期的数字化管理方案",
-                    "subtitle_en": "From design and construction to operations, digital management across the full building lifecycle",
+                    "title_zh": "机电暖通系统数字化运维服务商",
+                    "title_en": "Digital O&M Service Provider for MEP & HVAC Systems",
+                    "subtitle_zh": "全周期暖通空调长效运维托管，构建软硬一体化的高能效控制大脑",
+                    "subtitle_en": "Full-cycle long-term HVAC O&M managed services, building an integrated hardware-software high-efficiency control brain",
                     "image": "",
                     "buttons": [
-                        {"label_zh": "查看方案", "label_en": "Solutions", "link": "/solutions", "variant": "primary"},
+                        {"label_zh": "了解更多", "label_en": "Learn More", "link": "/cooperation", "variant": "primary"},
+                        {"label_zh": "免费咨询", "label_en": "Free Consultation", "link": "/contact", "variant": "outline"},
                     ],
                 },
                 {
-                    "title_zh": "数据驱动 · 节能降碳",
-                    "title_en": "Data-Driven Energy Efficiency",
-                    "subtitle_zh": "AI冷热源自适应算法，平均节能率超28%，助力双碳目标",
-                    "subtitle_en": "AI-powered HVAC adaptive algorithms deliver 28%+ energy savings for carbon goals",
+                    "title_zh": "专业建筑节能技术与解决方案",
+                    "title_en": "Professional Building Energy-Saving Technology & Solutions",
+                    "subtitle_zh": "提供卓越暖通自适应群控，以低能耗算法助力建筑持久降能降碳",
+                    "subtitle_en": "Providing superior HVAC adaptive group control, leveraging low-energy algorithms for lasting building energy and carbon reduction",
                     "image": "",
                     "buttons": [
-                        {"label_zh": "了解更多", "label_en": "Learn More", "link": "/about", "variant": "primary"},
-                        {"label_zh": "商务合作", "label_en": "Cooperation", "link": "/cooperation", "variant": "outline"},
+                        {"label_zh": "了解更多", "label_en": "Learn More", "link": "/cooperation", "variant": "primary"},
+                        {"label_zh": "免费咨询", "label_en": "Free Consultation", "link": "/contact", "variant": "outline"},
                     ],
                 },
             ],
         })
 
-        # Product cards
+        # Product cards (8 hardware products)
         await create_block(pg.id, "product_cards", config={}, content={
             "title_zh": "核心产品",
             "title_en": "Core Products",
@@ -157,33 +163,68 @@ async def seed():
                 {
                     "title_zh": "Edge-G100 智能边缘网关",
                     "title_en": "Edge-G100 Smart Edge Gateway",
-                    "desc_zh": "专为中大型智慧建筑系统集成设计的物理通信中枢，支持多协议接入与边缘计算",
-                    "desc_en": "Physical communication hub designed for medium-to-large smart building system integration, supporting multi-protocol access and edge computing",
+                    "desc_zh": "专为中大型智慧建筑系统集成设计的物理通信中枢，支持Bacnet/Modbus/OPC UA等多协议接入，内置边缘计算引擎实现本地智能决策。",
+                    "desc_en": "Physical communication hub for medium-to-large smart building system integration, supporting multi-protocol access and edge computing.",
                     "link": "/products",
                 },
                 {
-                    "title_zh": "IoT 综合环境传感器",
-                    "title_en": "IoT Environmental Sensor",
-                    "desc_zh": "高精度温湿度、CO2、PM2.5多合一传感器，实时监测室内环境质量",
-                    "desc_en": "High-precision all-in-one sensor for temperature, humidity, CO2, and PM2.5 monitoring",
+                    "title_zh": "IoT无线温湿度传感器组",
+                    "title_en": "IoT Wireless Temperature & Humidity Sensor Suite",
+                    "desc_zh": "高精度温湿度采集，支持LoRa/WiFi/NB-IoT多种无线通信方式，实现建筑环境的全域分布式感知。",
+                    "desc_en": "High-precision temperature and humidity data collection with multi-protocol wireless communication for distributed environmental sensing.",
                     "link": "/products",
                 },
                 {
-                    "title_zh": "多联机集控器",
-                    "title_en": "Multi-Unit Central Controller",
-                    "desc_zh": "支持Bacnet/Modbus标准协议，集成本地微推理算法，实现空调系统智能调控",
-                    "desc_en": "Supports Bacnet/Modbus protocols with local micro-inference algorithms for intelligent HVAC control",
+                    "title_zh": "智能微机电保护监控模块",
+                    "title_en": "Smart MEMS Protection & Monitoring Module",
+                    "desc_zh": "集成电流/电压/功率因数实时监测与智能断路保护，实现配电系统精细化安全管控。",
+                    "desc_en": "Integrated real-time monitoring of current, voltage, and power factor with smart circuit protection for precise power distribution management.",
+                    "link": "/products",
+                },
+                {
+                    "title_zh": "多信道数据采集终端",
+                    "title_en": "Multi-Channel Data Acquisition Terminal",
+                    "desc_zh": "支持8/16/32信道模拟量与数字量同步采集，适配各类工业传感器，构建建筑机电系统的全息感知网络。",
+                    "desc_en": "Supports 8/16/32-channel synchronous analog and digital signal acquisition compatible with various industrial sensors.",
+                    "link": "/products",
+                },
+                {
+                    "title_zh": "智能超声波流速热量计",
+                    "title_en": "Smart Ultrasonic Flow & Heat Meter",
+                    "desc_zh": "非侵入式超声波流量测量与冷热量精确计量，为暖通系统能效分析提供核心数据支撑。",
+                    "desc_en": "Non-invasive ultrasonic flow measurement and precise thermal metering for HVAC energy efficiency analysis.",
+                    "link": "/products",
+                },
+                {
+                    "title_zh": "六合一多参数环境监视箱",
+                    "title_en": "6-in-1 Multi-Parameter Environmental Monitoring Box",
+                    "desc_zh": "集成温度/湿度/CO2/PM2.5/TVOC/噪声六项指标，全天候室内外环境质量综合评价。",
+                    "desc_en": "Integrates six indicators including temperature, humidity, CO2, PM2.5, TVOC, and noise for comprehensive indoor/outdoor environmental assessment.",
+                    "link": "/products",
+                },
+                {
+                    "title_zh": "智能红外温度阵列探针",
+                    "title_en": "Smart Infrared Thermal Array Probe",
+                    "desc_zh": "高分辨率红外阵列测温，非接触式实时监测设备表面温度分布，助力设备异常预警与预测维护。",
+                    "desc_en": "High-resolution infrared array thermometry for contactless real-time equipment surface temperature monitoring and predictive maintenance.",
+                    "link": "/products",
+                },
+                {
+                    "title_zh": "电能安全及综合平衡仪",
+                    "title_en": "Power Safety & Integrated Balancer",
+                    "desc_zh": "三相电能质量监测与负荷平衡调节一体化设备，保障建筑配电系统安全高效运行。",
+                    "desc_en": "Integrated three-phase power quality monitoring and load balancing device for safe and efficient building power distribution.",
                     "link": "/products",
                 },
             ],
         })
 
-        # Solution cards (4 tabs)
+        # Solution cards (6 tabs including hotel and datacenter)
         await create_block(pg.id, "solution_cards", config={}, content={
-            "title_zh": "行业解决方案",
-            "title_en": "Industry Solutions",
-            "description_zh": "覆盖商业综合体、产业园区、写字楼、公共建筑等多种场景",
-            "description_en": "Covering commercial complexes, industrial parks, office buildings, and public facilities",
+            "title_zh": "解决方案",
+            "title_en": "Solutions",
+            "subtitle_zh": "覆盖楼宇控制、系统深度寻优到工业设施控制的全场景化综合能源效率提升解决方案",
+            "subtitle_en": "Full-scenario comprehensive energy efficiency improvement solutions covering building control, deep system optimization, and industrial facility control",
             "tabs": [
                 {
                     "key": "commercial",
@@ -209,8 +250,8 @@ async def seed():
                 },
                 {
                     "key": "office",
-                    "label_zh": "写字楼",
-                    "label_en": "Office",
+                    "label_zh": "5A写字楼",
+                    "label_en": "5A Office",
                     "title_zh": "5A写字楼智能化方案",
                     "title_en": "Smart Solutions for 5A Office Buildings",
                     "desc_zh": "暖通空调优化 + 智能照明 + 室内环境品质管理 + 智慧停车，提升租户满意度与资产价值。",
@@ -219,7 +260,7 @@ async def seed():
                     "link": "/solutions?tab=office",
                 },
                 {
-                    "key": "hospital",
+                    "key": "medical",
                     "label_zh": "公共建筑",
                     "label_en": "Public",
                     "title_zh": "公共建筑智慧运维方案",
@@ -227,7 +268,82 @@ async def seed():
                     "desc_zh": "洁净空调管理 + 医疗级环境监控 + 能效合规管理，满足GB/T 51153等国家标准。",
                     "desc_en": "Clean air management + medical-grade environment monitoring + energy compliance, meeting GB/T 51153 and other national standards.",
                     "features": ["洁净区域环境管控", "医疗设备能耗监测", "环境参数合规记录", "应急联动响应"],
-                    "link": "/solutions?tab=hospital",
+                    "link": "/solutions?tab=medical",
+                },
+                {
+                    "key": "hotel",
+                    "label_zh": "中高端酒店",
+                    "label_en": "Hotel",
+                    "title_zh": "中高端酒店智慧能效方案",
+                    "title_en": "Smart Energy Efficiency for Upscale Hotels",
+                    "desc_zh": "打通前台PMS与客房RCU系统，配合大楼暖通总控智能预设开房微环境，兼顾品质体验与低碳运营。",
+                    "desc_en": "Integrating front-desk PMS with guest-room RCU systems and building HVAC master control for intelligent room micro-environment presets, balancing quality experience with low-carbon operations.",
+                    "features": [
+                        "打通前台PMS与客房RCU系统，配合大楼暖通总控智能预设开房微环境",
+                        "依据开房入住状态智能预设空调冷热载荷",
+                        "兼顾品质体验与低碳运营",
+                    ],
+                    "link": "/solutions?tab=hotel",
+                },
+                {
+                    "key": "datacenter",
+                    "label_zh": "数据中心",
+                    "label_en": "Data Center",
+                    "title_zh": "数据中心高能效制冷方案",
+                    "title_en": "High-Efficiency Cooling for Data Centers",
+                    "desc_zh": "结合气流场热力梯度传感器，对不间断工作的计算物理机网格智慧分配冷量，深度逼近极致能效PUE。",
+                    "desc_en": "Leveraging airflow thermal gradient sensors for intelligent cooling distribution across continuously operating computing grids, driving PUE toward ultimate efficiency.",
+                    "features": [
+                        "结合气流场热力梯度传感器，对不间断工作的计算物理机网格智慧分配冷量",
+                        "冷热源末端预测调节与冷却塔智能变频联合调度",
+                        "深度逼近极致能效PUE",
+                    ],
+                    "link": "/solutions?tab=datacenter",
+                },
+            ],
+        })
+
+        # Stats counter block
+        await create_block(pg.id, "stats_counter", config={}, content={
+            "title_zh": "效果统计",
+            "title_en": "Performance Statistics",
+            "subtitle_zh": "数字是最有力的证明，金捷利持续为客户创造可量化的业务价值",
+            "subtitle_en": "Numbers are the strongest proof — GOLDGINNY consistently delivers quantifiable business value to clients",
+            "items": [
+                {"value": "15-30%", "label_zh": "综合节能", "label_en": "Energy Saving"},
+                {"value": "500+", "label_zh": "交付项目", "label_en": "Projects Delivered"},
+                {"value": "100+", "label_zh": "生态伙伴", "label_en": "Ecosystem Partners"},
+                {"value": "80+", "label_zh": "服务城市", "label_en": "Cities Served"},
+            ],
+        })
+
+        # Cases section (using product_cards block type for card display)
+        await create_block(pg.id, "product_cards", config={}, content={
+            "title_zh": "服务案例",
+            "title_en": "Case Studies",
+            "subtitle_zh": "以技术实力赢得信赖，用实际效果说话",
+            "subtitle_en": "Earning trust through technical excellence and proven results",
+            "cards": [
+                {
+                    "title_zh": "北京某超甲级写字楼智慧运维项目",
+                    "title_en": "Beijing Premium Grade-A Office Smart O&M Project",
+                    "desc_zh": "为北京CBD核心区超甲级写字楼部署金捷利智慧运维系统，实现综合节能率28.5%，年节省电费超600万元。",
+                    "desc_en": "Deployed GOLDGINNY smart O&M system at a premium Grade-A office in Beijing CBD, achieving 28.5% energy savings and saving over 6M RMB annually.",
+                    "link": "/cases",
+                },
+                {
+                    "title_zh": "上海某大型商业综合体全生命周期管理",
+                    "title_en": "Shanghai Large Commercial Complex Full-Lifecycle Management",
+                    "desc_zh": "为上海核心商圈大型综合体提供暖通系统全生命周期运维托管，碳减排量850吨/年，舒适度投诉率降低45%。",
+                    "desc_en": "Provided full-lifecycle HVAC O&M managed services for a major Shanghai commercial complex, reducing carbon emissions by 850t/year and comfort complaints by 45%.",
+                    "link": "/cases",
+                },
+                {
+                    "title_zh": "广州某半导体产业园区智慧后勤保障",
+                    "title_en": "Guangzhou Semiconductor Park Smart Facility Support",
+                    "desc_zh": "为广州某半导体产业园提供关键设备智慧运维保障，实现关键设备停机率0，巡检效率提升150%。",
+                    "desc_en": "Provided smart O&M for critical equipment at a Guangzhou semiconductor park, achieving zero critical equipment downtime and 150% inspection efficiency improvement.",
+                    "link": "/cases",
                 },
             ],
         })
@@ -262,18 +378,18 @@ async def seed():
             "slides": [{
                 "title_zh": "解决方案",
                 "title_en": "Solutions",
-                "subtitle_zh": "针对不同建筑场景的智慧化解决方案，助力建筑运营提质增效",
-                "subtitle_en": "Smart solutions tailored for different building scenarios to improve operational efficiency",
+                "subtitle_zh": "覆盖楼宇控制、系统深度寻优到工业设施控制的全场景化综合能源效率提升解决方案",
+                "subtitle_en": "Full-scenario comprehensive energy efficiency improvement solutions covering building control, deep system optimization, and industrial facility control",
                 "image": "",
                 "buttons": [],
             }],
         })
 
         await create_block(pg.id, "solution_cards", config={}, content={
-            "title_zh": "行业解决方案",
-            "title_en": "Industry Solutions",
-            "description_zh": "覆盖商业综合体、产业园区、写字楼、公共建筑等多种场景",
-            "description_en": "Covering commercial complexes, industrial parks, office buildings, and public facilities",
+            "title_zh": "解决方案",
+            "title_en": "Solutions",
+            "subtitle_zh": "覆盖楼宇控制、系统深度寻优到工业设施控制的全场景化综合能源效率提升解决方案",
+            "subtitle_en": "Full-scenario comprehensive energy efficiency improvement solutions covering building control, deep system optimization, and industrial facility control",
             "tabs": [
                 {
                     "key": "commercial",
@@ -299,8 +415,8 @@ async def seed():
                 },
                 {
                     "key": "office",
-                    "label_zh": "写字楼",
-                    "label_en": "Office",
+                    "label_zh": "5A写字楼",
+                    "label_en": "5A Office",
                     "title_zh": "5A写字楼智能化方案",
                     "title_en": "Smart Solutions for 5A Office Buildings",
                     "desc_zh": "为5A级写字楼提供暖通空调优化、智能照明、室内环境品质管理和智慧停车等系统，提升租户满意度与物业资产价值。",
@@ -309,7 +425,7 @@ async def seed():
                     "link": "/cooperation",
                 },
                 {
-                    "key": "hospital",
+                    "key": "medical",
                     "label_zh": "公共建筑",
                     "label_en": "Public",
                     "title_zh": "公共建筑智慧运维方案",
@@ -317,6 +433,28 @@ async def seed():
                     "desc_zh": "面向医院、政府办公楼等公共建筑，提供洁净空调管理、医疗级环境监控和能效合规管理，满足GB/T 51153等国家标准要求。",
                     "desc_en": "Clean air management, medical-grade environment monitoring, and energy compliance for hospitals and government buildings, meeting GB/T 51153 standards.",
                     "features": ["洁净区域环境管控", "医疗设备能耗监测", "环境参数合规记录", "应急联动响应", "后勤运维管理"],
+                    "link": "/cooperation",
+                },
+                {
+                    "key": "hotel",
+                    "label_zh": "中高端酒店",
+                    "label_en": "Hotel",
+                    "title_zh": "中高端酒店智慧能效方案",
+                    "title_en": "Smart Energy Efficiency for Upscale Hotels",
+                    "desc_zh": "针对中高端酒店客房舒适度与能耗平衡的痛点，打通前台PMS预订系统与客房RCU控制系统，结合大楼暖通总控智能预设开房微环境，依据入住状态动态调节空调冷热载荷，兼顾宾客品质体验与酒店低碳运营目标。",
+                    "desc_en": "Addressing the balance between guest comfort and energy consumption in upscale hotels by integrating front-desk PMS with room RCU control systems and building HVAC master control for intelligent room environment presets based on occupancy status.",
+                    "features": ["打通前台PMS与客房RCU系统", "依据开房入住状态智能预设空调冷热载荷", "兼顾品质体验与低碳运营", "公区新风按需调节", "热水系统智能调度"],
+                    "link": "/cooperation",
+                },
+                {
+                    "key": "datacenter",
+                    "label_zh": "数据中心",
+                    "label_en": "Data Center",
+                    "title_zh": "数据中心高能效制冷方案",
+                    "title_en": "High-Efficiency Cooling for Data Centers",
+                    "desc_zh": "面向高密度数据中心制冷能效挑战，结合气流场热力梯度传感器网络，对不间断工作的计算物理机网格进行冷量智慧分配。通过冷热源末端预测调节与冷却塔智能变频联合调度，深度逼近极致能效PUE目标。",
+                    "desc_en": "For high-density data center cooling challenges, leveraging airflow thermal gradient sensor networks for intelligent cooling distribution across computing grids. Combines terminal predictive regulation with smart variable-frequency cooling tower dispatch to approach ultimate PUE targets.",
+                    "features": ["结合气流场热力梯度传感器智慧分配冷量", "冷热源末端预测调节与冷却塔智能变频联合调度", "深度逼近极致能效PUE", "热点自动识别与消除", "机柜级精细温控"],
                     "link": "/cooperation",
                 },
             ],
@@ -354,17 +492,52 @@ async def seed():
                     "link": "/contact",
                 },
                 {
-                    "title_zh": "IoT 综合环境传感器",
-                    "title_en": "IoT Environmental Sensor",
-                    "desc_zh": "高精度温湿度、CO2、PM2.5多合一传感器，支持LoRa/WiFi/NB-IoT多种通信方式，实现室内环境质量的全面监测。",
-                    "desc_en": "High-precision all-in-one sensor for temperature, humidity, CO2, and PM2.5, supporting LoRa/WiFi/NB-IoT communication for comprehensive indoor environment monitoring.",
+                    "title_zh": "IoT无线温湿度传感器组",
+                    "title_en": "IoT Wireless Temperature & Humidity Sensor Suite",
+                    "desc_zh": "高精度温湿度采集，支持LoRa/WiFi/NB-IoT多种无线通信方式，实现建筑环境全域分布式感知与智能联动。",
+                    "desc_en": "High-precision temperature and humidity data collection with multi-protocol wireless communication for comprehensive distributed environmental sensing and intelligent linkage.",
                     "link": "/contact",
                 },
                 {
-                    "title_zh": "多联机集控器",
-                    "title_en": "Multi-Unit Central Controller",
-                    "desc_zh": "支持Bacnet/Modbus标准协议，集成本地微推理算法，实现对多联机空调系统的智能群控与能效优化。",
-                    "desc_en": "Supports Bacnet/Modbus standard protocols with integrated local micro-inference algorithms for intelligent group control and energy optimization of multi-unit HVAC systems.",
+                    "title_zh": "智能微机电保护监控模块",
+                    "title_en": "Smart MEMS Protection & Monitoring Module",
+                    "desc_zh": "集成电流、电压、功率因数实时监测与智能断路保护功能，实现对配电系统的精细化安全管控与故障预警。",
+                    "desc_en": "Integrated real-time monitoring of current, voltage, and power factor with smart circuit protection for precise power distribution safety management and fault early warning.",
+                    "link": "/contact",
+                },
+                {
+                    "title_zh": "多信道数据采集终端",
+                    "title_en": "Multi-Channel Data Acquisition Terminal",
+                    "desc_zh": "支持8/16/32信道模拟量与数字量同步采集，兼容各类工业传感器协议，构建建筑机电系统的全息感知网络。",
+                    "desc_en": "Supports 8/16/32-channel synchronous analog and digital signal acquisition compatible with various industrial sensor protocols, building a holographic perception network for building MEP systems.",
+                    "link": "/contact",
+                },
+                {
+                    "title_zh": "智能超声波流速热量计",
+                    "title_en": "Smart Ultrasonic Flow & Heat Meter",
+                    "desc_zh": "非侵入式超声波流量测量与冷热量精确计量，为暖通空调系统能效分析与优化提供核心数据支撑。",
+                    "desc_en": "Non-invasive ultrasonic flow measurement and precise thermal metering for HVAC energy efficiency analysis and optimization with core data support.",
+                    "link": "/contact",
+                },
+                {
+                    "title_zh": "六合一多参数环境监视箱",
+                    "title_en": "6-in-1 Multi-Parameter Environmental Monitoring Box",
+                    "desc_zh": "集成温度、湿度、CO2、PM2.5、TVOC、噪声六项环境指标，支持全天候室内外环境质量综合评估与预警。",
+                    "desc_en": "Integrates six environmental indicators for comprehensive indoor/outdoor air quality assessment and early warning.",
+                    "link": "/contact",
+                },
+                {
+                    "title_zh": "智能红外温度阵列探针",
+                    "title_en": "Smart Infrared Thermal Array Probe",
+                    "desc_zh": "高分辨率红外阵列测温技术，非接触式实时监测设备表面温度分布，助力设备异常早期发现与预测性维护。",
+                    "desc_en": "High-resolution infrared array thermometry for contactless real-time equipment surface temperature distribution monitoring, supporting early anomaly detection and predictive maintenance.",
+                    "link": "/contact",
+                },
+                {
+                    "title_zh": "电能安全及综合平衡仪",
+                    "title_en": "Power Safety & Integrated Balancer",
+                    "desc_zh": "三相电能质量实时监测与三相负荷不平衡智能调节一体化设备，保障建筑配电系统安全高效稳定运行。",
+                    "desc_en": "Integrated three-phase power quality monitoring and three-phase load imbalance intelligent regulation device for safe, efficient, and stable building power distribution.",
                     "link": "/contact",
                 },
             ],
@@ -374,7 +547,7 @@ async def seed():
         slug = "about"
         pg = await create_page(
             name_zh="关于我们", name_en="About Us", slug=slug,
-            type="page", sort_order=4, is_published=True,
+            type="page", sort_order=5, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -390,57 +563,99 @@ async def seed():
             }],
         })
 
+        # Company introduction (rich text)
         await create_block(pg.id, "richtext", config={}, content={
             "html_content_zh": (
+                '<h2 class="text-2xl font-bold mb-6">公司介绍</h2>'
                 '<p class="text-lg leading-relaxed mb-4">'
-                '金捷利科技有限公司（GOLDGINNY Technology Co., Ltd.）成立于2018年，'
-                '是一家专注于建筑智能运维领域的科技公司。公司核心团队来自清华大学、'
-                '阿里巴巴、华为等顶尖机构，拥有深厚的自动控制、人工智能与物联网技术积累。'
+                '金捷利科技（北京）有限公司成立于2018年12月，总部位于北京，是专精特新中小企业，'
+                '国高新/村高新技术企业，致力于以AI与IoT技术赋能建筑节能与智慧运维。'
                 '</p>'
                 '<p class="text-lg leading-relaxed mb-4">'
-                '公司以"让每一栋建筑都拥有智慧大脑"为使命，自主研发了包括智能边缘网关、'
-                '综合环境传感器、多联机集控器在内的硬件产品线，以及建筑数字孪生平台、'
-                'AI能耗优化引擎、智慧运维管理平台等软件系统，形成了"端-边-云"协同的'
-                '全栈智慧建筑解决方案。'
+                '公司创始团队来自清华大学建筑节能研究中心、阿里巴巴达摩院与华为2012实验室，'
+                '在建筑热物理、机器学习、边缘计算与工业控制领域有超过15年的产学研积累。'
+                '</p>'
+                '<p class="text-lg leading-relaxed mb-4">'
+                '金捷利以"让每一栋建筑都拥有智慧大脑"为使命，自主研发了AI冷热源自适应算法引擎、'
+                'Edge-G系列智能边缘网关、IoT综合环境感知终端、多联机智能群控系统等核心产品，'
+                '形成"端-边-云"三位一体的全栈智慧建筑解决方案。'
+                '</p>'
+                '<p class="text-lg leading-relaxed mb-4">'
+                '公司自研的冷热源自适应算法经国家第三方检测机构验证，平均节能率达28.5%，'
+                '已入选《国家推荐绿色技术名录》。金捷利拥有发明专利12项、软件著作权30余项，'
+                '参与编制国家标准2项、行业标准4项。'
+                '</p>'
+                '<p class="text-lg leading-relaxed mb-4">'
+                '截至目前，金捷利已累计为全国超过500栋建筑提供智慧运维产品与服务，'
+                '覆盖商业综合体、5A写字楼、产业园区、三甲医院、中高端酒店和数据中心等多种业态，'
+                '服务面积超过3000万平方米，累计为客户节省能耗成本逾3亿元，'
+                '减排二氧化碳超过15万吨。'
                 '</p>'
                 '<p class="text-lg leading-relaxed">'
-                '截至2026年，金捷利已为全国200+栋建筑提供智慧运维服务，覆盖商业综合体、'
-                '产业园区、5A写字楼、医院、数据中心等多种业态，累计为客户节省能耗成本超2亿元。'
-                '公司自主研发的冷热源自适应算法入选《国家推荐绿色技术名录》，'
-                '并荣获2025年度「智慧建筑优秀服务商」称号。'
+                '公司荣获2025年度「智慧建筑优秀服务商」称号，'
+                '核心解决方案入选工信部「工业互联网+绿色制造」试点示范项目。'
+                '金捷利将持续深耕建筑智能运维赛道，以技术创新推动建筑行业绿色低碳转型，'
+                '助力中国"3060双碳"目标实现。'
                 '</p>'
             ),
             "html_content_en": (
+                '<h2 class="text-2xl font-bold mb-6">Company Overview</h2>'
                 '<p class="text-lg leading-relaxed mb-4">'
-                'GOLDGINNY Technology Co., Ltd., founded in 2018, is a technology company '
-                'focused on intelligent building operations. Our core team comes from top '
-                'institutions including Tsinghua University, Alibaba, and Huawei, with deep '
-                'expertise in automatic control, artificial intelligence, and IoT technologies.'
+                'GOLDGINNY Technology (Beijing) Co., Ltd., founded in December 2018 and headquartered '
+                'in Beijing, is a specialized and sophisticated SME and a national/regional high-tech '
+                'enterprise dedicated to empowering building energy efficiency and smart operations '
+                'through AI and IoT technologies.'
                 '</p>'
                 '<p class="text-lg leading-relaxed mb-4">'
-                'With the mission of "giving every building a smart brain," we have developed '
-                'a hardware product line including smart edge gateways, integrated environmental '
-                'sensors, and multi-unit central controllers, as well as software systems including '
-                'digital twin platforms, AI energy optimization engines, and smart operations '
-                'management platforms — forming a complete "edge-to-cloud" smart building solution.'
+                'Our founding team comes from Tsinghua University\'s Building Energy Research Center, '
+                'Alibaba DAMO Academy, and Huawei 2012 Labs, with over 15 years of combined expertise '
+                'in building thermal physics, machine learning, edge computing, and industrial control.'
                 '</p>'
-                '<p class="text-lg leading-relaxed">'
-                'By 2026, GOLDGINNY has provided smart operations services to 200+ buildings '
-                'nationwide, covering commercial complexes, industrial parks, 5A office buildings, '
-                'hospitals, and data centers, saving clients over 200 million RMB in energy costs. '
-                'Our self-developed HVAC adaptive algorithm has been included in the National '
-                'Recommended Green Technology Catalogue, and we were honored with the 2025 '
-                '"Outstanding Smart Building Service Provider" award.'
+                '<p class="text-lg leading-relaxed mb-4">'
+                'With the mission of "giving every building a smart brain," GOLDGINNY has independently '
+                'developed core products including the AI HVAC adaptive algorithm engine, Edge-G series '
+                'smart edge gateways, IoT environmental sensing terminals, and multi-unit intelligent '
+                'group control systems — forming an integrated "edge-to-cloud" smart building solution.'
                 '</p>'
             ),
         })
 
+        # Value cards (mission, vision, philosophy)
+        await create_block(pg.id, "product_cards", config={}, content={
+            "title_zh": "企业文化",
+            "title_en": "Corporate Culture",
+            "cards": [
+                {
+                    "title_zh": "核心使命",
+                    "title_en": "Core Mission",
+                    "desc_zh": "让每一栋建筑都拥有智慧大脑。以AI与IoT技术深度赋能建筑机电系统，实现建筑全生命周期的智能化、精细化管理，为业主降本增效、为使用者营造舒适、为地球减少碳排。",
+                    "desc_en": "Giving every building a smart brain. Deeply empowering building MEP systems with AI and IoT technologies to achieve intelligent, refined lifecycle management — reducing costs for owners, creating comfort for users, and cutting carbon for the planet.",
+                    "link": "",
+                },
+                {
+                    "title_zh": "愿景目标",
+                    "title_en": "Vision & Goals",
+                    "desc_zh": '成为中国领先的AI绿色空间运营商。以技术创新为驱动，以客户价值为导向，推动建筑行业从“被动运维”迈向“主动智慧”，引领绿色建筑运维新标准。',
+                    "desc_en": "To become China\'s leading AI green space operator. Driven by technological innovation and guided by customer value, we propel the building industry from passive O&M to proactive intelligence, setting new standards for green building operations.",
+                    "link": "",
+                },
+                {
+                    "title_zh": "服务理念",
+                    "title_en": "Service Philosophy",
+                    "desc_zh": "精于技术，忠于客户。我们不仅提供领先的AI产品与算法，更提供贯穿项目全周期的专业服务——从方案设计、系统集成到长效运维托管，成为客户可信赖的长期技术伙伴。",
+                    "desc_en": "Masters of technology, devoted to clients. We deliver not only advanced AI products and algorithms but also professional full-cycle services — from solution design and system integration to long-term managed O&M — as our clients\' trusted technology partner.",
+                    "link": "",
+                },
+            ],
+        })
+
+        # Stats counter on about page
         await create_block(pg.id, "stats_counter", config={}, content={
             "title_zh": "金捷利 · 实力数据",
             "title_en": "GOLDGINNY by the Numbers",
             "items": [
-                {"value": "200+", "label_zh": "服务建筑", "label_en": "Buildings Served"},
-                {"value": "50+", "label_zh": "覆盖城市", "label_en": "Cities Covered"},
+                {"value": "500+", "label_zh": "服务建筑", "label_en": "Buildings Served"},
+                {"value": "80+", "label_zh": "覆盖城市", "label_en": "Cities Covered"},
                 {"value": "28.5%", "label_zh": "平均节能率", "label_en": "Avg Energy Savings"},
                 {"value": "99.9%", "label_zh": "系统可用率", "label_en": "System Uptime"},
             ],
@@ -450,7 +665,7 @@ async def seed():
         slug = "cooperation"
         pg = await create_page(
             name_zh="商务合作", name_en="Cooperation", slug=slug,
-            type="page", sort_order=5, is_published=True,
+            type="page", sort_order=6, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -506,7 +721,7 @@ async def seed():
         slug = "contact"
         pg = await create_page(
             name_zh="联系我们", name_en="Contact Us", slug=slug,
-            type="contact", sort_order=6, is_published=True,
+            type="contact", sort_order=7, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -523,7 +738,7 @@ async def seed():
         slug = "news"
         pg = await create_page(
             name_zh="新闻动态", name_en="News", slug=slug,
-            type="news", sort_order=7, is_published=True,
+            type="news", sort_order=8, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -532,7 +747,7 @@ async def seed():
         slug = "cases"
         pg = await create_page(
             name_zh="服务案例", name_en="Cases", slug=slug,
-            type="content", sort_order=8, is_published=True,
+            type="content", sort_order=4, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -646,14 +861,15 @@ async def seed():
     else:
         print("Creating menus...")
 
-        # --- Header menus ---
+        # --- Header menus (with 服务案例 inserted) ---
         header_items = [
             ("首页", "Home", "/", 1),
             ("解决方案", "Solutions", "/solutions", 2),
             ("产品服务", "Products", "/products", 3),
-            ("关于我们", "About", "/about", 4),
-            ("商务合作", "Cooperation", "/cooperation", 5),
-            ("联系我们", "Contact", "/contact", 6),
+            ("服务案例", "Cases", "/cases", 4),
+            ("关于我们", "About", "/about", 5),
+            ("商务合作", "Cooperation", "/cooperation", 6),
+            ("联系我们", "Contact", "/contact", 7),
         ]
         for zh, en, link, order in header_items:
             slug = LINK_TO_SLUG.get(link)
@@ -695,8 +911,10 @@ async def seed():
         sol_children = [
             ("商业综合体", "Commercial Complex", "/solutions?tab=commercial"),
             ("产业园区", "Industrial Park", "/solutions?tab=park"),
-            ("写字楼", "Office Building", "/solutions?tab=office"),
-            ("公共建筑", "Public Building", "/solutions?tab=hospital"),
+            ("5A写字楼", "5A Office Building", "/solutions?tab=office"),
+            ("公共建筑", "Public Building", "/solutions?tab=medical"),
+            ("中高端酒店", "Upscale Hotel", "/solutions?tab=hotel"),
+            ("数据中心", "Data Center", "/solutions?tab=datacenter"),
         ]
         for zh, en, link in sol_children:
             child = await create_menu_item(
@@ -739,6 +957,7 @@ async def seed():
     else:
         print("Creating news articles...")
         articles = [
+            # news-01
             (
                 "金捷利荣获2025年度「智慧建筑优秀服务商」称号",
                 "GOLDGINNY Wins 2025 'Outstanding Smart Building Service Provider' Award",
@@ -765,6 +984,7 @@ async def seed():
                 ),
                 "company_news",
             ),
+            # news-02
             (
                 "某CBD核心区项目通过金捷利智慧调控实现能耗降幅28.5%",
                 "CBD Core-Area Project Achieves 28.5% Energy Reduction with GOLDGINNY Smart Control",
@@ -793,6 +1013,7 @@ async def seed():
                 ),
                 "project",
             ),
+            # news-03
             (
                 "金捷利冷热源自适应算法入选《国家推荐绿色技术名录》",
                 "GOLDGINNY's HVAC Adaptive Algorithm Included in National Recommended Green Technology Catalogue",
@@ -819,6 +1040,7 @@ async def seed():
                 ),
                 "certification",
             ),
+            # news-04
             (
                 "金捷利与某世界500强集团达成智慧科技园区战略合作",
                 "GOLDGINNY Forms Strategic Partnership with Fortune 500 Group for Smart Technology Park",
@@ -844,6 +1066,171 @@ async def seed():
                     "3 flagship parks in the Yangtze River Delta region, with gradual expansion nationwide.</p>"
                 ),
                 "cooperation",
+            ),
+            # news-05
+            (
+                "金捷利发布新一代边缘计算网关Edge-G200，AI算力提升5倍",
+                "GOLDGINNY Launches Next-Gen Edge-G200 Gateway with 5x AI Computing Power",
+                "金捷利在2025中国国际智能建筑展上正式发布Edge-G200智能边缘网关，AI推理算力较上一代提升5倍，支持更复杂的本地决策模型。",
+                "GOLDGINNY officially launched the Edge-G200 smart edge gateway at the 2025 China International Intelligent Building Expo, delivering 5x AI inference power for more complex local decision models.",
+                (
+                    "<p>在2025中国国际智能建筑展览会上，金捷利科技正式发布了新一代智能边缘网关产品——Edge-G200。"
+                    "该产品搭载全新一代NPU芯片，AI推理算力相较上一代Edge-G100提升5倍，可同时在本地运行多个"
+                    "深度学习模型，实现更精准的空调负荷预测与设备故障诊断。</p>"
+                    "<p>Edge-G200延续了金捷利“端-边-云”协同架构的设计理念，新增支持TSN时间敏感网络和5G通信模块，"
+                    "为智慧建筑的实时控制与大数据量传输提供了更强大的通信保障。产品同时向下兼容Edge-G100的"
+                    "全部协议接口，支持存量项目的平滑升级。</p>"
+                    "<p>金捷利CTO在产品发布会上表示：“Edge-G200的发布标志着金捷利在建筑边缘智能领域迈上了新台阶，"
+                    '我们将持续加大研发投入，以技术创新引领行业发展。"</p>'
+                ),
+                (
+                    "<p>At the 2025 China International Intelligent Building Expo, GOLDGINNY officially "
+                    "launched the Edge-G200, its next-generation smart edge gateway. Equipped with a new "
+                    "NPU chip, the product delivers 5x the AI inference power of its predecessor, enabling "
+                    "multiple deep learning models to run locally for more accurate HVAC load prediction "
+                    "and equipment fault diagnosis.</p>"
+                    "<p>The Edge-G200 continues GOLDGINNY's edge-to-cloud collaborative architecture, "
+                    "adding TSN and 5G support for real-time control and large data transmission in "
+                    "smart buildings. It remains fully backward-compatible with all Edge-G100 protocols.</p>"
+                ),
+                "product",
+            ),
+            # news-06
+            (
+                "金捷利中标某新一线城市地铁智慧环控系统项目",
+                "GOLDGINNY Wins Bid for Metro Smart Environmental Control System in New First-Tier City",
+                "金捷利成功中标某新一线城市地铁线路智慧环控系统项目，将为其地下车站与隧道提供暖通节能优化与空气质量智能管控。",
+                "GOLDGINNY won the bid for a metro line smart environmental control system project in a new first-tier city, providing HVAC energy optimization and air quality management for underground stations and tunnels.",
+                (
+                    "<p>近日，金捷利科技宣布成功中标某新一线城市新建地铁线路的智慧环控系统项目。"
+                    "该项目涵盖该线路全部12座地下车站及区间隧道的暖通空调系统节能优化与环境质量控制，"
+                    "标志着金捷利在轨道交通智慧运维领域的又一重大突破。</p>"
+                    "<p>针对地铁车站客流量波动大、热负荷变化剧烈、空气质量要求高等特点，金捷利将部署"
+                    "自研的冷热源自适应算法和多信道数据采集终端，结合车站客流实时数据，实现通风空调系统的"
+                    "按需供给与精准调控。预计项目投运后，该线路环控系统综合节能率可达25%以上。</p>"
+                    "<p>该项目是金捷利继商业建筑、产业园区、医疗建筑和数据中心之后，在轨道交通这一全新"
+                    "业务领域的成功拓展，进一步验证了金捷利AI算法与产品矩阵的跨场景适应能力。</p>"
+                ),
+                (
+                    "<p>GOLDGINNY announced it has won the bid for a smart environmental control system "
+                    "project for a new metro line in a new first-tier city. The project covers HVAC energy "
+                    "optimization and environmental quality control for all 12 underground stations and "
+                    "tunnel sections, marking a significant breakthrough in rail transit smart O&M.</p>"
+                    "<p>GOLDGINNY will deploy its self-developed HVAC adaptive algorithm and multi-channel "
+                    "data acquisition terminals to achieve demand-driven ventilation and precise control "
+                    "based on real-time passenger flow data, with expected 25%+ energy savings.</p>"
+                ),
+                "project",
+            ),
+            # news-07
+            (
+                "金捷利参与编制《建筑设备智能运维系统技术规范》正式发布",
+                "GOLDGINNY Co-Authors Technical Specification for Building Equipment Smart O&M Systems",
+                "由金捷利参与编制的团体标准《建筑设备智能运维系统技术规范》（T/CECS xxx-2025）正式发布，将于2026年1月1日起实施。",
+                "The group standard 'Technical Specification for Building Equipment Smart O&M Systems' (T/CECS xxx-2025), co-authored by GOLDGINNY, has been officially published and will take effect on January 1, 2026.",
+                (
+                    "<p>近日，由中国建筑科学研究院牵头、金捷利科技作为主要参编单位之一的团体标准"
+                    "《建筑设备智能运维系统技术规范》（T/CECS xxx-2025）正式发布。该标准规定了建筑设备"
+                    "智能运维系统的架构设计、功能要求、数据接口、性能指标和评估方法。</p>"
+                    "<p>金捷利作为标准的主要技术贡献方之一，将其在500余个智慧运维项目中的实践经验提炼为"
+                    "标准条款，特别是在冷热源自适应控制、边缘计算网关数据采集、设备预测性维护等核心"
+                    "技术环节贡献了关键技术指标和验证方法。</p>"
+                    "<p>该标准的发布填补了国内建筑设备智能运维领域技术规范的空白，将为行业规范化发展"
+                    "提供重要技术依据。金捷利CEO表示：\"参与行业标准制定是企业技术实力的体现，也是我们"
+                    '推动行业高质量发展的责任。"</p>'
+                ),
+                (
+                    "<p>The group standard 'Technical Specification for Building Equipment Smart O&M Systems' "
+                    "(T/CECS xxx-2025), led by China Academy of Building Research with GOLDGINNY as a key "
+                    "co-author, has been officially published. The standard specifies architecture design, "
+                    "functional requirements, data interfaces, performance metrics, and evaluation methods.</p>"
+                    "<p>GOLDGINNY contributed practical experience from over 500 smart O&M projects, "
+                    "particularly in HVAC adaptive control, edge gateway data acquisition, and predictive "
+                    "maintenance domains.</p>"
+                ),
+                "industry",
+            ),
+            # news-08
+            (
+                "金捷利智慧运维平台通过等保二级认证及ISO 27001信息安全管理体系认证",
+                "GOLDGINNY Smart O&M Platform Achieves Level 2 Information Security Certification and ISO 27001",
+                "金捷利智慧运维平台正式通过国家等保二级认证和ISO 27001信息安全管理体系认证，平台信息安全管理能力获权威认可。",
+                "GOLDGINNY's smart O&M platform has officially passed China's Level 2 Information Security Protection certification and ISO 27001 ISMS certification.",
+                (
+                    "<p>近日，金捷利科技智慧运维管理平台先后通过了国家信息安全等级保护二级认证和"
+                    "ISO/IEC 27001:2022信息安全管理体系认证，标志着金捷利在信息安全管理和客户数据保护方面"
+                    "达到了国际标准水平。</p>"
+                    "<p>在数字化转型加速的背景下，建筑运维数据的安全性和隐私保护日益受到关注。金捷利"
+                    "智慧运维平台从架构设计之初即遵循\"安全即设计\"的理念，在数据采集、传输、存储、"
+                    "处理和展示的全链路实施了多层次安全防护措施，包括设备身份认证、通信加密、"
+                    "访问控制和审计日志等。</p>"
+                    "<p>金捷利信息安全负责人表示：\"通过等保二级和ISO 27001双认证是金捷利信息安全建设的"
+                    '重要里程碑，我们将在客户数据安全方面持续投入，为客户提供可信赖的服务。"</p>'
+                ),
+                (
+                    "<p>GOLDGINNY's smart O&M platform has passed China's Level 2 Information Security "
+                    "Protection certification and ISO/IEC 27001:2022 ISMS certification, marking "
+                    "international-standard information security management and customer data protection.</p>"
+                    "<p>The platform implements multi-layered security across the full data chain — "
+                    "collection, transmission, storage, processing, and presentation — including device "
+                    "authentication, communication encryption, access control, and audit logging.</p>"
+                ),
+                "certification",
+            ),
+            # news-09
+            (
+                "金捷利与清华大学联合研究成果发表于顶级期刊《Applied Energy》",
+                "GOLDGINNY & Tsinghua University Joint Research Published in Applied Energy",
+                "金捷利与清华大学建筑节能研究中心联合研究的成果论文在国际顶级期刊《Applied Energy》上发表，提出基于深度强化学习的建筑冷热源系统多目标优化控制方法。",
+                "A joint research paper by GOLDGINNY and Tsinghua University's Building Energy Research Center has been published in Applied Energy, proposing a multi-objective optimization control method for building HVAC systems based on deep reinforcement learning.",
+                (
+                    "<p>近日，金捷利科技与清华大学建筑节能研究中心联合研究的学术论文"
+                    "\"Multi-Objective Deep Reinforcement Learning for Optimal Control of Building "
+                    "Heating and Cooling Systems\"在国际顶级学术期刊《Applied Energy》（IF: 11.2）上正式发表。</p>"
+                    "<p>该论文提出了一种面向建筑冷热源系统的多目标深度强化学习控制框架，可在同时优化"
+                    "系统能耗、室内热舒适度和设备运行寿命三个相互冲突的目标间实现动态平衡。该方法已在"
+                    "金捷利智慧运维平台中工程化部署，并在超过100栋实际建筑中验证了其有效性和鲁棒性。</p>"
+                    "<p>论文通讯作者、金捷利首席科学家表示：\"产学研深度融合是金捷利的核心创新模式。"
+                    '此次与清华大学的合作成果发表于顶刊，是对我们技术路线的学术背书，也为行业提供了可复现的科学方法。"</p>'
+                ),
+                (
+                    "<p>A joint research paper by GOLDGINNY and Tsinghua University titled 'Multi-Objective "
+                    "Deep Reinforcement Learning for Optimal Control of Building Heating and Cooling Systems' "
+                    "has been published in Applied Energy (IF: 11.2), a top-tier international journal.</p>"
+                    "<p>The paper proposes a multi-objective deep reinforcement learning control framework "
+                    "that dynamically balances energy consumption, indoor thermal comfort, and equipment "
+                    "lifespan. The method has been deployed in GOLDGINNY's platform and validated across "
+                    "over 100 real buildings.</p>"
+                ),
+                "research",
+            ),
+            # news-10
+            (
+                "金捷利完成A轮融资，加速智慧建筑全场景布局",
+                "GOLDGINNY Completes Series A Funding to Accelerate Full-Scenario Smart Building Deployment",
+                "金捷利科技宣布完成数千万元A轮融资，资金将用于AI算法研发升级、产品矩阵完善和全国市场拓展。",
+                "GOLDGINNY announced the completion of tens of millions RMB in Series A funding to be used for AI algorithm R&D, product portfolio expansion, and nationwide market development.",
+                (
+                    "<p>近日，金捷利科技有限公司宣布完成数千万元人民币A轮融资。本轮融资由国内领先的"
+                    "绿色科技投资机构领投，老股东跟投。资金将主要用于AI核心算法研发升级、硬件产品矩阵"
+                    "完善、全国营销服务网络建设以及行业标准参与。</p>"
+                    "<p>金捷利创始人兼CEO表示：\"本轮融资的完成体现了资本市场对建筑智能运维赛道和金捷利"
+                    "技术实力的高度认可。我们将在保持技术领先优势的同时，加速全国市场的布局和行业标杆"
+                    "项目的打造，致力于让更多的建筑享受到AI驱动的智慧运维服务。\"</p>"
+                    "<p>据国家住建部数据，我国既有建筑面积已超过700亿平方米，年新增建筑面积约20亿平方米，"
+                    "建筑运行阶段能耗占全社会总能耗的20%以上。金捷利所深耕的建筑智能运维和节能优化领域"
+                    "市场空间广阔，是实现\"双碳\"目标的重要技术路径之一。</p>"
+                ),
+                (
+                    "<p>GOLDGINNY Technology Co., Ltd. announced the completion of tens of millions RMB "
+                    "in Series A funding, led by a leading domestic green technology investment institution "
+                    "with participation from existing investors. The funds will be used for AI algorithm "
+                    "R&D, product portfolio expansion, and national marketing network development.</p>"
+                    "<p>The CEO stated: \"This funding round reflects the capital market's strong recognition "
+                    "of the smart building O&M sector and GOLDGINNY's technical capabilities. We will "
+                    "accelerate nationwide deployment and industry benchmark projects.\"</p>"
+                ),
+                "company_news",
             ),
         ]
         for t_zh, t_en, s_zh, s_en, c_zh, c_en, cat in articles:
@@ -877,7 +1264,7 @@ async def seed():
                 "name_zh": "Edge-G100 智能边缘网关",
                 "name_en": "Edge-G100 Smart Edge Gateway",
                 "slug": "edge-g100",
-                "summary_zh": "专为中大型智慧建筑系统集成设计的物理通信中枢，支持多协议接入与边缘计算。",
+                "summary_zh": "专为中大型智慧建筑系统集成设计的物理通信中枢，支持Bacnet/Modbus/OPC UA等多协议接入与边缘计算。",
                 "summary_en": "A physical communication hub designed for medium-to-large smart building system integration, supporting multi-protocol access and edge computing.",
                 "description_zh": (
                     "Edge-G100 是金捷利自主研发的智能边缘网关，专为中大型智慧建筑系统集成设计。"
@@ -897,48 +1284,176 @@ async def seed():
             },
             {
                 "category_id": cat.id,
-                "name_zh": "IoT 综合环境传感器",
-                "name_en": "IoT Environmental Sensor",
-                "slug": "iot-env-sensor",
-                "summary_zh": "高精度温湿度、CO2、PM2.5多合一传感器，支持多种通信方式。",
-                "summary_en": "High-precision all-in-one sensor for temperature, humidity, CO2, and PM2.5, supporting multiple communication methods.",
+                "name_zh": "IoT无线温湿度传感器组",
+                "name_en": "IoT Wireless Temperature & Humidity Sensor Suite",
+                "slug": "iot-temp-humidity-sensor",
+                "summary_zh": "高精度温湿度采集，支持LoRa/WiFi/NB-IoT多种无线通信方式，实现建筑环境全域分布式感知。",
+                "summary_en": "High-precision temperature and humidity data collection with multi-protocol wireless communication for comprehensive distributed environmental sensing.",
                 "description_zh": (
-                    "金捷利IoT综合环境传感器是一款集温湿度、CO2浓度、PM2.5、TVOC等多项环境指标"
-                    "于一体的高精度传感设备。产品采用进口传感器模组，测量精度达到工业级标准，"
-                    "支持LoRa、WiFi、NB-IoT等多种通信方式，可灵活适配不同建筑场景的部署需求。"
-                    "配合金捷利智慧运维平台，实现环境数据的实时采集、可视化和智能预警。"
+                    "金捷利IoT无线温湿度传感器组是专为大型建筑空间设计的分布式环境感知系统，"
+                    "由多个无线传感器节点和协调网关组成。单节点支持温度（精度±0.2℃）、湿度"
+                    "（精度±2%RH）的高精度采集，可选LoRa、WiFi、NB-IoT等多种无线通信方式，"
+                    "覆盖半径可达500米（LoRa模式）。支持电池供电超低功耗运行（续航2年以上），"
+                    "适合既有建筑改造项目的免布线快速部署。"
                 ),
                 "description_en": (
-                    "The GOLDGINNY IoT Environmental Sensor integrates temperature, humidity, CO2, "
-                    "PM2.5, TVOC, and other environmental indicators into a single high-precision device. "
-                    "It uses imported sensor modules with industrial-grade accuracy and supports LoRa, "
-                    "WiFi, and NB-IoT communication for flexible deployment in various building scenarios."
+                    "The GOLDGINNY IoT Wireless Temperature & Humidity Sensor Suite is a distributed "
+                    "environmental perception system for large building spaces. Each node provides "
+                    "high-precision temperature (±0.2°C) and humidity (±2%RH) measurement with "
+                    "LoRa, WiFi, or NB-IoT connectivity, covering up to 500m range (LoRa). Ultra-low "
+                    "power battery operation enables 2+ year autonomy, ideal for retrofit projects."
                 ),
                 "sort_order": 2,
                 "is_published": True,
             },
             {
                 "category_id": cat.id,
-                "name_zh": "多联机集控器",
-                "name_en": "Multi-Unit Central Controller",
-                "slug": "multi-unit-controller",
-                "summary_zh": "支持Bacnet/Modbus标准协议，集成本地微推理算法，实现空调系统智能群控。",
-                "summary_en": "Supports Bacnet/Modbus standard protocols with integrated local micro-inference algorithms for intelligent HVAC group control.",
+                "name_zh": "智能微机电保护监控模块",
+                "name_en": "Smart MEMS Protection & Monitoring Module",
+                "slug": "mems-protection-monitor",
+                "summary_zh": "集成电流、电压、功率因数实时监测与智能断路保护，实现配电系统精细化安全管控。",
+                "summary_en": "Integrated real-time monitoring of current, voltage, and power factor with smart circuit protection for precise power distribution safety management.",
                 "description_zh": (
-                    "金捷利多联机集控器是专为多联机空调系统设计的智能控制设备，支持Bacnet和Modbus"
-                    "标准协议，可与主流品牌的多联机系统无缝对接。产品集成了金捷利自研的本地微推理算法，"
-                    "能够在不依赖云端的条件下，根据室内外环境数据和历史运行模式，自主优化空调运行策略，"
-                    "实现单栋建筑10-20%的空调节能效果。"
+                    "金捷利智能微机电保护监控模块是针对建筑配电回路精细化管理的创新产品。"
+                    "模块集成高精度电流互感器、电压采样单元和MEMS微机电执行器，可对单个配电"
+                    "回路进行电流、电压、功率因数、谐波等电气参数的实时监测，并在检测到异常时"
+                    "自主执行断路保护。支持Modbus RTU通信，可无缝接入金捷利智慧运维平台或第三方"
+                    "楼宇自控系统，实现配电系统的全链路可视化与智能化运维。"
                 ),
                 "description_en": (
-                    "The GOLDGINNY Multi-Unit Central Controller is an intelligent control device designed "
-                    "for multi-unit HVAC systems. It supports Bacnet and Modbus standard protocols for "
-                    "seamless integration with major multi-unit system brands. With integrated local "
-                    "micro-inference algorithms, it can autonomously optimize HVAC operation strategies "
-                    "based on environmental data and historical patterns, achieving 10-20% energy savings "
-                    "per building without relying on cloud connectivity."
+                    "The GOLDGINNY Smart MEMS Protection & Monitoring Module enables fine-grained "
+                    "management of building power distribution circuits. It integrates precision CT, "
+                    "voltage sampling, and MEMS actuators for real-time monitoring of current, voltage, "
+                    "power factor, and harmonics per circuit, with autonomous trip protection. Modbus RTU "
+                    "support enables seamless integration with GOLDGINNY or third-party BMS platforms."
                 ),
                 "sort_order": 3,
+                "is_published": True,
+            },
+            {
+                "category_id": cat.id,
+                "name_zh": "多信道数据采集终端",
+                "name_en": "Multi-Channel Data Acquisition Terminal",
+                "slug": "multi-channel-daq",
+                "summary_zh": "支持8/16/32信道模拟量与数字量同步采集，适配各类工业传感器，构建建筑机电系统全息感知网络。",
+                "summary_en": "Supports 8/16/32-channel synchronous analog and digital signal acquisition compatible with various industrial sensors for building MEP system perception.",
+                "description_zh": (
+                    "金捷利多信道数据采集终端是面向建筑机电系统全面感知需求的高密度数据采集设备。"
+                    "支持8/16/32信道可选配置，兼容4-20mA、0-10V、热电偶、热电阻、脉冲、RS485等"
+                    "多种工业传感器信号类型。内置信号调理和抗混叠滤波电路，采样率达1kHz/信道，"
+                    "支持边缘端数据缓存和批量上传。适用于冷热源机房、变配电站等传感器密集场景的"
+                    "集中接入，大幅简化现场接线与系统集成复杂度。"
+                ),
+                "description_en": (
+                    "The GOLDGINNY Multi-Channel Data Acquisition Terminal is a high-density DAQ device "
+                    "for comprehensive building MEP system perception. Available in 8/16/32-channel "
+                    "configurations, it supports 4-20mA, 0-10V, thermocouple, RTD, pulse, and RS485 "
+                    "signal types. With 1kHz/channel sampling, onboard signal conditioning, and edge "
+                    "buffering, it is ideal for sensor-dense environments like chiller plants and "
+                    "substations, significantly simplifying field wiring and system integration."
+                ),
+                "sort_order": 4,
+                "is_published": True,
+            },
+            {
+                "category_id": cat.id,
+                "name_zh": "智能超声波流速热量计",
+                "name_en": "Smart Ultrasonic Flow & Heat Meter",
+                "slug": "ultrasonic-heat-meter",
+                "summary_zh": "非侵入式超声波流量测量与冷热量精确计量，为暖通系统能效分析提供核心数据支撑。",
+                "summary_en": "Non-invasive ultrasonic flow measurement and precise thermal metering for HVAC energy efficiency analysis with core data support.",
+                "description_zh": (
+                    "金捷利智能超声波流速热量计采用时差法超声波测量原理，通过管壁外贴式传感器实现"
+                    "非侵入式流量测量，无需管道切割或停水安装。产品同步采集供回水温度，实时计算瞬时"
+                    "热量/冷量和累计热量/冷量值，精度达2级。支持DN25-DN1200管径范围，适用于空调"
+                    "冷冻水、冷却水及采暖热水系统的冷热量独立核算与能效评估。内置Modbus/Bacnet通信接口，"
+                    "可直接接入楼宇自控系统或金捷利智慧运维平台。"
+                ),
+                "description_en": (
+                    "The GOLDGINNY Smart Ultrasonic Flow & Heat Meter uses transit-time ultrasonic "
+                    "measurement with clamp-on sensors for non-invasive flow measurement — no pipe cutting "
+                    "or system shutdown required. It simultaneously measures supply/return temperatures "
+                    "for real-time and cumulative thermal energy calculation with Class 2 accuracy. "
+                    "Suitable for DN25-DN1200 pipes in chilled water, cooling water, and heating water "
+                    "systems. Built-in Modbus/Bacnet interfaces for direct BMS or platform integration."
+                ),
+                "sort_order": 5,
+                "is_published": True,
+            },
+            {
+                "category_id": cat.id,
+                "name_zh": "六合一多参数环境监视箱",
+                "name_en": "6-in-1 Multi-Parameter Environmental Monitoring Box",
+                "slug": "6in1-env-monitor",
+                "summary_zh": "集成温度、湿度、CO2、PM2.5、TVOC、噪声六项指标，全天候室内外环境质量综合评估。",
+                "summary_en": "Integrates six indicators for comprehensive indoor/outdoor environmental quality assessment with 24/7 monitoring capability.",
+                "description_zh": (
+                    "金捷利六合一多参数环境监视箱将温度、湿度、CO2浓度、PM2.5、TVOC和噪声六项核心"
+                    "环境指标集成于一个工业级防护箱体内，支持壁挂或立杆安装，适用于室内大堂、走廊和"
+                    "室外公共区域的24小时环境质量监测。采用进口传感器模组和自校准算法，长期漂移小，"
+                    "维护周期长。支持4G/WiFi/LoRa多模通信，内置显示屏可本地展示实时数据，也可将数据"
+                    "上传至金捷利智慧运维平台或第三方环境监测平台。"
+                ),
+                "description_en": (
+                    "The GOLDGINNY 6-in-1 Multi-Parameter Environmental Monitoring Box integrates "
+                    "temperature, humidity, CO2, PM2.5, TVOC, and noise into a single industrial-grade "
+                    "enclosure for wall or pole mounting. Suitable for 24/7 monitoring in indoor lobbies, "
+                    "corridors, and outdoor public areas. Imported sensor modules with self-calibration "
+                    "algorithms ensure low drift and long maintenance intervals. 4G/WiFi/LoRa multi-mode "
+                    "communication with local display and cloud data upload capability."
+                ),
+                "sort_order": 6,
+                "is_published": True,
+            },
+            {
+                "category_id": cat.id,
+                "name_zh": "智能红外温度阵列探针",
+                "name_en": "Smart Infrared Thermal Array Probe",
+                "slug": "ir-thermal-array",
+                "summary_zh": "高分辨率红外阵列测温，非接触式实时监测设备表面温度分布，助力设备异常预警与预测性维护。",
+                "summary_en": "High-resolution infrared array thermometry for contactless real-time equipment surface temperature monitoring and predictive maintenance.",
+                "description_zh": (
+                    "金捷利智能红外温度阵列探针采用32×24像素红外热电堆阵列传感器，可实现768个测温点"
+                    "的非接触式温度分布成像。探针视场角为110°×75°，测温范围-20℃至300℃，精度±1.5℃。"
+                    "产品专为电气柜、配电箱、电机轴承、管道阀门等关键设备的温度异常监测设计，可自主"
+                    "学习设备正常工作温度模式，在温差异常时即时预警。支持RS485/Modbus通信，可成组部署"
+                    "构建设备热成像监测网络，是预测性维护体系的核心感知终端之一。"
+                ),
+                "description_en": (
+                    "The GOLDGINNY Smart Infrared Thermal Array Probe uses a 32×24 pixel IR thermopile "
+                    "array for contactless temperature distribution imaging with 768 measurement points. "
+                    "With a 110°×75° FOV and -20°C to 300°C range (±1.5°C accuracy), it is designed for "
+                    "temperature anomaly monitoring of electrical cabinets, distribution boxes, motor "
+                    "bearings, and pipe valves. Self-learning normal temperature patterns enable early "
+                    "anomaly warning. RS485/Modbus support for networked thermal monitoring deployment."
+                ),
+                "sort_order": 7,
+                "is_published": True,
+            },
+            {
+                "category_id": cat.id,
+                "name_zh": "电能安全及综合平衡仪",
+                "name_en": "Power Safety & Integrated Balancer",
+                "slug": "power-safety-balancer",
+                "summary_zh": "三相电能质量监测与三相负荷不平衡智能调节一体化设备，保障建筑配电系统安全高效运行。",
+                "summary_en": "Integrated three-phase power quality monitoring and load imbalance intelligent regulation device for safe, efficient building power distribution.",
+                "description_zh": (
+                    "金捷利电能安全及综合平衡仪是将三相电能质量分析与三相不平衡自动调节功能集于一体的"
+                    "创新型配电侧产品。设备实时监测三相电压、电流、有功/无功功率、谐波畸变率等电气参数，"
+                    "并在检测到三相负荷不平衡时通过内置IGBT功率模组自动投切补偿，将中性线电流控制在"
+                    "安全范围内，有效降低变压器损耗和线路发热。产品适用于大型商业建筑、数据中心和工业厂房"
+                    "的低压配电系统，是建筑电气安全和能效提升的重要保障设备。"
+                ),
+                "description_en": (
+                    "The GOLDGINNY Power Safety & Integrated Balancer combines three-phase power quality "
+                    "analysis with automatic three-phase imbalance correction in a single innovative device. "
+                    "It monitors voltage, current, active/reactive power, and THD in real time, and "
+                    "automatically switches compensation via built-in IGBT power modules when phase imbalance "
+                    "is detected, keeping neutral current within safe limits and reducing transformer losses "
+                    "and line heating. Suitable for LV distribution in large commercial buildings, data "
+                    "centers, and industrial plants."
+                ),
+                "sort_order": 8,
                 "is_published": True,
             },
         ]
@@ -956,139 +1471,138 @@ async def seed():
     else:
         print("Creating cases...")
         cases = [
+            # case-01: 北京某超甲级写字楼智慧运维项目
             {
-                "name_zh": "CBD智慧改造项目",
-                "name_en": "CBD Smart Retrofit Project",
-                "slug": "cbd-smart-retrofit",
-                "category": "commercial",
-                "summary_zh": "为某一线城市CBD核心区15万平米商业综合体提供智慧运维整体方案，实现年能耗降幅28.5%。",
-                "summary_en": "Provided smart operations solution for a 150,000 sqm commercial complex in a first-tier city CBD core area, achieving 28.5% annual energy reduction.",
+                "name_zh": "北京某超甲级写字楼智慧运维项目",
+                "name_en": "Beijing Premium Grade-A Office Smart O&M Project",
+                "slug": "beijing-gradea-office",
+                "category": "office",
+                "summary_zh": "为北京CBD核心区某超甲级写字楼部署金捷利全栈智慧运维系统，实现综合节能率28.5%，故障响应时间缩短60%，人均管理面积提升2.4倍。",
+                "summary_en": "Deployed GOLDGINNY full-stack smart O&M system at a premium Grade-A office in Beijing CBD, achieving 28.5% energy savings, 60% faster fault response, and 2.4x per-capita management area improvement.",
                 "content_zh": (
-                    "<p>某一线城市CBD核心区商业综合体，建筑面积约15万平方米，涵盖商业、办公、酒店等"
-                    "多种业态。项目面临能耗成本高、设备管理复杂、租户舒适度要求高等挑战。</p>"
-                    "<p>金捷利为其部署了包括Edge-G100智能边缘网关、IoT综合环境传感器和多联机集控器"
-                    "在内的硬件系统，配合冷热源自适应算法，实现了对暖通空调系统的精细化智能调控。</p>"
-                    "<p>项目实施后，年综合能耗降低28.5%，年节省电费超600万元，室内环境满意度提升至95%以上。</p>"
+                    "<p>项目位于北京CBD核心区，建筑高度260米，共58层，总建筑面积约18万平方米，"
+                    "是区域内标杆性超甲级写字楼。项目面临的挑战包括：暖通空调系统能耗占大楼总能耗"
+                    "45%以上，设备种类多、系统耦合复杂，运维依赖人工经验，故障发现和响应效率低。</p>"
+                    "<p>金捷利为该项目部署了完整的智慧运维解决方案：在设备层，安装了Edge-G100智能边缘网关、"
+                    "多信道数据采集终端和IoT无线温湿度传感器组，实现冷热源、新风、末端空调、供配电、"
+                    "给排水等系统的全量数据接入；在平台层，部署了数字孪生可视化平台和AI能耗优化引擎，"
+                    "实现对大楼机电系统的实时监控、智能诊断和优化控制。</p>"
+                    "<p>核心节能措施包括：冷热源系统采用金捷利自适应群控算法，根据室外气象、室内负荷"
+                    "和电价信号动态调节主机出力与水温设定；新风系统基于室内CO2浓度和人员密度实现"
+                    "按需供给；末端空调结合分区分时策略精准控温。项目实施周期6个月，上线运行一年后"
+                    "实测综合节能率28.5%，年节省电费超过600万元人民币。</p>"
+                    "<p>在运维管理方面，系统实现了设备故障的自动诊断和工单自动派发，故障响应时间从"
+                    "平均45分钟缩短至18分钟（降幅60%），运维人员人均管理面积从2.5万㎡提升至6万㎡"
+                    "（提升2.4倍），预防性维护占比从15%提升至65%。</p>"
                 ),
                 "content_en": (
-                    "<p>A commercial complex in the CBD core area of a first-tier city, approximately "
-                    "150,000 square meters, covering retail, office, and hotel spaces. The project faced "
-                    "challenges including high energy costs, complex equipment management, and demanding "
-                    "tenant comfort requirements.</p>"
-                    "<p>GOLDGINNY deployed hardware including Edge-G100 smart edge gateways, IoT sensors, "
-                    "and multi-unit central controllers, combined with the HVAC adaptive algorithm, to "
-                    "achieve precise intelligent control of HVAC systems.</p>"
-                    "<p>After implementation, annual energy consumption decreased by 28.5%, saving over "
-                    "6 million RMB in electricity costs, with indoor environment satisfaction exceeding 95%.</p>"
+                    "<p>Located in Beijing's CBD core area, this landmark premium Grade-A office building "
+                    "stands 260 meters tall with 58 floors and approximately 180,000 sqm of total floor area. "
+                    "Challenges included HVAC accounting for over 45% of total energy consumption, complex "
+                    "multi-system coupling, and experience-dependent O&M with slow fault response.</p>"
+                    "<p>GOLDGINNY deployed a comprehensive smart O&M solution: Edge-G100 gateways, "
+                    "multi-channel DAQ terminals, and IoT wireless sensor suites for full data integration "
+                    "across chiller plants, fresh air, terminal HVAC, power distribution, and water systems; "
+                    "a digital twin visualization platform and AI energy optimization engine for real-time "
+                    "monitoring, intelligent diagnostics, and optimal control.</p>"
+                    "<p>After 6 months of implementation and one year of operation, verified results "
+                    "include 28.5% comprehensive energy savings, saving over 6M RMB annually in electricity.</p>"
                 ),
                 "stats": [
-                    {"label": "节能率", "value": "28.5%"},
-                    {"label": "建筑面积", "value": "15万㎡"},
+                    {"label_zh": "综合节能率", "label_en": "Energy Savings", "value": "28.5%"},
+                    {"label_zh": "故障响应时间", "label_en": "Fault Response", "value": "-60%"},
+                    {"label_zh": "人均管理面积提升", "label_en": "Per-Capita Management", "value": "2.4倍"},
                 ],
                 "sort_order": 1,
                 "is_published": True,
             },
+            # case-02: 上海某大型商业综合体全生命周期管理
             {
-                "name_zh": "智慧产业园区项目",
-                "name_en": "Smart Industrial Park Project",
-                "slug": "smart-industrial-park",
-                "category": "park",
-                "summary_zh": "为某国家级高新区提供多楼宇集中管控方案，覆盖50栋建筑，降低园区整体运营成本30%以上。",
-                "summary_en": "Provided centralized multi-building management for a national-level high-tech zone covering 50 buildings, reducing overall park operation costs by 30%+.",
+                "name_zh": "上海某大型商业综合体全生命周期管理",
+                "name_en": "Shanghai Large Commercial Complex Full-Lifecycle Management",
+                "slug": "shanghai-commercial-complex",
+                "category": "commercial",
+                "summary_zh": "为上海核心商圈某大型商业综合体提供暖通系统全生命周期运维托管服务，碳减排量850吨/年，舒适度投诉率降低45%，维保工作闭环率100%。",
+                "summary_en": "Provided full-lifecycle HVAC O&M managed services for a major Shanghai commercial complex, reducing carbon emissions by 850t/year, comfort complaints by 45%, and achieving 100% maintenance work order closure.",
                 "content_zh": (
-                    "<p>某国家级高新技术产业开发区，园区总面积超过200万平方米，涵盖50余栋各类建筑，"
-                    "包括研发办公楼、标准化厂房、数据中心和配套服务设施。</p>"
-                    "<p>金捷利为园区部署了统一智慧运维平台，实现多楼宇设备集中监控、能源梯级调度、"
-                    "碳排放实时核算和园区级安防联动。通过Edge-G100网关实现各建筑子系统的互联互通，"
-                    "建立园区级数字孪生驾驶舱。</p>"
-                    "<p>项目全面上线后，园区整体运营成本降低30%以上，运维人员效率提升50%，年度碳排放减少约8000吨。</p>"
+                    "<p>项目位于上海核心商圈，总建筑面积约28万平方米，包含高端购物中心、五星级酒店、"
+                    "甲级写字楼和服务式公寓四种业态，日均客流量超过10万人次。项目采用全生命周期运维托管"
+                    "模式，金捷利不仅提供智慧运维系统和AI算法，还承担了暖通空调系统的日常运维、"
+                    "预防性维护和应急响应等全部管理责任。</p>"
+                    "<p>针对综合体多业态、多时段的运行特点，金捷利团队基于自研的冷热源自适应算法和"
+                    "多联机群控系统，为购物中心、酒店、写字楼和公寓分别制定了差异化的控制策略。"
+                    "商业区域依据人流热力数据和室外气象动态调节；酒店区域结合PMS系统按客房入住状态"
+                    "智能切换；写字楼按工作日/节假日及预约加班信息分时管控。</p>"
+                    "<p>项目部署了全域IoT无线传感器网络（超过3000个传感节点），通过Edge-G100边缘网关"
+                    "实现多系统数据汇聚和本地化决策。数字孪生平台提供了一屏总览的运维驾驶舱，运维团队"
+                    "可通过移动端随时随地查看设备状态和处理工单。</p>"
+                    "<p>经过一年半的持续优化运营，项目取得了显著成效：年碳减排量850吨，相当于种植"
+                    "4.7万棵树木的年碳汇量；基于室内环境监测数据，舒适度投诉率同比下降45%；维保工单"
+                    "按时完成率和闭环率均达到100%；设备故障率下降32%，关键设备可用率达到99.8%。</p>"
                 ),
                 "content_en": (
-                    "<p>A national-level high-tech industrial development zone covering over 2 million "
-                    "square meters with 50+ buildings including R&D offices, standardized factories, "
-                    "data centers, and supporting facilities.</p>"
-                    "<p>GOLDGINNY deployed a unified smart operations platform enabling centralized "
-                    "multi-building equipment monitoring, cascaded energy dispatch, real-time carbon "
-                    "accounting, and park-wide security coordination.</p>"
-                    "<p>After full deployment, overall park operation costs decreased by 30%+, "
-                    "maintenance staff efficiency improved by 50%, and annual carbon emissions "
-                    "reduced by approximately 8,000 tons.</p>"
+                    "<p>Located in Shanghai's prime commercial district, this 280,000 sqm complex encompasses "
+                    "a luxury shopping mall, five-star hotel, Grade-A office tower, and serviced apartments, "
+                    "with over 100,000 daily visitors. GOLDGINNY provides a full-lifecycle managed service "
+                    "covering smart O&M systems, AI algorithms, and complete HVAC daily O&M, preventive "
+                    "maintenance, and emergency response.</p>"
+                    "<p>After 18 months of continuous optimization, results include 850 tons of annual carbon "
+                    "reduction, 45% fewer comfort complaints, 100% maintenance work order closure rate, "
+                    "32% lower equipment failure rate, and 99.8% critical equipment availability.</p>"
                 ),
                 "stats": [
-                    {"label": "运营成本降幅", "value": "30%"},
-                    {"label": "覆盖建筑", "value": "50栋"},
+                    {"label_zh": "碳减排量", "label_en": "Carbon Reduction", "value": "850t/年"},
+                    {"label_zh": "舒适度投诉率", "label_en": "Comfort Complaints", "value": "-45%"},
+                    {"label_zh": "维保工作闭环率", "label_en": "Work Order Closure", "value": "100%"},
                 ],
                 "sort_order": 2,
                 "is_published": True,
             },
+            # case-03: 广州某半导体产业园区智慧后勤保障
             {
-                "name_zh": "三甲医院智慧运维项目",
-                "name_en": "Grade-A Hospital Smart Operations Project",
-                "slug": "hospital-smart-ops",
-                "category": "medical",
-                "summary_zh": "为某三甲医院提供洁净空调管理和医疗环境监控方案，满足国家医疗建筑环境标准。",
-                "summary_en": "Provided clean air management and medical environment monitoring for a Grade-A hospital, meeting national medical building environment standards.",
+                "name_zh": "广州某半导体产业园区智慧后勤保障",
+                "name_en": "Guangzhou Semiconductor Park Smart Facility Support",
+                "slug": "guangzhou-semiconductor-park",
+                "category": "park",
+                "summary_zh": "为广州某半导体产业园区提供关键基础设施智慧运维保障方案，实现关键设备停机率0，巡检效率提升150%，预防性缺陷发现率98%。",
+                "summary_en": "Provided smart O&M for critical infrastructure at a Guangzhou semiconductor park, achieving zero critical equipment downtime, 150% inspection efficiency improvement, and 98% preventive defect discovery rate.",
                 "content_zh": (
-                    "<p>某三甲医院总建筑面积约12万平方米，日门诊量超过8000人次。医院对环境温湿度、"
-                    "洁净度、压差梯度等参数有严格要求，同时面临能耗成本高、设备运维压力大的挑战。</p>"
-                    "<p>金捷利针对医疗建筑的特殊需求，部署了洁净空调智能管理系统和医疗环境实时监控"
-                    "方案。IoT综合环境传感器覆盖手术室、ICU、检验科等重点区域，实现对温度、湿度、"
-                    "压差、颗粒物等关键指标的7x24小时监测与自动调控。</p>"
-                    "<p>项目实施后，医院重点区域环境合规率达到100%，空调系统节能率达22%，运维工单"
-                    "响应时间从平均4小时缩短至30分钟。</p>"
+                    "<p>项目位于广州某国家级经济技术开发区，园区一期建筑面积约35万平方米，包括半导体"
+                    "晶圆制造厂房、封装测试车间、研发中心和配套动力设施。半导体制造对动力供应、环境"
+                    "洁净度和设备可靠性有着极致要求，任何非计划停机都可能造成巨额经济损失。</p>"
+                    "<p>金捷利为该园区部署了面向高可靠性场景的智慧后勤保障系统，重点覆盖以下系统："
+                    "冷热源及洁净空调系统（含MAU+FFU+DCC全链路监控）、纯水及废水处理系统、"
+                    "压缩空气及特殊气体系统、变配电及UPS系统。通过多信道数据采集终端实现数千个"
+                    "传感器点位的毫秒级同步采集，结合智能红外温度阵列探针对关键电气设备进行7×24小时"
+                    "温度异常监测。</p>"
+                    "<p>系统基于设备运行数据构建了数字孪生模型，AI算法可提前72小时预测关键设备的"
+                    "潜在故障，自动生成预防性维护工单。智能巡检模块将传统的人工抄表巡检升级为"
+                    "移动端+传感器协同的智慧巡检模式，巡检效率提升150%。电能安全及综合平衡仪的部署"
+                    "保障了半导体制造设备对电能质量的高标准要求。</p>"
+                    "<p>系统上线运行18个月以来，园区关键动力设备实现了零非计划停机，预防性缺陷发现率"
+                    "达到98%（较传统模式的65%大幅提升），运维人力成本降低35%，为半导体生产提供了"
+                    "坚实可靠的后勤保障。</p>"
                 ),
                 "content_en": (
-                    "<p>A Grade-A hospital covering approximately 120,000 square meters with over 8,000 "
-                    "daily outpatient visits. The hospital has strict requirements for temperature, humidity, "
-                    "cleanliness, and pressure gradients, along with high energy costs and equipment "
-                    "maintenance pressure.</p>"
-                    "<p>GOLDGINNY deployed intelligent clean air management and real-time medical environment "
-                    "monitoring tailored to healthcare facilities. IoT sensors cover critical areas including "
-                    "operating rooms, ICU, and laboratories for 24/7 monitoring of key indicators.</p>"
-                    "<p>After implementation, environmental compliance reached 100% in critical areas, "
-                    "HVAC energy savings reached 22%, and maintenance response time decreased from "
-                    "4 hours to 30 minutes.</p>"
+                    "<p>Located in a national-level economic and technological development zone in Guangzhou, "
+                    "the Phase I campus covers 350,000 sqm including wafer fabrication, packaging/testing, "
+                    "R&D center, and supporting utility facilities. Semiconductor manufacturing demands "
+                    "extreme reliability for power supply, environmental cleanliness, and equipment — any "
+                    "unplanned downtime results in massive economic losses.</p>"
+                    "<p>GOLDGINNY deployed a high-reliability smart facility support system covering HVAC and "
+                    "cleanroom air (MAU+FFU+DCC full-chain monitoring), pure water and wastewater treatment, "
+                    "compressed air and specialty gases, and power distribution/UPS systems. Millisecond-level "
+                    "synchronous data acquisition from thousands of sensor points combined with IR thermal "
+                    "array probes for 24/7 electrical equipment temperature anomaly monitoring.</p>"
+                    "<p>After 18 months of operation: zero unplanned critical equipment downtime, 98% "
+                    "preventive defect discovery rate (up from 65%), and 35% reduction in O&M labor costs.</p>"
                 ),
                 "stats": [
-                    {"label": "环境合规率", "value": "100%"},
-                    {"label": "响应提速", "value": "8倍"},
+                    {"label_zh": "关键设备停机率", "label_en": "Critical Downtime", "value": "0"},
+                    {"label_zh": "巡检效率提升", "label_en": "Inspection Efficiency", "value": "150%"},
+                    {"label_zh": "预防性缺陷发现", "label_en": "Preventive Defect Discovery", "value": "98%"},
                 ],
                 "sort_order": 3,
-                "is_published": True,
-            },
-            {
-                "name_zh": "5A写字楼智能化项目",
-                "name_en": "5A Office Building Smart Project",
-                "slug": "5a-office-smart",
-                "category": "office",
-                "summary_zh": "为某5A级写字楼提供暖通优化和室内环境品质管理方案，提升租户满意度与物业资产价值。",
-                "summary_en": "Provided HVAC optimization and indoor environmental quality management for a 5A office building, enhancing tenant satisfaction and property value.",
-                "content_zh": (
-                    "<p>某5A级写字楼位于城市核心商务区，建筑高度180米，共42层，入驻企业超过100家。"
-                    "物业管理方面临能耗成本高、租户舒适度投诉多、设备维护效率低等问题。</p>"
-                    "<p>金捷利为该写字楼部署了暖通空调智能优化系统、室内环境品质监测系统和智慧停车"
-                    "管理系统。通过多联机集控器和IoT环境传感器，实现分楼层、分区域的精准环境调控，"
-                    "同时为租户提供可视化的室内环境数据和能耗报告。</p>"
-                    "<p>项目上线后，写字楼整体能耗降低25%，租户舒适度投诉减少70%，物业满意度评分"
-                    "从3.2提升至4.6（满分5分），有效提升了物业资产价值和市场竞争力。</p>"
-                ),
-                "content_en": (
-                    "<p>A 5A office building in a city's core business district, 180 meters tall with 42 "
-                    "floors and over 100 tenant companies. Property management faced challenges including "
-                    "high energy costs, tenant comfort complaints, and low maintenance efficiency.</p>"
-                    "<p>GOLDGINNY deployed intelligent HVAC optimization, indoor environmental quality "
-                    "monitoring, and smart parking management. Multi-unit controllers and IoT sensors "
-                    "enable floor-by-floor and zone-specific precise environmental control, with "
-                    "visualized environmental data and energy reports for tenants.</p>"
-                    "<p>After deployment, overall energy consumption decreased by 25%, tenant comfort "
-                    "complaints reduced by 70%, and property satisfaction scores improved from 3.2 to "
-                    "4.6 out of 5.</p>"
-                ),
-                "stats": [
-                    {"label": "整体节能率", "value": "25%"},
-                    {"label": "满意度提升", "value": "4.6/5"},
-                ],
-                "sort_order": 4,
                 "is_published": True,
             },
         ]

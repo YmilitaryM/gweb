@@ -11,27 +11,38 @@
         </p>
       </div>
 
-      <!-- Tab buttons -->
+      <!-- Tab buttons with numbering (01-06) -->
       <div class="flex flex-wrap justify-center gap-2 mb-12">
         <button
-          v-for="tab in tabs" :key="tab.key"
+          v-for="(tab, i) in tabs" :key="tab.key"
           @click="activeTab = tab.key"
-          class="px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border"
+          class="px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border flex items-center gap-2"
           :class="activeTab === tab.key
             ? 'bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20'
             : 'bg-white text-slate-600 border-slate-200 hover:border-brand-300 hover:text-brand-600'"
         >
-          {{ locale === 'zh' ? tab.title_zh : tab.title_en }}
+          <span class="text-xs opacity-70 font-mono">{{ String(i + 1).padStart(2, '0') }}</span>
+          <span>{{ locale === 'zh' ? tab.title_zh : tab.title_en }}</span>
         </button>
       </div>
 
       <!-- Active tab content -->
       <Transition name="fade" mode="out-in">
-        <div :key="activeTab" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
-              {{ locale === 'zh' ? activeTabData?.title_zh : activeTabData?.title_en }}
-            </h3>
+        <div
+          :key="activeTab"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          :class="activeTabIndex % 2 === 0 ? '' : 'lg:[direction:rtl]'"
+        >
+          <!-- Text content -->
+          <div :class="activeTabIndex % 2 === 0 ? '' : 'lg:[direction:ltr]'">
+            <div class="flex items-baseline gap-3 mb-6">
+              <span class="text-5xl font-extrabold text-brand-600/20 font-mono leading-none">
+                {{ String(activeTabIndex + 1).padStart(2, '0') }}
+              </span>
+              <h3 class="text-2xl md:text-3xl font-bold text-slate-900">
+                {{ locale === 'zh' ? activeTabData?.title_zh : activeTabData?.title_en }}
+              </h3>
+            </div>
             <ul class="space-y-4">
               <li v-for="(feat, i) in activeTabData?.features || []" :key="i"
                 class="flex items-start gap-3 text-slate-600">
@@ -40,7 +51,8 @@
               </li>
             </ul>
           </div>
-          <div class="relative">
+          <!-- Image -->
+          <div class="relative" :class="activeTabIndex % 2 === 0 ? '' : 'lg:[direction:ltr]'">
             <img
               v-if="activeTabData?.image_url"
               :src="activeTabData.image_url"
@@ -83,6 +95,7 @@ const tabs = computed<Tab[]>(() => {
 })
 
 const activeTab = ref(tabs.value[0]?.key || '')
+const activeTabIndex = computed(() => tabs.value.findIndex(t => t.key === activeTab.value))
 const activeTabData = computed(() => tabs.value.find(t => t.key === activeTab.value))
 </script>
 
