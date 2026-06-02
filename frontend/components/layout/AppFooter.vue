@@ -6,7 +6,7 @@
         <!-- Col 1: Logo + Description + Hotline -->
         <div class="md:col-span-12 lg:col-span-5 flex flex-col gap-5">
           <div class="space-y-3">
-            <NuxtLink to="/" class="inline-flex items-center group">
+            <NuxtLink :to="localePath('/')" class="inline-flex items-center group">
               <img
                 v-if="logoUrl"
                 :src="logoUrl"
@@ -55,9 +55,9 @@
           <span class="text-slate-400/80 tracking-wider uppercase text-[10px]">All Rights Reserved.</span>
         </div>
         <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <NuxtLink to="/privacy" class="hover:text-brand-600 hover:underline transition-colors">隐私政策</NuxtLink>
+          <NuxtLink :to="localePath('/privacy')" class="hover:text-brand-600 hover:underline transition-colors">隐私政策</NuxtLink>
           <span class="inline-block w-1 h-1 rounded-full bg-slate-300"></span>
-          <NuxtLink to="/terms" class="hover:text-brand-600 hover:underline transition-colors">法律声明</NuxtLink>
+          <NuxtLink :to="localePath('/terms')" class="hover:text-brand-600 hover:underline transition-colors">法律声明</NuxtLink>
           <span v-if="settings?.icp_beian" class="inline-block w-1 h-1 rounded-full bg-slate-300"></span>
           <a v-if="settings?.icp_beian" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"
             class="hover:text-brand-600 hover:underline transition-colors">{{ settings.icp_beian }}</a>
@@ -74,6 +74,7 @@ interface MenuItem {
 }
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
 const config = useRuntimeConfig()
 
 const { data: footerMenu } = await useFetch<MenuItem[]>(
@@ -100,7 +101,8 @@ const footerGroups = computed(() => {
 })
 
 function menuLink(item: MenuItem): string {
-  if (item.page_slug) return item.page_slug === 'home' ? '/' : '/' + item.page_slug
-  return item.link || '#'
+  let path = item.link || '#'
+  if (item.page_slug) path = item.page_slug === 'home' ? '/' : '/' + item.page_slug
+  return localePath(path)
 }
 </script>

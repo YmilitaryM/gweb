@@ -6,7 +6,7 @@
   >
     <div class="container mx-auto px-6 flex items-center justify-between h-16">
       <!-- Logo -->
-      <NuxtLink to="/" class="flex items-center group">
+      <NuxtLink :to="localePath('/')" class="flex items-center group">
         <img
           v-if="logoUrl"
           :src="logoUrl"
@@ -86,6 +86,7 @@ interface MenuItem {
 }
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
 const config = useRuntimeConfig()
 
 const { data: headerMenu } = await useFetch<MenuItem[]>(
@@ -103,10 +104,11 @@ const logoUrl = computed(() => {
 })
 
 function menuLink(item: MenuItem): string {
+  let path = item.link || '#'
   if (item.page_slug) {
-    return item.page_slug === 'home' ? '/' : '/' + item.page_slug
+    path = item.page_slug === 'home' ? '/' : '/' + item.page_slug
   }
-  return item.link || '#'
+  return localePath(path)
 }
 
 // Scroll hide/show animation
