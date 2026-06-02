@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     locales: ['zh', 'en'],
     defaultLocale: 'zh',
     strategy: 'prefix_except_default',
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
   image: { domains: ['localhost'] },
   routeRules: {
