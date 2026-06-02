@@ -245,7 +245,7 @@
       @click.self="blockModal = false"
     >
       <div
-        class="rounded-2xl p-6 w-full max-w-lg mx-4"
+        class="rounded-2xl p-6 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto"
         style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.5);"
       >
         <h3 class="text-[15px] font-medium mb-5" style="color: #1e293b;">{{ editingBlock ? '编辑区块' : '添加区块' }}</h3>
@@ -275,12 +275,6 @@
             v-if="blockForm.type"
             :block-type="blockForm.type"
             :content="blockContent"
-            :config-str="blockForm.config_str"
-            :content-str="blockForm.content_str"
-            @update:content="blockContent = $event"
-            @update:config-str="blockForm.config_str = $event"
-            @update:content-str="blockForm.content_str = $event"
-          />
             :config-str="blockForm.config_str"
             :content-str="blockForm.content_str"
             @update:content="blockContent = $event"
