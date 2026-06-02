@@ -522,17 +522,8 @@ const saveBlock = async () => {
   let content: any = {};
   try { config = JSON.parse(blockForm.value.config_str); } catch { blockFormError.value = 'Config JSON 格式错误'; return; }
 
-  // Use visual editor content; if advanced JSON was edited, merge it
-  try {
-    const raw = JSON.parse(blockForm.value.content_str);
-    if (raw && Object.keys(raw).length > 0 && Object.keys(raw).length >= Object.keys(blockContent.value).length) {
-      content = raw; // advanced mode took precedence
-    } else {
-      content = JSON.parse(JSON.stringify(blockContent.value));
-    }
-  } catch {
-    content = JSON.parse(JSON.stringify(blockContent.value));
-  }
+  // Always save visual editor content
+  content = JSON.parse(JSON.stringify(blockContent.value));
 
   blockSaving.value = true;
   blockFormError.value = '';
