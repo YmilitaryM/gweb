@@ -1,46 +1,92 @@
 <template>
-  <section class="py-16 px-4">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-light text-center mb-4 text-slate-800 tracking-tight">
-        {{ locale === 'zh' ? content.title_zh : content.title_en }}
-      </h2>
-      <p class="text-center mb-10 max-w-2xl mx-auto text-slate-400">
-        {{ locale === 'zh' ? content.description_zh : content.description_en }}
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div
-          v-for="(card, i) in content.cards"
-          :key="i"
-          class="flex flex-col md:flex-row gap-6 bg-white border rounded-xl p-6 transition-shadow hover:shadow-md"
-          style="border-color: #e8f5e9;"
+  <section class="py-20 md:py-28 bg-white">
+    <div class="container mx-auto px-6">
+      <!-- Section header -->
+      <div class="text-center mb-14" v-if="content.title_zh">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+          {{ locale === 'zh' ? content.title_zh : content.title_en }}
+        </h2>
+        <p v-if="content.subtitle_zh" class="text-lg text-slate-500 max-w-2xl mx-auto">
+          {{ locale === 'zh' ? content.subtitle_zh : content.subtitle_en }}
+        </p>
+      </div>
+
+      <!-- Tab buttons -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <button
+          v-for="tab in tabs" :key="tab.key"
+          @click="activeTab = tab.key"
+          class="px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer border"
+          :class="activeTab === tab.key
+            ? 'bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20'
+            : 'bg-white text-slate-600 border-slate-200 hover:border-brand-300 hover:text-brand-600'"
         >
-          <img
-            v-if="card.image"
-            :src="card.image"
-            class="w-full md:w-48 h-40 object-cover rounded-lg"
-          />
-          <div class="flex-1">
-            <h3 class="text-xl font-medium text-slate-800 mb-2">
-              {{ locale === 'zh' ? card.title_zh : card.title_en }}
+          {{ locale === 'zh' ? tab.title_zh : tab.title_en }}
+        </button>
+      </div>
+
+      <!-- Active tab content -->
+      <Transition name="fade" mode="out-in">
+        <div :key="activeTab" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
+              {{ locale === 'zh' ? activeTabData?.title_zh : activeTabData?.title_en }}
             </h3>
-            <p class="text-sm text-slate-500 leading-relaxed">
-              {{ locale === 'zh' ? card.desc_zh : card.desc_en }}
-            </p>
-            <NuxtLink
-              v-if="card.link"
-              :to="card.link"
-              class="inline-block mt-3 text-sm font-medium text-emerald-600 hover:text-emerald-700 no-underline"
-            >
-              {{ locale === 'zh' ? '了解更多' : 'Learn more' }} →
-            </NuxtLink>
+            <ul class="space-y-4">
+              <li v-for="(feat, i) in activeTabData?.features || []" :key="i"
+                class="flex items-start gap-3 text-slate-600">
+                <span class="text-brand-500 shrink-0 mt-0.5 text-lg">&#10003;</span>
+                <span>{{ locale === 'zh' ? feat.text_zh : feat.text_en }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="relative">
+            <img
+              v-if="activeTabData?.image_url"
+              :src="activeTabData.image_url"
+              :alt="locale === 'zh' ? activeTabData.title_zh : activeTabData.title_en"
+              class="w-full rounded-2xl shadow-lg object-cover aspect-[4/3]"
+            />
+            <div v-else class="w-full aspect-[4/3] rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400">
+              暂无图片
+            </div>
           </div>
         </div>
-      </div>
+      </Transition>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-defineProps<{ config: Record<string, any>; content: Record<string, any> }>();
-const { locale } = useI18n();
+import { ref, computed } from 'vue'
+
+const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>()
+const { locale } = useI18n()
+const runtimeConfig = useRuntimeConfig()
+
+interface Tab {
+  key: string
+  title_zh: string
+  title_en: string
+  image_id?: number
+  image_url?: string
+  features: Array<{ text_zh: string; text_en: string }>
+}
+
+const tabs = computed<Tab[]>(() => {
+  const raw = props.content.tabs
+  if (!raw || !Array.isArray(raw)) return []
+  return raw.map((t: any) => ({
+    ...t,
+    image_url: t.image_id ? `${runtimeConfig.public.apiBase}/../../media/id/${t.image_id}` : undefined,
+  }))
+})
+
+const activeTab = ref(tabs.value[0]?.key || '')
+const activeTabData = computed(() => tabs.value.find(t => t.key === activeTab.value))
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+</style>
