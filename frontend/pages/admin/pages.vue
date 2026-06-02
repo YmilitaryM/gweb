@@ -271,11 +271,16 @@
               <option value="logo_cloud">Logo云 (Logo Cloud)</option>
             </select>
           </div>
-          <!-- Visual block content editor -->
           <AdminBlockContentEditor
             v-if="blockForm.type"
             :block-type="blockForm.type"
             :content="blockContent"
+            :config-str="blockForm.config_str"
+            :content-str="blockForm.content_str"
+            @update:content="blockContent = $event"
+            @update:config-str="blockForm.config_str = $event"
+            @update:content-str="blockForm.content_str = $event"
+          />
             :config-str="blockForm.config_str"
             :content-str="blockForm.content_str"
             @update:content="blockContent = $event"
