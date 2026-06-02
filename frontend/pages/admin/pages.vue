@@ -259,32 +259,20 @@
               placeholder="hero, cta, video_banner, ..."
             />
           </div>
-          <div>
-            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">Config (JSON)</label>
-            <textarea
-              v-model="blockForm.config_str"
-              rows="4"
-              class="w-full py-2.5 px-3 text-[13px] outline-none rounded-lg font-mono resize-y transition-colors"
-              style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              placeholder='{}'
-            ></textarea>
+          <!-- Visual block content editor -->
+          <div v-if="blockForm.type">
+            <BlockContentEditor
+              :block-type="blockForm.type"
+              :content="blockContent"
+              :config-str="blockForm.config_str"
+              :content-str="blockForm.content_str"
+              @update:content="blockContent = $event"
+              @update:config-str="blockForm.config_str = $event"
+              @update:content-str="blockForm.content_str = $event"
+            />
           </div>
-          <!-- Hero: visual slides editor -->
-          <div v-if="blockForm.type === 'hero'">
-            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">幻灯片编辑</label>
-            <HeroSlidesEditor v-model="heroSlides" />
-          </div>
-
-          <!-- Other types: raw JSON -->
-          <div v-else>
-            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">Content (JSON)</label>
-            <textarea
-              v-model="blockForm.content_str"
-              rows="6"
-              class="w-full py-2.5 px-3 text-[13px] outline-none rounded-lg font-mono resize-y transition-colors"
-              style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              placeholder='{}'
-            ></textarea>
+          <div v-else class="text-[12px] py-4 text-center" style="color: #94a3b8;">
+            请先输入区块类型
           </div>
           <div v-if="blockFormError" class="text-[12px]" style="color: #f87171;">{{ blockFormError }}</div>
           <div class="flex justify-end gap-3 pt-2">
@@ -494,13 +482,13 @@ const blockFormError = ref('');
 const editingBlock = ref<Block | null>(null);
 const blockFormPageId = ref<number>(0);
 const blockForm = ref({ type: '', config_str: '{}', content_str: '{}' });
-const heroSlides = ref<any[]>([]);
+const blockContent = ref<Record<string, any>>({});
 
 const openCreateBlock = (page: Page) => {
   editingBlock.value = null;
   blockFormPageId.value = page.id;
   blockForm.value = { type: '', config_str: '{}', content_str: '{}' };
-  heroSlides.value = [];
+  blockContent.value = {};
   blockFormError.value = '';
   blockModal.value = true;
 };
@@ -513,12 +501,7 @@ const openEditBlock = (block: Block, pageId: number) => {
     config_str: JSON.stringify(block.config, null, 2),
     content_str: JSON.stringify(block.content, null, 2),
   };
-  // Parse hero slides for visual editor
-  if (block.type === 'hero') {
-    heroSlides.value = block.content?.slides || [];
-  } else {
-    heroSlides.value = [];
-  }
+  blockContent.value = JSON.parse(JSON.stringify(block.content || {}));
   blockFormError.value = '';
   blockModal.value = true;
 };
@@ -532,11 +515,16 @@ const saveBlock = async () => {
   let content: any = {};
   try { config = JSON.parse(blockForm.value.config_str); } catch { blockFormError.value = 'Config JSON 格式错误'; return; }
 
-  if (blockForm.value.type === 'hero') {
-    // Use visual editor data for hero blocks
-    content = { slides: heroSlides.value };
-  } else {
-    try { content = JSON.parse(blockForm.value.content_str); } catch { blockFormError.value = 'Content JSON 格式错误'; return; }
+  // Use visual editor content; if advanced JSON was edited, merge it
+  try {
+    const raw = JSON.parse(blockForm.value.content_str);
+    if (raw && Object.keys(raw).length > 0 && Object.keys(raw).length >= Object.keys(blockContent.value).length) {
+      content = raw; // advanced mode took precedence
+    } else {
+      content = JSON.parse(JSON.stringify(blockContent.value));
+    }
+  } catch {
+    content = JSON.parse(JSON.stringify(blockContent.value));
   }
 
   blockSaving.value = true;
