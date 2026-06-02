@@ -1,6 +1,7 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-in-out bg-white/80 backdrop-blur-md border-b border-slate-200/50"
+    class="fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-in-out border-b border-white/20"
+    style="background: rgba(255,255,255,0.72); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);"
     :class="hidden ? '-translate-y-full' : 'translate-y-0'"
   >
     <div class="container mx-auto px-6 flex items-center justify-between h-16">
@@ -57,7 +58,8 @@
     <!-- Mobile Menu -->
     <div
       v-if="mobileOpen"
-      class="lg:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-md border-b border-slate-200/60 p-6 flex flex-col gap-3 shadow-xl"
+      style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);"
+      class="lg:hidden absolute top-full left-0 right-0 border-b border-white/20 p-6 flex flex-col gap-3 shadow-xl"
     >
       <NuxtLink
         v-for="item in headerMenu"

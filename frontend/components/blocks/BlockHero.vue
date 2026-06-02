@@ -1,18 +1,21 @@
 <template>
   <section class="relative min-h-[660px] md:min-h-[720px] lg:h-[86vh] lg:max-h-[800px] w-full overflow-hidden flex flex-col justify-center items-center text-white">
-    <!-- Background image slides -->
+    <!-- Background image slides with crossfade -->
     <div class="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
-      <Transition name="fade" mode="out-in">
-        <div :key="currentIndex" class="absolute inset-0">
-          <img
-            v-if="currentSlide?.image_url"
-            :src="currentSlide.image_url"
-            alt=""
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-black/12"></div>
-        </div>
-      </Transition>
+      <div
+        v-for="(slide, i) in slides"
+        :key="i"
+        class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+        :class="i === currentIndex ? 'opacity-100' : 'opacity-0'"
+      >
+        <img
+          v-if="slide.image_url"
+          :src="slide.image_url"
+          alt=""
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-black/20"></div>
+      </div>
     </div>
 
     <!-- Content overlay -->
@@ -117,7 +120,3 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
-.fade-enter-active, .fade-leave-active { transition: opacity 0.8s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-</style>
