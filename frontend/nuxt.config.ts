@@ -27,6 +27,6 @@ export default defineNuxtConfig({
   },
   devServer: { port: 5177 },
   runtimeConfig: {
-    public: { apiBase: 'http://localhost:8002/api/v1' },
+    public: { apiBase: 'http://192.168.110.147:8002/api/v1' },
   },
 });
