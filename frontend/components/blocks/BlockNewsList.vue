@@ -13,7 +13,7 @@
         >
           <img
             v-if="content.show_image && article.cover_image_id"
-            :src="`${apiBase}/../../media/id/${article.cover_image_id}`"
+            :src="mediaUrl(article.cover_image_id)"
             class="w-full h-48 object-cover"
           />
           <div class="p-5">
@@ -47,7 +47,7 @@ const props = defineProps<{
   content: Record<string, any>;
 }>();
 const { locale } = useI18n();
-const apiBase = useRuntimeConfig().public.apiBase;
+const mediaUrl = useMediaUrl();
 
 const { data } = await useNewsList(1, props.content.count || 3);
 const items = computed(() => data.value?.items || []);

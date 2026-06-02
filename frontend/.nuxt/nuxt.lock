@@ -1,0 +1,9 @@
+{
+  "pid": 17757,
+  "startedAt": 1780394581643,
+  "command": "dev",
+  "cwd": "/Users/ymilitarym/hp-2026/gweb/frontend",
+  "port": 5177,
+  "hostname": "0.0.0.0",
+  "url": "http://0.0.0.0:5177"
+}

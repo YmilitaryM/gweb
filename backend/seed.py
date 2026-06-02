@@ -111,7 +111,7 @@ async def seed():
         slug = "home"
         pg = await create_page(
             name_zh="首页", name_en="Home", slug=slug,
-            type="page", sort_order=1, is_published=True,
+            type="content", sort_order=1, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -369,7 +369,7 @@ async def seed():
         slug = "solutions"
         pg = await create_page(
             name_zh="解决方案", name_en="Solutions", slug=slug,
-            type="page", sort_order=2, is_published=True,
+            type="content", sort_order=2, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -547,7 +547,7 @@ async def seed():
         slug = "about"
         pg = await create_page(
             name_zh="关于我们", name_en="About Us", slug=slug,
-            type="page", sort_order=5, is_published=True,
+            type="content", sort_order=5, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
@@ -665,7 +665,7 @@ async def seed():
         slug = "cooperation"
         pg = await create_page(
             name_zh="商务合作", name_en="Cooperation", slug=slug,
-            type="page", sort_order=6, is_published=True,
+            type="content", sort_order=6, is_published=True,
         )
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")

@@ -72,7 +72,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>()
 const { locale } = useI18n()
-const runtimeConfig = useRuntimeConfig()
+const mediaUrl = useMediaUrl()
 
 interface Slide {
   image_id?: number
@@ -90,7 +90,7 @@ const slides = computed<Slide[]>(() => {
     // Fallback: single slide from old format
     return [{
       image_id: props.content.bg_image,
-      image_url: props.content.bg_image ? `${runtimeConfig.public.apiBase}/../../media/id/${props.content.bg_image}` : undefined,
+      image_url: mediaUrl(props.content.bg_image),
       title_zh: props.content.title_zh,
       title_en: props.content.title_en,
       subtitle_zh: props.content.subtitle_zh,
@@ -100,7 +100,7 @@ const slides = computed<Slide[]>(() => {
   }
   return raw.map((s: any) => ({
     ...s,
-    image_url: s.image_id ? `${runtimeConfig.public.apiBase}/../../media/id/${s.image_id}` : undefined,
+    image_url: mediaUrl(s.image_id),
   }))
 })
 

@@ -148,6 +148,7 @@ declare global {
   const useLocaleHead: typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index').useLocaleHead
   const useLocalePath: typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index').useLocalePath
   const useLocaleRoute: typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index').useLocaleRoute
+  const useMediaUrl: typeof import('../../composables/useMediaUrl').useMediaUrl
   const useModel: typeof import('vue').useModel
   const useNewsArticle: typeof import('../../composables/useNews').useNewsArticle
   const useNewsList: typeof import('../../composables/useNews').useNewsList
@@ -396,6 +397,7 @@ declare module 'vue' {
     readonly useLocaleHead: UnwrapRef<typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index')['useLocaleHead']>
     readonly useLocalePath: UnwrapRef<typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index')['useLocalePath']>
     readonly useLocaleRoute: UnwrapRef<typeof import('../../node_modules/@nuxtjs/i18n/dist/runtime/composables/index')['useLocaleRoute']>
+    readonly useMediaUrl: UnwrapRef<typeof import('../../composables/useMediaUrl')['useMediaUrl']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useNewsArticle: UnwrapRef<typeof import('../../composables/useNews')['useNewsArticle']>
     readonly useNewsList: UnwrapRef<typeof import('../../composables/useNews')['useNewsList']>

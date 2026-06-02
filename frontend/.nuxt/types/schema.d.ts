@@ -22,6 +22,8 @@ import { NuxtModule, ModuleDependencyMeta } from '@nuxt/schema'
   interface SharedPublicRuntimeConfig {
    apiBase: string,
 
+   mediaBase: string,
+
    i18n: {
       baseUrl: string,
 

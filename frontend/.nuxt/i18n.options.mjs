@@ -31,7 +31,7 @@ export const nuxtI18nOptions = {
     runtimeOnly: false,
     fullInstall: true,
     dropMessageCompiler: false,
-    optimizeTranslationDirective: true
+    optimizeTranslationDirective: false
   },
   compilation: {
     strictMessage: true,

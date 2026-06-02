@@ -59,7 +59,7 @@
             <div class="aspect-[4/3] flex items-center justify-center overflow-hidden cursor-pointer" style="background: #f1f5f9;" @click="enterCategory(cat.name)">
               <img
                 v-if="cat.cover_image_id"
-                :src="`${apiBase}/../../media/id/${cat.cover_image_id}`"
+                :src="mediaUrl(cat.cover_image_id)"
                 class="w-full h-full object-cover"
               />
               <span v-else class="text-[36px]">&#128193;</span>
@@ -161,7 +161,7 @@
             <div class="aspect-video flex items-center justify-center overflow-hidden" style="background: #f1f5f9;">
               <img
                 v-if="m.mime_type?.startsWith('image/')"
-                :src="`${apiBase}/../../media/id/${m.id}`"
+                :src="mediaUrl(m.id)"
                 class="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -176,7 +176,7 @@
               <div class="text-[10px] mt-0.5 flex items-center justify-between" style="color: #94a3b8;">
                 <span>{{ formatSize(m.size) }}</span>
                 <a
-                  :href="`${apiBase}/../../media/id/${m.id}`"
+                  :href="mediaUrl(m.id)"
                   target="_blank"
                   class="no-underline transition-colors hover:text-white"
                   :style="{ color: 'inherit' }"
@@ -333,7 +333,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: ['admin-auth'] });
 
-const { api, apiBase } = useAdminApi();
+const { api } = useAdminApi();
+const mediaUrl = useMediaUrl();
 
 // -- View state --
 const view = ref<'categories' | 'detail'>('categories');

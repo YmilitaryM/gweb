@@ -34,6 +34,7 @@ export { useAdminApi } from '../composables/useAdminApi';
 export { useChat, ChatMessage } from '../composables/useChat';
 export { useFaqs } from '../composables/useFaq';
 export { useInquiry } from '../composables/useInquiry';
+export { useMediaUrl } from '../composables/useMediaUrl';
 export { useNewsList, useNewsArticle } from '../composables/useNews';
 export { usePage } from '../composables/usePage';
 export { useTheme } from '../composables/useTheme';

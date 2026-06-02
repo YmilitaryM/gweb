@@ -14,6 +14,8 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 
+export const AdminBlockContentEditor: typeof import("../components/admin/BlockContentEditor.vue")['default']
+export const AdminHeroSlidesEditor: typeof import("../components/admin/HeroSlidesEditor.vue")['default']
 export const AdminMediaPicker: typeof import("../components/admin/MediaPicker.vue")['default']
 export const AdminMenuNode: typeof import("../components/admin/MenuNode.vue")['default']
 export const AdminRichTextEditor: typeof import("../components/admin/RichTextEditor.vue")['default']
@@ -33,7 +35,6 @@ export const BlocksBlockSolutionCards: typeof import("../components/blocks/Block
 export const BlocksBlockStatsCounter: typeof import("../components/blocks/BlockStatsCounter.vue")['default']
 export const BlocksBlockTechIconGrid: typeof import("../components/blocks/BlockTechIconGrid.vue")['default']
 export const BlocksBlockVideoBanner: typeof import("../components/blocks/BlockVideoBanner.vue")['default']
-export const BlocksContactFormBlock: typeof import("../components/blocks/ContactFormBlock.vue")['default']
 export const BlocksFaqPanel: typeof import("../components/blocks/FaqPanel.vue")['default']
 export const BlocksNewsArticleDetail: typeof import("../components/blocks/NewsArticleDetail.vue")['default']
 export const BlocksNewsArticleList: typeof import("../components/blocks/NewsArticleList.vue")['default']
@@ -129,6 +130,8 @@ export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
+export const LazyAdminBlockContentEditor: LazyComponent<typeof import("../components/admin/BlockContentEditor.vue")['default']>
+export const LazyAdminHeroSlidesEditor: LazyComponent<typeof import("../components/admin/HeroSlidesEditor.vue")['default']>
 export const LazyAdminMediaPicker: LazyComponent<typeof import("../components/admin/MediaPicker.vue")['default']>
 export const LazyAdminMenuNode: LazyComponent<typeof import("../components/admin/MenuNode.vue")['default']>
 export const LazyAdminRichTextEditor: LazyComponent<typeof import("../components/admin/RichTextEditor.vue")['default']>
@@ -148,7 +151,6 @@ export const LazyBlocksBlockSolutionCards: LazyComponent<typeof import("../compo
 export const LazyBlocksBlockStatsCounter: LazyComponent<typeof import("../components/blocks/BlockStatsCounter.vue")['default']>
 export const LazyBlocksBlockTechIconGrid: LazyComponent<typeof import("../components/blocks/BlockTechIconGrid.vue")['default']>
 export const LazyBlocksBlockVideoBanner: LazyComponent<typeof import("../components/blocks/BlockVideoBanner.vue")['default']>
-export const LazyBlocksContactFormBlock: LazyComponent<typeof import("../components/blocks/ContactFormBlock.vue")['default']>
 export const LazyBlocksFaqPanel: LazyComponent<typeof import("../components/blocks/FaqPanel.vue")['default']>
 export const LazyBlocksNewsArticleDetail: LazyComponent<typeof import("../components/blocks/NewsArticleDetail.vue")['default']>
 export const LazyBlocksNewsArticleList: LazyComponent<typeof import("../components/blocks/NewsArticleList.vue")['default']>

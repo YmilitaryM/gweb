@@ -1248,7 +1248,8 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBase": "http://localhost:8002/api/v1",
+    "apiBase": "http://192.168.110.147:8002/api/v1",
+    "mediaBase": "",
     "i18n": {
       "baseUrl": "",
       "defaultLocale": "zh",

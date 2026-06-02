@@ -128,7 +128,7 @@
     >
       <div class="rounded-2xl p-6 w-full max-w-sm mx-4" style="background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
         <p class="text-[14px] mb-1" style="color: #1e293b;">确认删除</p>
-        <p class="text-[12px] mb-5" style="color: #94a3b8;">确定要删除菜单 "{{ deleteTarget.name_zh }}" 吗？如有子菜单也将一并处理。</p>
+        <p class="text-[12px] mb-5" style="color: #94a3b8;">确定要删除菜单 "{{ deleteTarget.name_zh }}" 吗？子菜单将保留并成为顶级菜单。</p>
         <div class="flex justify-end gap-3">
           <button @click="deleteTarget = null" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: #64748b; background: #f1f5f9;">取消</button>
           <button @click="doDelete" class="text-[13px] font-medium text-white border-none cursor-pointer px-4 py-2 rounded-lg" style="background: #ef4444;">删除</button>

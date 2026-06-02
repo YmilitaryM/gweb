@@ -14,6 +14,8 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 interface _GlobalComponents {
+  AdminBlockContentEditor: typeof import("../../components/admin/BlockContentEditor.vue")['default']
+  AdminHeroSlidesEditor: typeof import("../../components/admin/HeroSlidesEditor.vue")['default']
   AdminMediaPicker: typeof import("../../components/admin/MediaPicker.vue")['default']
   AdminMenuNode: typeof import("../../components/admin/MenuNode.vue")['default']
   AdminRichTextEditor: typeof import("../../components/admin/RichTextEditor.vue")['default']
@@ -33,7 +35,6 @@ interface _GlobalComponents {
   BlocksBlockStatsCounter: typeof import("../../components/blocks/BlockStatsCounter.vue")['default']
   BlocksBlockTechIconGrid: typeof import("../../components/blocks/BlockTechIconGrid.vue")['default']
   BlocksBlockVideoBanner: typeof import("../../components/blocks/BlockVideoBanner.vue")['default']
-  BlocksContactFormBlock: typeof import("../../components/blocks/ContactFormBlock.vue")['default']
   BlocksFaqPanel: typeof import("../../components/blocks/FaqPanel.vue")['default']
   BlocksNewsArticleDetail: typeof import("../../components/blocks/NewsArticleDetail.vue")['default']
   BlocksNewsArticleList: typeof import("../../components/blocks/NewsArticleList.vue")['default']
@@ -129,6 +130,8 @@ interface _GlobalComponents {
   Html: typeof import("../../node_modules/nuxt/dist/head/runtime/components")['Html']
   Body: typeof import("../../node_modules/nuxt/dist/head/runtime/components")['Body']
   NuxtIsland: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island")['default']
+  LazyAdminBlockContentEditor: LazyComponent<typeof import("../../components/admin/BlockContentEditor.vue")['default']>
+  LazyAdminHeroSlidesEditor: LazyComponent<typeof import("../../components/admin/HeroSlidesEditor.vue")['default']>
   LazyAdminMediaPicker: LazyComponent<typeof import("../../components/admin/MediaPicker.vue")['default']>
   LazyAdminMenuNode: LazyComponent<typeof import("../../components/admin/MenuNode.vue")['default']>
   LazyAdminRichTextEditor: LazyComponent<typeof import("../../components/admin/RichTextEditor.vue")['default']>
@@ -148,7 +151,6 @@ interface _GlobalComponents {
   LazyBlocksBlockStatsCounter: LazyComponent<typeof import("../../components/blocks/BlockStatsCounter.vue")['default']>
   LazyBlocksBlockTechIconGrid: LazyComponent<typeof import("../../components/blocks/BlockTechIconGrid.vue")['default']>
   LazyBlocksBlockVideoBanner: LazyComponent<typeof import("../../components/blocks/BlockVideoBanner.vue")['default']>
-  LazyBlocksContactFormBlock: LazyComponent<typeof import("../../components/blocks/ContactFormBlock.vue")['default']>
   LazyBlocksFaqPanel: LazyComponent<typeof import("../../components/blocks/FaqPanel.vue")['default']>
   LazyBlocksNewsArticleDetail: LazyComponent<typeof import("../../components/blocks/NewsArticleDetail.vue")['default']>
   LazyBlocksNewsArticleList: LazyComponent<typeof import("../../components/blocks/NewsArticleList.vue")['default']>

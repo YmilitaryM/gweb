@@ -417,7 +417,7 @@ async def admin_update_menu(
         action="update",
         resource_type="menu",
         resource_id=menu.id,
-        resource_name=data.name_zh,
+        resource_name=data.name_zh or menu.name_zh,
         ip_address=request.client.host if request.client else None,
     )
     return {"id": menu.id, "name_zh": menu.name_zh}

@@ -2,7 +2,7 @@
   <article v-if="article" class="py-16 px-4 max-w-3xl mx-auto">
     <img
       v-if="article.cover_image_id"
-      :src="`${apiBase}/../../media/id/${article.cover_image_id}`"
+      :src="mediaUrl(article.cover_image_id)"
       class="w-full max-h-96 object-cover rounded-2xl mb-8 shadow-sm"
     />
     <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900">
@@ -33,7 +33,7 @@
 <script setup lang="ts">
 const props = defineProps<{ articleId: string }>();
 const { locale } = useI18n();
-const apiBase = useRuntimeConfig().public.apiBase;
+const mediaUrl = useMediaUrl();
 
 const { article, error } = await useNewsArticle(Number(props.articleId));
 </script>

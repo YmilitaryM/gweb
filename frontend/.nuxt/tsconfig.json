@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "paths": {
+      "nuxt": [
+        "../node_modules/nuxt"
+      ],
       "@unhead/vue": [
         "../node_modules/@unhead/vue"
       ],
@@ -19,18 +22,6 @@
       "@nuxt/schema": [
         "../node_modules/@nuxt/schema"
       ],
-      "nuxt": [
-        "../node_modules/nuxt"
-      ],
-      "nitropack/types": [
-        "../node_modules/nitropack/types"
-      ],
-      "nitropack/runtime": [
-        "../node_modules/nitropack/runtime"
-      ],
-      "nitropack": [
-        "../node_modules/nitropack"
-      ],
       "defu": [
         "../node_modules/defu"
       ],
@@ -45,6 +36,15 @@
       ],
       "crossws": [
         "../node_modules/crossws"
+      ],
+      "nitropack/types": [
+        "../node_modules/nitropack/types"
+      ],
+      "nitropack/runtime": [
+        "../node_modules/nitropack/runtime"
+      ],
+      "nitropack": [
+        "../node_modules/nitropack"
       ],
       "~": [
         ".."
@@ -158,7 +158,7 @@
         "./nuxt-i18n-logger"
       ],
       "#app-manifest": [
-        "./manifest/meta/dev.json"
+        "./manifest/meta/dev"
       ],
       "#components": [
         "./components"

@@ -65,6 +65,60 @@ class RichtextContent(BaseModel):
     html_content_en: str = ""
 
 
+class CtaBannerContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    description_zh: str = ""
+    description_en: str = ""
+    button_link: str = ""
+    button_text_zh: str = ""
+    button_text_en: str = ""
+
+
+class VideoBannerContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    subtitle_zh: str = ""
+    subtitle_en: str = ""
+    video_url: str = ""
+    poster_image: int | None = None
+
+
+class ImageGalleryContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    images: list[dict] = []
+
+
+class LogoCloudContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    logos: list[dict] = []
+
+
+class FaqContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+
+
+class DigitalTwinContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    stats: list[dict] = []
+
+
+class LiveDashboardContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    metrics: list[dict] = []
+
+
+class TechIconGridContent(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    items: list[dict] = []
+
+
 BLOCK_VALIDATORS = {
     "hero": HeroContent,
     "news_list": NewsListContent,
@@ -73,19 +127,19 @@ BLOCK_VALIDATORS = {
     "stats_counter": StatsCounterContent,
     "contact_form": ContactFormContent,
     "richtext": RichtextContent,
-    "video_banner": RichtextContent,
-    "image_gallery": RichtextContent,
-    "logo_cloud": RichtextContent,
-    "faq": RichtextContent,
-    "cta_banner": RichtextContent,
-    "digital_twin": RichtextContent,
-    "live_dashboard": RichtextContent,
-    "tech_icon_grid": RichtextContent,
+    "video_banner": VideoBannerContent,
+    "image_gallery": ImageGalleryContent,
+    "logo_cloud": LogoCloudContent,
+    "faq": FaqContent,
+    "cta_banner": CtaBannerContent,
+    "digital_twin": DigitalTwinContent,
+    "live_dashboard": LiveDashboardContent,
+    "tech_icon_grid": TechIconGridContent,
 }
 
 
 def validate_block_content(block_type: str, content: dict):
     validator = BLOCK_VALIDATORS.get(block_type)
     if validator:
-        validator(**content)
+        return validator(**content).model_dump()
     return content

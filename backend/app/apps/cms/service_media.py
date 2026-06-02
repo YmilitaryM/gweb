@@ -42,25 +42,32 @@ async def upload_media(
             pass  # Non-image data, skip thumbnail
 
     async with async_session() as db:
-        media = Media(
-            filename=filename,
-            original_name=filename,
-            mime_type=content_type,
-            size=len(file_data),
-            type=media_type,
-            path=object_path,
-            thumbnail_path=thumbnail_path,
-            width=width,
-            height=height,
-            category=category,
-            name_zh=name_zh,
-            name_en=name_en,
-            description=description,
-        )
-        db.add(media)
-        await db.commit()
-        await db.refresh(media)
-        return media
+        try:
+            media = Media(
+                filename=filename,
+                original_name=filename,
+                mime_type=content_type,
+                size=len(file_data),
+                type=media_type,
+                path=object_path,
+                thumbnail_path=thumbnail_path,
+                width=width,
+                height=height,
+                category=category,
+                name_zh=name_zh,
+                name_en=name_en,
+                description=description,
+            )
+            db.add(media)
+            await db.commit()
+            await db.refresh(media)
+            return media
+        except Exception:
+            # Clean up uploaded files on DB failure
+            storage.delete(object_path)
+            if thumbnail_path:
+                storage.delete(thumbnail_path)
+            raise
 
 
 async def list_media(

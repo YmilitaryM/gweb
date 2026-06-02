@@ -16,7 +16,7 @@
       >
         <img
           v-if="showImage && article.cover_image_id"
-          :src="`${apiBase}/../../media/id/${article.cover_image_id}`"
+          :src="mediaUrl(article.cover_image_id)"
           class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div class="p-6">
@@ -61,7 +61,7 @@ const props = defineProps<{
 }>();
 
 const { locale } = useI18n();
-const apiBase = useRuntimeConfig().public.apiBase;
+const mediaUrl = useMediaUrl();
 
 const count = computed(() => props.config.count || 6);
 const showImage = computed(() => props.config.show_image !== false);

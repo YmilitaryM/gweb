@@ -48,7 +48,7 @@
           <div class="flex items-center gap-3 flex-1 min-w-0">
             <img
               v-if="prod.cover_image_id"
-              :src="`${apiBase}/../../media/id/${prod.cover_image_id}`"
+              :src="mediaUrl(prod.cover_image_id)"
               class="w-14 h-10 rounded-md object-cover flex-shrink-0"
             />
             <div class="min-w-0 flex-1">
@@ -176,7 +176,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: ['admin-auth'] });
 
-const { api, apiBase } = useAdminApi();
+const { api } = useAdminApi();
+const mediaUrl = useMediaUrl();
 
 interface Category {
   id: number;
