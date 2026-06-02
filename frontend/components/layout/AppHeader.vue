@@ -125,7 +125,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 // Mobile menu
 const mobileOpen = ref(false)
 
+const switchLocalePath = useSwitchLocalePath()
+const route = useRoute()
+
 function toggleLang() {
-  locale.value = locale.value === 'zh' ? 'en' : 'zh'
+  const newLocale = locale.value === 'zh' ? 'en' : 'zh'
+  navigateTo(switchLocalePath(newLocale) || route.fullPath)
 }
 </script>
