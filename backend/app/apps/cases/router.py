@@ -17,7 +17,7 @@ admin_router = APIRouter(
 )
 
 
-@public_router.get("/cases")
+@public_router.get("/cases", response_model=dict)
 async def public_list_cases(page: int = 1, size: int = 12, category: str | None = None):
     cases, total = await list_published_cases(page, size, category)
     return {
@@ -36,7 +36,7 @@ async def public_get_case(slug: str):
     return case
 
 
-@admin_router.get("")
+@admin_router.get("", response_model=dict)
 async def admin_list_cases(page: int = 1, size: int = 20, category: str | None = None):
     cases, total = await list_all_cases(page, size, category)
     return {

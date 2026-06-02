@@ -3,7 +3,7 @@ from app.apps.cases.models import Case
 from app.core.database import async_session
 
 
-async def list_published_cases(page: int = 1, size: int = 12, category: str | None = None):
+async def list_published_cases(page: int = 1, size: int = 12, category: str | None = None) -> tuple[list["Case"], int]:
     async with async_session() as db:
         q = select(Case).where(Case.is_published == True)
         if category:
@@ -20,7 +20,7 @@ async def list_published_cases(page: int = 1, size: int = 12, category: str | No
         return result.scalars().all(), total
 
 
-async def list_all_cases(page: int = 1, size: int = 20, category: str | None = None):
+async def list_all_cases(page: int = 1, size: int = 20, category: str | None = None) -> tuple[list["Case"], int]:
     async with async_session() as db:
         q = select(Case).order_by(Case.sort_order, Case.created_at.desc())
         if category:
@@ -60,7 +60,8 @@ async def update_case(case_id: int, **kwargs) -> Case | None:
         if not case:
             return None
         for k, v in kwargs.items():
-            setattr(case, k, v)
+            if v is not None:
+                setattr(case, k, v)
         await db.commit()
         await db.refresh(case)
         return case
