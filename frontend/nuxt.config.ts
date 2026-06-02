@@ -4,6 +4,15 @@ export default defineNuxtConfig({
   ssr: true,
   css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/ui'],
+  app: {
+    head: {
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap' },
+      ],
+    },
+  },
   i18n: {
     locales: ['zh', 'en'],
     defaultLocale: 'zh',
