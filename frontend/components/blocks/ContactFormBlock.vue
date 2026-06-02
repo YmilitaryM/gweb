@@ -1,10 +1,10 @@
 <template>
   <section class="py-16 px-4 max-w-xl mx-auto">
-    <h2 class="text-3xl font-extrabold text-center mb-4 text-slate-900">
-      {{ locale === 'zh' ? '联系我们' : 'Contact Us' }}
+    <h2 v-if="title" class="text-3xl font-extrabold text-center mb-4 text-slate-900">
+      {{ title }}
     </h2>
-    <p class="text-center text-slate-500 mb-10">
-      {{ locale === 'zh' ? '请填写以下表单，我们会尽快与您联系' : 'Fill out the form and we will contact you shortly' }}
+    <p v-if="subtitle" class="text-center text-slate-500 mb-10">
+      {{ subtitle }}
     </p>
 
     <!-- Success alert -->
@@ -99,9 +99,23 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ config: Record<string, any> }>();
+const props = defineProps<{ config: Record<string, any>; content?: Record<string, any> }>();
 const { locale } = useI18n();
 const { submit, loading, error, success } = useInquiry();
+
+const title = computed(() => {
+  if (!props.content) return null;
+  return locale.value === 'zh'
+    ? (props.content.title_zh || '联系我们')
+    : (props.content.title_en || 'Contact Us');
+});
+
+const subtitle = computed(() => {
+  if (!props.content) return null;
+  return locale.value === 'zh'
+    ? (props.content.subtitle_zh || '请填写以下表单，我们会尽快与您联系')
+    : (props.content.subtitle_en || 'Fill out the form and we will contact you shortly');
+});
 
 const form = reactive({
   company_name: '',
