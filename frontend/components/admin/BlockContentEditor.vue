@@ -3,7 +3,7 @@
     <!-- hero: slides editor (delegated) -->
     <template v-if="blockType === 'hero'">
       <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">幻灯片</label>
-      <HeroSlidesEditor v-model="slides" />
+      <AdminHeroSlidesEditor v-model="slides" />
     </template>
 
     <!-- richtext: simple textarea with RichTextEditor hint -->

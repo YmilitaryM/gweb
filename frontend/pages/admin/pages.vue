@@ -272,7 +272,7 @@
             </select>
           </div>
           <!-- Visual block content editor -->
-          <BlockContentEditor
+          <AdminBlockContentEditor
             v-if="blockForm.type"
             :block-type="blockForm.type"
             :content="blockContent"
