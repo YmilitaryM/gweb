@@ -37,10 +37,14 @@
       <FaqPanel :config="{}" />
     </template>
 
-    <!-- type=contact -->
+    <!-- type=contact: blocks only (contact_form block comes from DB) -->
     <template v-else-if="page.type === 'contact'">
       <BlockRenderer v-for="block in page.blocks" :key="block.id" :block="block" />
-      <ContactFormBlock :config="{}" />
+    </template>
+
+    <!-- type=page (home, solutions, about, cooperation etc): blocks only -->
+    <template v-else>
+      <BlockRenderer v-for="block in page.blocks" :key="block.id" :block="block" />
     </template>
   </div>
 </template>
@@ -52,7 +56,6 @@ import NewsArticleDetail from '~/components/blocks/NewsArticleDetail.vue';
 import ProductCatalog from '~/components/blocks/ProductCatalog.vue';
 import ProductDetail from '~/components/blocks/ProductDetail.vue';
 import FaqPanel from '~/components/blocks/FaqPanel.vue';
-import ContactFormBlock from '~/components/blocks/ContactFormBlock.vue';
 
 const route = useRoute();
 const slug = route.params.slug as string[];
