@@ -269,7 +269,14 @@
               placeholder='{}'
             ></textarea>
           </div>
-          <div>
+          <!-- Hero: visual slides editor -->
+          <div v-if="blockForm.type === 'hero'">
+            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">幻灯片编辑</label>
+            <HeroSlidesEditor v-model="heroSlides" />
+          </div>
+
+          <!-- Other types: raw JSON -->
+          <div v-else>
             <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">Content (JSON)</label>
             <textarea
               v-model="blockForm.content_str"
@@ -487,11 +494,13 @@ const blockFormError = ref('');
 const editingBlock = ref<Block | null>(null);
 const blockFormPageId = ref<number>(0);
 const blockForm = ref({ type: '', config_str: '{}', content_str: '{}' });
+const heroSlides = ref<any[]>([]);
 
 const openCreateBlock = (page: Page) => {
   editingBlock.value = null;
   blockFormPageId.value = page.id;
   blockForm.value = { type: '', config_str: '{}', content_str: '{}' };
+  heroSlides.value = [];
   blockFormError.value = '';
   blockModal.value = true;
 };
@@ -504,6 +513,12 @@ const openEditBlock = (block: Block, pageId: number) => {
     config_str: JSON.stringify(block.config, null, 2),
     content_str: JSON.stringify(block.content, null, 2),
   };
+  // Parse hero slides for visual editor
+  if (block.type === 'hero') {
+    heroSlides.value = block.content?.slides || [];
+  } else {
+    heroSlides.value = [];
+  }
   blockFormError.value = '';
   blockModal.value = true;
 };
@@ -516,7 +531,13 @@ const saveBlock = async () => {
   let config: any = {};
   let content: any = {};
   try { config = JSON.parse(blockForm.value.config_str); } catch { blockFormError.value = 'Config JSON 格式错误'; return; }
-  try { content = JSON.parse(blockForm.value.content_str); } catch { blockFormError.value = 'Content JSON 格式错误'; return; }
+
+  if (blockForm.value.type === 'hero') {
+    // Use visual editor data for hero blocks
+    content = { slides: heroSlides.value };
+  } else {
+    try { content = JSON.parse(blockForm.value.content_str); } catch { blockFormError.value = 'Content JSON 格式错误'; return; }
+  }
 
   blockSaving.value = true;
   blockFormError.value = '';
