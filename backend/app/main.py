@@ -23,6 +23,8 @@ from app.apps.theme.router import admin_router as theme_admin_router
 from app.apps.users.router import router as users_router
 from app.apps.products.router import public_router as products_public_router
 from app.apps.products.router import admin_router as products_admin_router
+from app.apps.cases.router import public_router as cases_public_router
+from app.apps.cases.router import admin_router as cases_admin_router
 from app.apps.chat.router_public import router as chat_public_router
 from app.apps.chat.router_admin import router as chat_admin_router
 from app.apps.audit.router import router as audit_router
@@ -59,6 +61,8 @@ app.include_router(chat_admin_router)
 app.include_router(audit_router)
 app.include_router(products_public_router)
 app.include_router(products_admin_router)
+app.include_router(cases_public_router)
+app.include_router(cases_admin_router)
 
 
 @app.get("/health")
