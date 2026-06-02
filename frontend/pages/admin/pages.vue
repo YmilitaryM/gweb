@@ -251,29 +251,37 @@
         <h3 class="text-[15px] font-medium mb-5" style="color: #1e293b;">{{ editingBlock ? '编辑区块' : '添加区块' }}</h3>
         <form @submit.prevent="saveBlock" class="space-y-4">
           <div>
-            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">类型</label>
-            <input
+            <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">区块类型</label>
+            <select
               v-model="blockForm.type"
-              class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg transition-colors"
+              class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg appearance-none"
               style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              placeholder="hero, cta, video_banner, ..."
-            />
+            >
+              <option value="" disabled>-- 选择类型 --</option>
+              <option value="hero">轮播大图 (Hero)</option>
+              <option value="richtext">富文本 (Richtext)</option>
+              <option value="product_cards">产品卡片 (Product Cards)</option>
+              <option value="solution_cards">解决方案 (Solution Tabs)</option>
+              <option value="stats_counter">数据统计 (Stats)</option>
+              <option value="cta_banner">行动号召 (CTA Banner)</option>
+              <option value="contact_form">联系表单 (Contact Form)</option>
+              <option value="news_list">新闻列表 (News List)</option>
+              <option value="video_banner">视频横幅 (Video Banner)</option>
+              <option value="image_gallery">图片画廊 (Image Gallery)</option>
+              <option value="logo_cloud">Logo云 (Logo Cloud)</option>
+            </select>
           </div>
           <!-- Visual block content editor -->
-          <div v-if="blockForm.type">
-            <BlockContentEditor
-              :block-type="blockForm.type"
-              :content="blockContent"
-              :config-str="blockForm.config_str"
-              :content-str="blockForm.content_str"
-              @update:content="blockContent = $event"
-              @update:config-str="blockForm.config_str = $event"
-              @update:content-str="blockForm.content_str = $event"
-            />
-          </div>
-          <div v-else class="text-[12px] py-4 text-center" style="color: #94a3b8;">
-            请先输入区块类型
-          </div>
+          <BlockContentEditor
+            v-if="blockForm.type"
+            :block-type="blockForm.type"
+            :content="blockContent"
+            :config-str="blockForm.config_str"
+            :content-str="blockForm.content_str"
+            @update:content="blockContent = $event"
+            @update:config-str="blockForm.config_str = $event"
+            @update:content-str="blockForm.content_str = $event"
+          />
           <div v-if="blockFormError" class="text-[12px]" style="color: #f87171;">{{ blockFormError }}</div>
           <div class="flex justify-end gap-3 pt-2">
             <button
