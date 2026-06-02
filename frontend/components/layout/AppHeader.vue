@@ -1,7 +1,7 @@
 <template>
   <header
     class="fixed top-0 left-0 right-0 z-50 transition-transform duration-500 ease-in-out border-b border-white/20"
-    style="background: rgba(255,255,255,0.72); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);"
+    style="background: rgba(255,255,255,0.5); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);"
     :class="hidden ? '-translate-y-full' : 'translate-y-0'"
   >
     <div class="container mx-auto px-6 flex items-center justify-between h-16">
