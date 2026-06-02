@@ -11,7 +11,7 @@
       <button
         @click="exportCsv"
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
       >
         导出 CSV
       </button>
@@ -60,7 +60,7 @@
           v-for="log in logs"
           :key="log.id"
           class="flex items-center justify-between px-5 py-3 rounded-xl cursor-pointer transition-colors"
-          style="background: #ffffff; border: 1px solid #e8f5e9;"
+          style="background: #ffffff; border: 1px solid #dbeafe;"
           @click="detail = log"
         >
           <div class="flex items-center gap-5 flex-1 min-w-0">
@@ -88,7 +88,7 @@
           :key="p"
           @click="page = p; fetchLogs()"
           class="text-[12px] border-none cursor-pointer w-8 h-8 rounded-lg transition-colors"
-          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
+          :style="p === page ? 'background: rgba(37,99,235,0.15); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'"
         >
           {{ p }}
         </button>
@@ -194,7 +194,7 @@ const actionLabel = (a: string) => {
 
 const actionStyle = (a: string) => {
   const colors: Record<string, string> = {
-    create: 'background: rgba(5,150,105,0.12); color: #34d399;',
+    create: 'background: rgba(37,99,235,0.12); color: #60a5fa;',
     update: 'background: rgba(2,132,199,0.12); color: #38bdf8;',
     delete: 'background: rgba(239,68,68,0.12); color: #f87171;',
   };

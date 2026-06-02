@@ -13,9 +13,9 @@
 
     <template v-else>
       <!-- LLM Settings -->
-      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #e8f5e9;">
+      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #dbeafe;">
         <h3 class="text-[14px] font-medium mb-5 flex items-center gap-2" style="color: #1e293b;">
-          <span class="w-1.5 h-1.5 rounded-full" style="background: #059669;"></span>
+          <span class="w-1.5 h-1.5 rounded-full" style="background: #2563eb;"></span>
           LLM 配置
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -64,7 +64,7 @@
       </div>
 
       <!-- Embedding Settings -->
-      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #e8f5e9;">
+      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #dbeafe;">
         <h3 class="text-[14px] font-medium mb-5 flex items-center gap-2" style="color: #1e293b;">
           <span class="w-1.5 h-1.5 rounded-full" style="background: #0284c7;"></span>
           Embedding 配置
@@ -114,7 +114,7 @@
       </div>
 
       <!-- Site Info Settings -->
-      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #e8f5e9;">
+      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #dbeafe;">
         <h3 class="text-[14px] font-medium mb-5 flex items-center gap-2" style="color: #1e293b;">
           <span class="w-1.5 h-1.5 rounded-full" style="background: #94a3b8;"></span>
           站点信息
@@ -144,11 +144,11 @@
           @click="saveAll"
           :disabled="saving"
           class="text-[13px] font-medium text-white border-none cursor-pointer px-6 py-2.5 rounded-lg transition-all disabled:opacity-40 hover:translate-y-[-1px]"
-          style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+          style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
         >
           {{ saving ? '保存中...' : '保存设置' }}
         </button>
-        <span v-if="saveMsg" class="text-[12px]" :style="{ color: saveOk ? '#34d399' : '#f87171' }">{{ saveMsg }}</span>
+        <span v-if="saveMsg" class="text-[12px]" :style="{ color: saveOk ? '#60a5fa' : '#f87171' }">{{ saveMsg }}</span>
       </div>
     </template>
   </div>

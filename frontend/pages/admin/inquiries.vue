@@ -27,7 +27,7 @@
           v-for="inq in inquiries"
           :key="inq.id"
           class="flex items-center justify-between px-5 py-4 rounded-xl cursor-pointer transition-colors"
-          :style="inq.is_read ? 'background: #ffffff; border: 1px solid #e8f5e9;' : 'background: rgba(5,150,105,0.03); border: 1px solid rgba(5,150,105,0.06);'"
+          :style="inq.is_read ? 'background: #ffffff; border: 1px solid #dbeafe;' : 'background: rgba(37,99,235,0.03); border: 1px solid rgba(37,99,235,0.06);'"
           @click="openDetail(inq)"
         >
           <div class="flex-1 min-w-0">
@@ -36,7 +36,7 @@
               <span
                 v-if="!inq.is_read"
                 class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style="background: #34d399;"
+                style="background: #60a5fa;"
               ></span>
             </div>
             <div class="text-[12px] mt-0.5 truncate" style="color: #94a3b8;">
@@ -47,7 +47,7 @@
             v-if="!inq.is_read"
             @click.stop="markRead(inq)"
             class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors flex-shrink-0 ml-4"
-            style="color: #34d399; background: rgba(5,150,105,0.08);"
+            style="color: #60a5fa; background: rgba(37,99,235,0.08);"
           >
             标记已读
           </button>
@@ -68,7 +68,7 @@
           :key="p"
           @click="page = p; fetchInquiries()"
           class="text-[12px] border-none cursor-pointer w-8 h-8 rounded-lg transition-colors"
-          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
+          :style="p === page ? 'background: rgba(37,99,235,0.15); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'"
         >
           {{ p }}
         </button>
@@ -116,7 +116,7 @@
             v-if="!detail.is_read"
             @click="markRead(detail); detail.is_read = true"
             class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors"
-            style="color: #34d399; background: rgba(5,150,105,0.08);"
+            style="color: #60a5fa; background: rgba(37,99,235,0.08);"
           >
             标记已读
           </button>

@@ -1,5 +1,8 @@
 <template>
   <div class="p-8">
+    <NuxtLink to="/admin" class="inline-flex items-center gap-1.5 text-[12px] mb-4 no-underline transition-colors hover:opacity-80" style="color: #94a3b8;">
+      &larr; 返回控制台
+    </NuxtLink>
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
       <div>
@@ -9,20 +12,31 @@
       <button
         @click="openCreate"
         class="px-4 py-2 rounded-lg text-[13px] font-medium text-white border-none cursor-pointer transition-all duration-200 hover:opacity-90"
-        style="background: linear-gradient(135deg, #059669, #10b981);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"
       >
         新建用户
       </button>
     </div>
 
     <!-- Users table -->
+    <div v-if="loading" class="text-[13px] py-12 text-center" style="color: #94a3b8;">加载中...</div>
+
     <div
+      v-else-if="error"
+      class="mb-6 px-4 py-3 rounded-lg text-[13px]"
+      style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); color: #f87171;"
+    >
+      {{ error }}
+    </div>
+
+    <div
+      v-else
       class="rounded-xl overflow-hidden"
-      style="background: #ffffff; border: 1px solid #e8f5e9;"
+      style="background: #ffffff; border: 1px solid #dbeafe;"
     >
       <table class="w-full text-left">
         <thead>
-          <tr style="border-bottom: 1px solid #e8f5e9;">
+          <tr style="border-bottom: 1px solid #dbeafe;">
             <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">用户</th>
             <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">角色</th>
             <th class="py-3 px-5 text-[11px] font-medium tracking-wider uppercase" style="color: #94a3b8;">邮箱</th>
@@ -36,8 +50,8 @@
             v-for="user in users"
             :key="user.id"
             class="transition-colors duration-150"
-            style="border-bottom: 1px solid #e8f5e9;"
-            :style="hoverId === user.id ? { background: 'rgba(5,150,105,0.03)' } : {}"
+            style="border-bottom: 1px solid #dbeafe;"
+            :style="hoverId === user.id ? { background: 'rgba(37,99,235,0.03)' } : {}"
             @mouseenter="hoverId = user.id"
             @mouseleave="hoverId = null"
           >
@@ -217,7 +231,7 @@
               @click="submitForm"
               :disabled="formLoading"
               class="px-6 py-2 rounded-lg text-[13px] font-medium text-white border-none cursor-pointer transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-              style="background: linear-gradient(135deg, #059669, #10b981);"
+              style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"
             >
               <span v-if="!formLoading">{{ editingUser ? '保存' : '创建' }}</span>
               <span v-else class="flex items-center gap-2">
@@ -292,6 +306,8 @@ interface User {
 const users = ref<User[]>([]);
 const myId = ref<number | null>(null);
 const hoverId = ref<number | null>(null);
+const loading = ref(true);
+const error = ref('');
 
 // --- Table helpers ---
 
@@ -309,7 +325,7 @@ const avatarStyle = (user: User) => {
   }
   return {
     background: user.role === 'admin'
-      ? 'linear-gradient(135deg, #059669, #0284c7)'
+      ? 'linear-gradient(135deg, #2563eb, #0284c7)'
       : 'linear-gradient(135deg, #cbd5e1, #94a3b8)',
   };
 };
@@ -317,9 +333,9 @@ const avatarStyle = (user: User) => {
 const roleBadgeStyle = (role: string) => {
   if (role === 'admin') {
     return {
-      background: 'rgba(5,150,105,0.12)',
-      color: '#34d399',
-      border: '1px solid rgba(5,150,105,0.2)',
+      background: 'rgba(37,99,235,0.12)',
+      color: '#60a5fa',
+      border: '1px solid rgba(37,99,235,0.2)',
     };
   }
   return {
@@ -341,6 +357,8 @@ const formatDate = (s: string) => {
 // --- Data fetching ---
 
 const fetchUsers = async () => {
+  loading.value = true;
+  error.value = '';
   try {
     const data = await api<User[]>('/admin/users');
     users.value = data;
@@ -348,7 +366,11 @@ const fetchUsers = async () => {
     if (e?.response?.status === 403) {
       // editor role, just show empty
       users.value = [];
+    } else {
+      error.value = e?.data?.detail || '加载用户列表失败';
     }
+  } finally {
+    loading.value = false;
   }
 };
 

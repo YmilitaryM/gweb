@@ -25,6 +25,17 @@ class Media(Base, TimestampMixin):
     width: Mapped[int | None] = mapped_column(Integer, nullable=True)
     height: Mapped[int | None] = mapped_column(Integer, nullable=True)
     duration: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    category: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    name_zh: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    name_en: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+
+class MediaCategory(Base, TimestampMixin):
+    __tablename__ = "media_categories"
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
 
 class Page(Base, TimestampMixin):
@@ -34,6 +45,7 @@ class Page(Base, TimestampMixin):
     name_en: Mapped[str] = mapped_column(String(200), nullable=False)
     slug: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     type: Mapped[str] = mapped_column(String(20), nullable=False, default="content")
+    sort_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_published: Mapped[bool] = mapped_column(Boolean, default=False)
     blocks: Mapped[list["Block"]] = relationship(
         "Block", back_populates="page", order_by="Block.order",

@@ -11,7 +11,7 @@
       <button
         @click="openCreate"
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
       >
         新建分类
       </button>
@@ -30,20 +30,20 @@
           v-for="cat in categories"
           :key="cat.id"
           class="flex items-center justify-between px-5 py-4 rounded-xl"
-          style="background: #ffffff; border: 1px solid #e8f5e9;"
+          style="background: #ffffff; border: 1px solid #dbeafe;"
         >
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-3">
               <span class="text-[14px] font-medium" style="color: #1e293b">{{ cat.name_zh }}</span>
               <span class="text-[12px]" style="color: #94a3b8;">{{ cat.name_en }}</span>
-              <span class="text-[11px] px-2 py-0.5 rounded-full" :style="cat.is_published ? 'background: rgba(5,150,105,0.12); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'">{{ cat.is_published ? '已发布' : '草稿' }}</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-full" :style="cat.is_published ? 'background: rgba(37,99,235,0.12); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'">{{ cat.is_published ? '已发布' : '草稿' }}</span>
             </div>
             <div class="text-[12px] mt-0.5" style="color: #94a3b8;">
               {{ cat.slug }} &middot; 排序: {{ cat.sort_order }} &middot; {{ cat.product_count }} 个产品
             </div>
           </div>
           <div class="flex items-center gap-2 flex-shrink-0 ml-4">
-            <button @click="openEdit(cat)" class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors" style="color: #34d399; background: rgba(5,150,105,0.08);">编辑</button>
+            <button @click="openEdit(cat)" class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors" style="color: #60a5fa; background: rgba(37,99,235,0.08);">编辑</button>
             <button @click="confirmDelete(cat)" class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors" style="color: #f87171; background: rgba(239,68,68,0.08);">删除</button>
           </div>
         </div>
@@ -76,13 +76,13 @@
             </div>
           </div>
           <label class="flex items-center gap-2 cursor-pointer">
-            <input v-model="form.is_published" type="checkbox" class="accent-emerald-600" />
+            <input v-model="form.is_published" type="checkbox" class="accent-blue-600" />
             <span class="text-[12px]" style="color: #64748b;">发布</span>
           </label>
           <div v-if="formError" class="text-[12px]" style="color: #f87171;">{{ formError }}</div>
           <div class="flex justify-end gap-3 pt-2">
             <button type="button" @click="modalOpen = false" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: #64748b; background: #f1f5f9;">取消</button>
-            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #059669, #10b981);">{{ saving ? '保存中...' : '保存' }}</button>
+            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">{{ saving ? '保存中...' : '保存' }}</button>
           </div>
         </form>
       </div>

@@ -3,18 +3,18 @@
     <!-- Left: Branding & visual -->
     <div class="hidden lg:flex flex-1 flex-col justify-center items-center relative overflow-hidden">
       <div class="absolute inset-0 opacity-[0.04]"
-        style="background-image: radial-gradient(circle, #059669 1px, transparent 1px); background-size: 24px 24px;">
+        style="background-image: radial-gradient(circle, #2563eb 1px, transparent 1px); background-size: 24px 24px;">
       </div>
 
       <div class="relative">
         <div class="absolute -top-32 -left-32 w-64 h-64 rounded-full"
-          style="border: 1px solid rgba(5,150,105,0.08);"></div>
+          style="border: 1px solid rgba(37,99,235,0.08);"></div>
         <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full"
           style="border: 1px solid rgba(2,132,199,0.06);"></div>
         <div class="relative w-32 h-32 flex items-center justify-center">
           <div class="w-16 h-16 rotate-45"
-            style="border: 1px solid rgba(5,150,105,0.15);"></div>
-          <div class="absolute w-2 h-2 rounded-full" style="background: #059669; box-shadow: 0 0 12px rgba(5,150,105,0.5);"></div>
+            style="border: 1px solid rgba(37,99,235,0.15);"></div>
+          <div class="absolute w-2 h-2 rounded-full" style="background: #2563eb; box-shadow: 0 0 12px rgba(37,99,235,0.5);"></div>
         </div>
       </div>
 
@@ -50,7 +50,7 @@
               autocomplete="username"
               class="w-full py-2.5 text-[15px] outline-none transition-colors duration-200"
               style="color: #1e293b; background: transparent; border: none; border-bottom: 1px solid #d1d5db;"
-              :style="{ borderBottomColor: focused === 'username' ? '#059669' : '#d1d5db' }"
+              :style="{ borderBottomColor: focused === 'username' ? '#2563eb' : '#d1d5db' }"
               @focus="focused = 'username'"
               @blur="focused = null"
               placeholder="admin"
@@ -65,7 +65,7 @@
               autocomplete="current-password"
               class="w-full py-2.5 text-[15px] outline-none transition-colors duration-200"
               style="color: #1e293b; background: transparent; border: none; border-bottom: 1px solid #d1d5db;"
-              :style="{ borderBottomColor: focused === 'password' ? '#059669' : '#d1d5db' }"
+              :style="{ borderBottomColor: focused === 'password' ? '#2563eb' : '#d1d5db' }"
               @focus="focused = 'password'"
               @blur="focused = null"
             />
@@ -76,7 +76,7 @@
               type="submit"
               :disabled="loading"
               class="w-full py-2.5 rounded-lg text-[14px] font-medium text-white border-none cursor-pointer transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
-              style="background: linear-gradient(135deg, #059669, #10b981);"
+              style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"
             >
               <span v-if="!loading">登 录</span>
               <span v-else class="flex items-center justify-center gap-2">

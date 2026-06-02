@@ -11,7 +11,7 @@
         v-for="card in stats"
         :key="card.label"
         class="rounded-xl p-5"
-        style="background: #ffffff; border: 1px solid #e8f5e9;"
+        style="background: #ffffff; border: 1px solid #dbeafe;"
       >
         <div class="text-[11px] tracking-wider uppercase mb-2" style="color: #94a3b8;">
           {{ card.label }}
@@ -29,7 +29,7 @@
         :key="link.to"
         :to="link.to"
         class="rounded-xl p-5 no-underline transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: #ffffff; border: 1px solid #e8f5e9;"
+        style="background: #ffffff; border: 1px solid #dbeafe;"
       >
         <div class="text-[13px] font-medium mb-1" style="color: #1e293b">{{ link.label }}</div>
         <div class="text-[12px]" style="color: #94a3b8;">{{ link.desc }}</div>

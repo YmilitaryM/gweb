@@ -11,7 +11,7 @@
       <button
         @click="openCreatePage"
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
       >
         新建页面
       </button>
@@ -41,14 +41,14 @@
           v-for="page in pages"
           :key="page.id"
           class="rounded-xl"
-          style="background: #ffffff; border: 1px solid #e8f5e9;"
+          style="background: #ffffff; border: 1px solid #dbeafe;"
         >
           <!-- Page row -->
           <div class="flex items-center justify-between px-5 py-4">
             <div class="flex-1">
               <div class="flex items-center gap-3">
                 <span class="text-[14px] font-medium" style="color: #1e293b;">{{ page.name_zh }}</span>
-                <span class="text-[12px] px-2 py-0.5 rounded-full" :style="page.is_published ? 'background: rgba(5,150,105,0.12); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'">
+                <span class="text-[12px] px-2 py-0.5 rounded-full" :style="page.is_published ? 'background: rgba(37,99,235,0.12); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'">
                   {{ page.is_published ? '已发布' : '草稿' }}
                 </span>
                 <span class="text-[11px] px-2 py-0.5 rounded-full" :style="page.type === 'content' ? 'background: #f1f5f9; color: #64748b;' : 'background: rgba(59,130,246,0.08); color: #60a5fa;'">
@@ -56,7 +56,7 @@
                 </span>
               </div>
               <div class="text-[12px] mt-0.5" style="color: #94a3b8;">
-                /{{ page.slug }} &middot; {{ page.name_en }}
+                /{{ page.slug }} &middot; {{ page.name_en }} &middot; 排序: {{ page.sort_order }}
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -70,7 +70,7 @@
               <button
                 @click="openEditPage(page)"
                 class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors"
-                style="color: #34d399; background: rgba(5,150,105,0.08);"
+                style="color: #60a5fa; background: rgba(37,99,235,0.08);"
               >
                 编辑
               </button>
@@ -88,14 +88,14 @@
           <div
             v-if="expandedPageId === page.id"
             class="px-5 pb-4 border-t"
-            style="border-color: #e8f5e9;"
+            style="border-color: #dbeafe;"
           >
             <div class="flex items-center justify-between pt-4 mb-3">
               <span class="text-[12px]" style="color: #94a3b8;">内容区块</span>
               <button
                 @click="openCreateBlock(page)"
                 class="text-[12px] border-none cursor-pointer px-3 py-1 rounded-lg transition-colors"
-                style="color: #34d399; background: rgba(5,150,105,0.08);"
+                style="color: #60a5fa; background: rgba(37,99,235,0.08);"
               >
                 + 添加区块
               </button>
@@ -123,7 +123,7 @@
                   <button
                     @click="openEditBlock(block, page.id)"
                     class="text-[11px] border-none cursor-pointer px-2.5 py-1 rounded-lg transition-colors"
-                    style="color: #34d399; background: rgba(5,150,105,0.08);"
+                    style="color: #60a5fa; background: rgba(37,99,235,0.08);"
                   >
                     编辑
                   </button>
@@ -161,7 +161,7 @@
               v-model="pageForm.name_zh"
               class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg transition-colors"
               style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              :style="{ borderColor: pageFormFocused === 'name_zh' ? '#059669' : '#d1d5db' }"
+              :style="{ borderColor: pageFormFocused === 'name_zh' ? '#2563eb' : '#d1d5db' }"
               @focus="pageFormFocused = 'name_zh'"
               @blur="pageFormFocused = null"
             />
@@ -172,7 +172,7 @@
               v-model="pageForm.name_en"
               class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg transition-colors"
               style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              :style="{ borderColor: pageFormFocused === 'name_en' ? '#059669' : '#d1d5db' }"
+              :style="{ borderColor: pageFormFocused === 'name_en' ? '#2563eb' : '#d1d5db' }"
               @focus="pageFormFocused = 'name_en'"
               @blur="pageFormFocused = null"
             />
@@ -183,7 +183,7 @@
               v-model="pageForm.slug"
               class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg transition-colors"
               style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;"
-              :style="{ borderColor: pageFormFocused === 'slug' ? '#059669' : '#d1d5db' }"
+              :style="{ borderColor: pageFormFocused === 'slug' ? '#2563eb' : '#d1d5db' }"
               @focus="pageFormFocused = 'slug'"
               @blur="pageFormFocused = null"
             />
@@ -202,6 +202,18 @@
               <option value="contact">contact — 联系我们</option>
             </select>
           </div>
+          <div class="flex items-center gap-6">
+            <div class="flex-1">
+              <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">排序</label>
+              <input v-model.number="pageForm.sort_order" type="number" class="w-full py-2.5 px-3 text-[14px] outline-none rounded-lg" style="background: #ffffff; border: 1px solid #d1d5db; color: #1e293b;" />
+            </div>
+            <div class="flex items-end pb-1 pt-5">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input v-model="pageForm.is_published" type="checkbox" class="accent-blue-600" />
+                <span class="text-[12px]" style="color: #64748b;">已发布</span>
+              </label>
+            </div>
+          </div>
           <div v-if="pageFormError" class="text-[12px]" style="color: #f87171;">{{ pageFormError }}</div>
           <div class="flex justify-end gap-3 pt-2">
             <button
@@ -216,7 +228,7 @@
               type="submit"
               :disabled="pageSaving"
               class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40"
-              style="background: linear-gradient(135deg, #059669, #10b981);"
+              style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"
             >
               {{ pageSaving ? '保存中...' : '保存' }}
             </button>
@@ -281,7 +293,7 @@
               type="submit"
               :disabled="blockSaving"
               class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40"
-              style="background: linear-gradient(135deg, #059669, #10b981);"
+              style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"
             >
               {{ blockSaving ? '保存中...' : '保存' }}
             </button>
@@ -353,6 +365,7 @@ interface Page {
   name_en: string;
   slug: string;
   type: string;
+  sort_order: number;
   is_published: boolean;
   _blocks?: Block[];
 }
@@ -388,18 +401,18 @@ const pageSaving = ref(false);
 const pageFormError = ref('');
 const pageFormFocused = ref<string | null>(null);
 const editingPage = ref<Page | null>(null);
-const pageForm = ref({ name_zh: '', name_en: '', slug: '', type: 'content' });
+const pageForm = ref({ name_zh: '', name_en: '', slug: '', type: 'content', sort_order: 0, is_published: false });
 
 const openCreatePage = () => {
   editingPage.value = null;
-  pageForm.value = { name_zh: '', name_en: '', slug: '', type: 'content' };
+  pageForm.value = { name_zh: '', name_en: '', slug: '', type: 'content', sort_order: 0, is_published: false };
   pageFormError.value = '';
   pageModal.value = true;
 };
 
 const openEditPage = (page: Page) => {
   editingPage.value = page;
-  pageForm.value = { name_zh: page.name_zh, name_en: page.name_en, slug: page.slug, type: page.type };
+  pageForm.value = { name_zh: page.name_zh, name_en: page.name_en, slug: page.slug, type: page.type, sort_order: page.sort_order, is_published: page.is_published };
   pageFormError.value = '';
   pageModal.value = true;
 };

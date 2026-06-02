@@ -2,7 +2,7 @@
   <article v-if="article" class="py-16 px-4 max-w-3xl mx-auto">
     <img
       v-if="article.cover_image_id"
-      :src="`${apiBase}/../../media/${article.cover_image_id}`"
+      :src="`${apiBase}/../../media/id/${article.cover_image_id}`"
       class="w-full max-h-96 object-cover rounded-lg mb-8"
     />
     <h1 class="text-3xl font-bold mb-4">

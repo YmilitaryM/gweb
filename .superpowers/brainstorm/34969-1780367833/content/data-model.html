@@ -1,0 +1,79 @@
+<h2>后端数据模型确认 — 混合方案</h2>
+<p class="subtitle">案例用新模型（结构化数据），方案用 Page API（灵活 Blocks 配置）</p>
+
+<div class="section">
+  <h3>➕ 新增: Case 模型（案例库）</h3>
+  <div class="mockup">
+    <div class="mockup-body">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+        <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+          <th style="text-align: left; padding: 8px;">字段</th>
+          <th style="text-align: left; padding: 8px;">类型</th>
+          <th style="text-align: left; padding: 8px;">说明</th>
+        </tr>
+        <tr><td style="padding: 6px;">name_zh / name_en</td><td style="padding: 6px;">String(300)</td><td style="padding: 6px;">项目名称</td></tr>
+        <tr><td style="padding: 6px;">slug</td><td style="padding: 6px;">String(300) unique</td><td style="padding: 6px;">URL 标识</td></tr>
+        <tr><td style="padding: 6px;">cover_image_id</td><td style="padding: 6px;">FK → media</td><td style="padding: 6px;">封面图</td></tr>
+        <tr><td style="padding: 6px;">summary_zh / summary_en</td><td style="padding: 6px;">Text</td><td style="padding: 6px;">简短摘要</td></tr>
+        <tr><td style="padding: 6px;">content_zh / content_en</td><td style="padding: 6px;">Text</td><td style="padding: 6px;">详细内容（富文本）</td></tr>
+        <tr><td style="padding: 6px;">category</td><td style="padding: 6px;">String(50)</td><td style="padding: 6px;">分类: commercial/park/office/medical</td></tr>
+        <tr><td style="padding: 6px;">stats</td><td style="padding: 6px;">JSON</td><td style="padding: 6px;">关键数据 [{label:"节能率", value:"28.5%"}, ...]</td></tr>
+        <tr><td style="padding: 6px;">sort_order / is_published</td><td style="padding: 6px;">Int / Bool</td><td style="padding: 6px;">排序 & 发布状态</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🔧 改造: Settings 系统（公司信息可配置）</h3>
+  <div class="mockup">
+    <div class="mockup-body">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+        <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+          <th style="text-align: left; padding: 8px;">Setting Key</th>
+          <th style="text-align: left; padding: 8px;">用途</th>
+          <th style="text-align: left; padding: 8px;">显示位置</th>
+        </tr>
+        <tr><td style="padding: 6px; font-family: mono;">company_name_zh</td><td style="padding: 6px;">公司中文名</td><td style="padding: 6px;">Header Logo 旁、Footer、SEO title</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">company_name_en</td><td style="padding: 6px;">公司英文名</td><td style="padding: 6px;">英文版全局</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">company_description_zh</td><td style="padding: 6px;">公司简介</td><td style="padding: 6px;">Footer 简介区域</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">hotline</td><td style="padding: 6px;">服务热线</td><td style="padding: 6px;">Footer "7x24小时全国智能运维热线"</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">contact_email</td><td style="padding: 6px;">联系邮箱</td><td style="padding: 6px;">联系页面、Chat预设</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">icp_beian</td><td style="padding: 6px;">ICP 备案号</td><td style="padding: 6px;">Footer 底部</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">logo_id</td><td style="padding: 6px;">Logo 媒体 ID</td><td style="padding: 6px;">Header + Footer</td></tr>
+        <tr><td style="padding: 6px; font-family: mono;">og_image_id</td><td style="padding: 6px;">社交分享图</td><td style="padding: 6px;">OG meta tags</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📋 管理端需要新增/改造的页面</h3>
+  <div class="options">
+    <div class="option" style="cursor: default;">
+      <div class="content">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem;">
+          <div style="padding: 12px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;">
+            <strong>✅ 已有</strong>
+            <ul style="margin: 4px 0 0 16px; padding: 0;">
+              <li>页面管理 (pages.vue)</li>
+              <li>媒体库 (media.vue)</li>
+              <li>菜单管理 (menus.vue)</li>
+              <li>新闻管理 (news.vue)</li>
+              <li>产品管理 (products.vue)</li>
+              <li>用户管理 (users.vue)</li>
+              <li>设置 (settings.vue)</li>
+            </ul>
+          </div>
+          <div style="padding: 12px; background: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe;">
+            <strong>➕ 需新增</strong>
+            <ul style="margin: 4px 0 0 16px; padding: 0;">
+              <li>案例管理 (cases.vue) — 新CRUD</li>
+              <li>方案页内容配置</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,314 @@
+<h2>最终轮 · 学习全球顶级科技官网后的精炼方案</h2>
+<p class="subtitle">吸取 Linear · Stripe · Vercel · Ramp 的设计精髓，适配智慧建筑运维平台</p>
+
+<div class="cards">
+  <!-- P1: Stripe-inspired clean + building elements -->
+  <div class="card" data-choice="p1" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#fafbfc;border-radius:12px;overflow:hidden;min-height:400px;position:relative">
+        <!-- Subtle dot grid across entire page -->
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(5,150,105,0.06) 0.5px,transparent 0.5px);background-size:20px 20px;pointer-events:none"></div>
+
+        <!-- Header - clean, minimal, glass -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 32px;background:rgba(250,251,252,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(5,150,105,0.06);position:relative;z-index:10">
+          <div style="display:flex;align-items:center;gap:40px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:24px;height:24px;background:linear-gradient(135deg,#059669,#10b981);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px">G</div>
+              <span style="font-weight:700;font-size:15px;color:#064e3b;letter-spacing:-0.3px">GWEB</span>
+            </div>
+            <div style="display:flex;gap:28px;font-size:13.5px;font-weight:450;color:#64748b">
+              <span style="color:#059669;font-weight:600">首页</span>
+              <span>产品</span>
+              <span>方案</span>
+              <span>关于</span>
+              <span>新闻</span>
+              <span>联系</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="display:flex;gap:1px;background:#f1f5f9;border-radius:6px;padding:2px">
+              <span style="padding:5px 12px;font-size:11.5px;color:#fff;background:#059669;border-radius:4px;font-weight:500">中文</span>
+              <span style="padding:5px 12px;font-size:11.5px;color:#94a3b8">EN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero - Stripe-like generous spacing -->
+        <div style="padding:64px 32px 40px;position:relative;z-index:2">
+          <div style="display:flex;gap:60px;align-items:flex-start;max-width:900px;margin:0 auto">
+            <!-- Left: Text -->
+            <div style="flex:1.2">
+              <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#059669;font-weight:500;margin-bottom:16px;letter-spacing:0.5px">
+                <span style="width:6px;height:6px;background:#059669;border-radius:50%"></span> 数字孪生平台 v3.0
+              </div>
+              <div style="font-size:40px;font-weight:700;color:#0f172a;line-height:1.2;letter-spacing:-1.5px;margin-bottom:12px">
+                智慧建筑<br><span style="background:linear-gradient(135deg,#059669,#0284c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">智领未来</span>
+              </div>
+              <div style="font-size:14px;color:#64748b;line-height:1.7;margin-bottom:24px">
+                以数字孪生与AI技术为核心<br>打造高效、节能、安全的建筑运维新范式
+              </div>
+              <div style="display:flex;gap:10px">
+                <span style="background:#0f172a;color:#fff;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:550">了解产品</span>
+                <span style="border:1.5px solid #e2e8f0;color:#374151;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:450">联系我们</span>
+              </div>
+            </div>
+            <!-- Right: Floating stat cards -->
+            <div style="flex:0.8;display:flex;flex-direction:column;gap:10px;padding-top:8px">
+              <div style="background:#fff;border:1px solid #e8f5e9;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.03);display:flex;align-items:center;gap:14px">
+                <div style="font-size:30px;font-weight:700;color:#059669">500+</div>
+                <div><div style="font-size:13px;font-weight:500;color:#334155">服务建筑</div><div style="font-size:11px;color:#94a3b8">覆盖全国主要城市</div></div>
+              </div>
+              <div style="background:#fff;border:1px solid #e8f5e9;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.03);display:flex;align-items:center;gap:14px">
+                <div style="font-size:30px;font-weight:700;color:#059669">99.9%</div>
+                <div><div style="font-size:13px;font-weight:500;color:#334155">系统可用率</div><div style="font-size:11px;color:#94a3b8">全年稳定运行保障</div></div>
+              </div>
+              <div style="background:#fff;border:1px solid #eff6ff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.03);display:flex;align-items:center;gap:14px">
+                <div style="font-size:30px;font-weight:700;color:#0284c7">30%</div>
+                <div><div style="font-size:13px;font-weight:500;color:#334155">平均节能率</div><div style="font-size:11px;color:#94a3b8">AI冷热负荷优化</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature cards row - Stripe-style -->
+        <div style="display:flex;gap:1px;background:#f1f5f9;margin:0 32px 32px;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;position:relative;z-index:2">
+          <div style="flex:1;background:#fff;padding:22px 20px">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:14px">🏗</div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">数字孪生</div>
+            <div style="font-size:12px;color:#64748b;line-height:1.6">1:1精准还原建筑<br>实时映射运行状态</div>
+          </div>
+          <div style="flex:1;background:#fff;padding:22px 20px">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:14px">⚡</div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">AI能耗优化</div>
+            <div style="font-size:12px;color:#64748b;line-height:1.6">深度学习负荷预测<br>节能20-40%</div>
+          </div>
+          <div style="flex:1;background:#fff;padding:22px 20px">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:14px">🔍</div>
+            <div style="font-size:14px;font-weight:600;color:#0f172a;margin-bottom:6px">智能巡检</div>
+            <div style="font-size:12px;color:#64748b;line-height:1.6">自动化巡检任务<br>AI缺陷识别</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>P1 · Stripe式清爽专业</h3>
+      <p>学习Stripe的极致留白+卡片UI。微点网格底纹，Hero左文右数据卡不对称布局，底部三列产品卡片。干净利落，信息层次分明。</p>
+    </div>
+  </div>
+
+  <!-- P2: Linear-inspired precision + blueprint -->
+  <div class="card" data-choice="p2" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#ffffff;border-radius:12px;overflow:hidden;min-height:400px;position:relative">
+        <!-- Blueprint-style fine grid -->
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(5,150,105,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(5,150,105,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none"></div>
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(5,150,105,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(5,150,105,0.06) 1px,transparent 1px);background-size:160px 160px;pointer-events:none"></div>
+
+        <!-- Header - Linear-like precision -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(255,255,255,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.04);position:relative;z-index:10">
+          <div style="display:flex;align-items:center;gap:36px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="display:flex;gap:4px">
+                <div style="width:3px;height:16px;background:#10b981;border-radius:2px"></div>
+                <div style="width:3px;height:22px;background:#059669;border-radius:2px"></div>
+                <div style="width:3px;height:12px;background:#34d399;border-radius:2px;opacity:0.5"></div>
+              </div>
+              <span style="font-weight:600;font-size:15px;color:#064e3b;letter-spacing:-0.3px">GWEB</span>
+            </div>
+            <div style="display:flex;gap:24px;font-size:13px;font-weight:450;color:#94a3b8">
+              <span style="color:#0f172a;font-weight:550">首页</span>
+              <span>产品中心</span>
+              <span>解决方案</span>
+              <span>关于我们</span>
+              <span>新闻中心</span>
+              <span>联系我们</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:12px;color:#059669;font-weight:500">中</span>
+            <span style="width:1px;height:14px;background:#e2e8f0"></span>
+            <span style="font-size:12px;color:#cbd5e1">EN</span>
+          </div>
+        </div>
+
+        <!-- Hero - Linear-style precision typography -->
+        <div style="padding:56px 32px 44px;text-align:center;position:relative;z-index:2;max-width:720px;margin:0 auto">
+          <div style="font-size:11px;color:#10b981;letter-spacing:3px;font-weight:500;margin-bottom:16px;text-transform:uppercase">Digital Twin Platform</div>
+          <div style="font-size:42px;font-weight:600;color:#0f172a;line-height:1.18;letter-spacing:-1.8px;margin-bottom:16px">
+            智慧建筑 · <span style="background:linear-gradient(135deg,#059669,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">智领未来</span>
+          </div>
+          <div style="font-size:15px;color:#64748b;line-height:1.8;margin-bottom:28px;font-weight:400">
+            以数字孪生与AI技术为核心，打造高效、节能、安全的建筑运维新范式
+          </div>
+          <div style="display:flex;gap:10px;justify-content:center">
+            <span style="background:#0f172a;color:#fff;padding:10px 26px;border-radius:8px;font-size:13px;font-weight:550;letter-spacing:0.3px">了解产品</span>
+            <span style="color:#64748b;padding:10px 26px;border-radius:8px;font-size:13px;font-weight:450">联系我们 →</span>
+          </div>
+        </div>
+
+        <!-- Data bar - precise, Linear-style -->
+        <div style="display:flex;border-top:1px solid #f1f5f9;margin:0 32px;position:relative;z-index:2">
+          <div style="flex:1;text-align:center;padding:20px 16px;border-right:1px solid #f8fafc">
+            <div style="font-size:34px;font-weight:600;color:#059669;letter-spacing:-1px;font-variant-numeric:tabular-nums">500<span style="font-size:20px;font-weight:400;color:#6ee7b7">+</span></div>
+            <div style="font-size:12px;color:#94a3b8;margin-top:4px">Buildings</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:20px 16px;border-right:1px solid #f8fafc">
+            <div style="font-size:34px;font-weight:600;color:#059669;letter-spacing:-1px;font-variant-numeric:tabular-nums">50<span style="font-size:20px;font-weight:400;color:#6ee7b7">+</span></div>
+            <div style="font-size:12px;color:#94a3b8;margin-top:4px">Cities</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:20px 16px;border-right:1px solid #f8fafc">
+            <div style="font-size:34px;font-weight:600;color:#0284c7;letter-spacing:-1px;font-variant-numeric:tabular-nums">99.9<span style="font-size:20px;font-weight:400;color:#7dd3fc">%</span></div>
+            <div style="font-size:12px;color:#94a3b8;margin-top:4px">Uptime</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:20px 16px">
+            <div style="font-size:34px;font-weight:600;color:#0284c7;letter-spacing:-1px;font-variant-numeric:tabular-nums">30<span style="font-size:20px;font-weight:400;color:#7dd3fc">%</span></div>
+            <div style="font-size:12px;color:#94a3b8;margin-top:4px">Energy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>P2 · Linear式精准克制</h3>
+      <p>学习Linear的极致排版精度。双层蓝图网格(40px+160px)，竖条Logo，中/EN用竖线分隔。数字使用 tabular-nums 等宽变体，下半部数据条极简克制。</p>
+    </div>
+  </div>
+
+  <!-- P3: Vercel-inspired product demo hero -->
+  <div class="card" data-choice="p3" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:linear-gradient(180deg, #f8fafc 0%, #f0fdf6 60%, #ffffff 100%);border-radius:12px;overflow:hidden;min-height:400px;position:relative">
+        <!-- Subtle gradient sweep -->
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse at center,rgba(5,150,105,0.04) 0%,transparent 70%);pointer-events:none"></div>
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 32px;position:relative;z-index:10">
+          <div style="display:flex;align-items:center;gap:32px">
+            <div style="display:flex;align-items:center;gap:9px">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="8" height="8" rx="1.5" stroke="#059669" stroke-width="2"/>
+                <rect x="13" y="2" width="9" height="8" rx="1.5" stroke="#34d399" stroke-width="1.5"/>
+                <rect x="2" y="13" width="8" height="9" rx="1.5" stroke="#34d399" stroke-width="1.5"/>
+                <rect x="13" y="13" width="9" height="9" rx="1.5" stroke="#6ee7b7" stroke-width="1.5"/>
+              </svg>
+              <span style="font-weight:650;font-size:15px;color:#064e3b;letter-spacing:-0.2px">GWEB</span>
+            </div>
+            <div style="display:flex;gap:24px;font-size:13px;font-weight:450;color:#64748b">
+              <span style="color:#059669;font-weight:550">首页</span><span>产品</span><span>方案</span><span>关于</span><span>新闻</span><span>联系</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1px;background:#fff;border:1px solid #e2e8f0;border-radius:20px;overflow:hidden">
+            <span style="padding:5px 14px;font-size:11px;color:#fff;background:linear-gradient(135deg,#059669,#10b981);font-weight:550">中</span>
+            <span style="padding:5px 14px;font-size:11px;color:#94a3b8">EN</span>
+          </div>
+        </div>
+
+        <!-- Hero with product demo card -->
+        <div style="padding:32px 32px 0;position:relative;z-index:2;max-width:880px;margin:0 auto">
+          <div style="text-align:center;margin-bottom:28px">
+            <div style="font-size:36px;font-weight:700;color:#0f172a;line-height:1.2;letter-spacing:-1.2px;margin-bottom:10px">智慧建筑 · 智领未来</div>
+            <div style="font-size:14px;color:#64748b;margin-bottom:20px">以数字孪生与AI技术为核心，打造高效、节能、安全的建筑运维新范式</div>
+            <div style="display:flex;gap:10px;justify-content:center">
+              <span style="background:linear-gradient(135deg,#059669,#10b981);color:#fff;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:550;box-shadow:0 4px 16px rgba(5,150,105,0.15)">开始使用</span>
+              <span style="border:1px solid #e2e8f0;color:#374151;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:450;background:#fff">预约演示</span>
+            </div>
+          </div>
+
+          <!-- Product demo card - Vercel-style -->
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.04)">
+            <!-- Mock browser bar -->
+            <div style="display:flex;align-items:center;gap:6px;padding:10px 16px;background:#f8fafc;border-bottom:1px solid #f1f5f9">
+              <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#10b981"></div>
+              <div style="flex:1;text-align:center;font-size:11px;color:#94a3b8">building-ops.gweb.com</div>
+            </div>
+            <!-- Mock dashboard -->
+            <div style="display:flex;padding:16px 20px;gap:16px">
+              <div style="flex:1;background:#f8fafc;border-radius:8px;padding:14px;border:1px solid #f1f5f9">
+                <div style="font-size:10px;color:#94a3b8;margin-bottom:6px">BUILDING STATUS</div>
+                <div style="display:flex;gap:8px;align-items:flex-end">
+                  <div style="flex:1;height:40px;background:linear-gradient(to top,#d1fae5,#6ee7b7);border-radius:3px;opacity:0.7"></div>
+                  <div style="flex:1;height:55px;background:linear-gradient(to top,#d1fae5,#34d399);border-radius:3px"></div>
+                  <div style="flex:1;height:48px;background:linear-gradient(to top,#d1fae5,#6ee7b7);border-radius:3px;opacity:0.8"></div>
+                  <div style="flex:1;height:62px;background:linear-gradient(to top,#d1fae5,#059669);border-radius:3px"></div>
+                  <div style="flex:1;height:36px;background:linear-gradient(to top,#d1fae5,#6ee7b7);border-radius:3px;opacity:0.6"></div>
+                  <div style="flex:1;height:52px;background:linear-gradient(to top,#d1fae5,#34d399);border-radius:3px;opacity:0.9"></div>
+                  <div style="flex:1;height:44px;background:linear-gradient(to top,#d1fae5,#6ee7b7);border-radius:3px;opacity:0.7"></div>
+                </div>
+              </div>
+              <div style="width:140px;display:flex;flex-direction:column;gap:8px">
+                <div style="background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:1px solid #d1fae5">
+                  <div style="font-size:20px;font-weight:700;color:#059669">500+</div>
+                  <div style="font-size:10px;color:#64748b">建筑</div>
+                </div>
+                <div style="background:#f0fdf4;border-radius:8px;padding:12px;text-align:center;border:1px solid #d1fae5">
+                  <div style="font-size:20px;font-weight:700;color:#059669">99.9%</div>
+                  <div style="font-size:10px;color:#64748b">可用率</div>
+                </div>
+                <div style="background:#eff6ff;border-radius:8px;padding:12px;text-align:center;border:1px solid #dbeafe">
+                  <div style="font-size:20px;font-weight:700;color:#0284c7">30%</div>
+                  <div style="font-size:10px;color:#64748b">节能</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding-bottom:28px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>P3 · Vercel式产品即Hero</h3>
+      <p>学习Vercel将产品演示嵌入Hero的做法。绿色渐变底 + 模拟浏览器窗口嵌入建筑数据仪表盘 + 柱状图+右侧数据卡片。让访客一眼看到产品能力。</p>
+    </div>
+  </div>
+</div>
+
+<hr style="margin: 28px 0; border-color: #e2e8f0;">
+
+<h3>设计语言确认</h3>
+<p class="subtitle">从顶级科技官网学到的关键设计决策</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="keep-clean" onclick="toggleSelect(this)">
+    <div class="letter">S</div>
+    <div class="content">
+      <h3>Stripe式：留白+卡片UI</h3>
+      <p>大量留白，信息用精致卡片承载，干净专业</p>
+    </div>
+  </div>
+  <div class="option" data-choice="keep-precise" onclick="toggleSelect(this)">
+    <div class="letter">L</div>
+    <div class="content">
+      <h3>Linear式：精准排版+克制</h3>
+      <p>极致字体精度，极简装饰，用排版本身营造品质感</p>
+    </div>
+  </div>
+  <div class="option" data-choice="keep-demo" onclick="toggleSelect(this)">
+    <div class="letter">V</div>
+    <div class="content">
+      <h3>Vercel式：产品演示入Hero</h3>
+      <p>在首屏直接展示产品界面/数据仪表盘，所见即所得</p>
+    </div>
+  </div>
+  <div class="option" data-choice="light-final" onclick="toggleSelect(this)">
+    <div class="letter">☀</div>
+    <div class="content">
+      <h3>确认：浅色底方向</h3>
+      <p>白/浅绿渐变为主，清爽明亮</p>
+    </div>
+  </div>
+  <div class="option" data-choice="glass-final" onclick="toggleSelect(this)">
+    <div class="letter">◈</div>
+    <div class="content">
+      <h3>确认：毛玻璃导航</h3>
+      <p>半透明Header悬浮于内容之上</p>
+    </div>
+  </div>
+  <div class="option" data-choice="asym-final" onclick="toggleSelect(this)">
+    <div class="letter">↗</div>
+    <div class="content">
+      <h3>确认：非对称布局</h3>
+      <p>Hero区左文右卡/数据，打破居中对称</p>
+    </div>
+  </div>
+</div>

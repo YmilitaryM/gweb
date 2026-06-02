@@ -32,13 +32,19 @@ async def create_menu_item(
         return menu
 
 
-async def get_menu_tree(location: str | None = None) -> list[dict]:
+async def get_menu_tree(location: str | None = None, admin: bool = False) -> list[dict]:
     async with async_session() as db:
         from app.apps.cms.models import Page
-        q = select(Menu).where(Menu.is_visible == True)
+        q = (
+            select(Menu)
+            .outerjoin(Page, Menu.page_id == Page.id)
+        )
+        if not admin:
+            q = q.where(Menu.is_visible == True)
+            q = q.where((Page.is_published == True) | (Menu.page_id == None))
         if location:
             q = q.where(Menu.location == location)
-        q = q.order_by(Menu.order)
+        q = q.order_by(Page.sort_order, Menu.order)
         result = await db.execute(q)
         items = result.scalars().all()
 
@@ -52,6 +58,10 @@ async def get_menu_tree(location: str | None = None) -> list[dict]:
             "page_id": m.page_id,
             "page_slug": None,
             "icon": m.icon,
+            "order": m.order,
+            "is_visible": m.is_visible,
+            "location": m.location,
+            "parent_id": m.parent_id,
             "children": [],
         }
 

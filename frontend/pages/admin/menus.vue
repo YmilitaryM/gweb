@@ -11,7 +11,7 @@
       <button
         @click="openCreate(null)"
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
       >
         新建菜单
       </button>
@@ -32,7 +32,7 @@
         暂无菜单
       </div>
       <div v-else class="space-y-1">
-        <MenuNode
+        <AdminMenuNode
           v-for="node in menuTree"
           :key="node.id"
           :node="node"
@@ -77,7 +77,7 @@
                 /{{ p.slug }} — {{ p.name_zh }} ({{ p.type }})
               </option>
             </select>
-            <p v-if="selectedPageSlug" class="text-[11px] mt-1" style="color: #34d399;">
+            <p v-if="selectedPageSlug" class="text-[11px] mt-1" style="color: #60a5fa;">
               链接: /{{ selectedPageSlug === 'home' ? '' : selectedPageSlug }}
             </p>
           </div>
@@ -103,7 +103,7 @@
             </div>
             <div class="flex items-end pb-1">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input v-model="form.is_visible" type="checkbox" class="accent-emerald-600" />
+                <input v-model="form.is_visible" type="checkbox" class="accent-blue-600" />
                 <span class="text-[12px]" style="color: #64748b;">可见</span>
               </label>
             </div>
@@ -111,7 +111,7 @@
           <div v-if="formError" class="text-[12px]" style="color: #f87171;">{{ formError }}</div>
           <div class="flex justify-end gap-3 pt-2">
             <button type="button" @click="modalOpen = false" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: #64748b; background: #f1f5f9;">取消</button>
-            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #059669, #10b981);">
+            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
               {{ saving ? '保存中...' : '保存' }}
             </button>
           </div>
@@ -166,7 +166,7 @@ const fetchMenus = async () => {
   loading.value = true;
   error.value = '';
   try {
-    menuTree.value = await api<MenuNode[]>('/menus');
+    menuTree.value = await api<MenuNode[]>('/admin/menus');
   } catch (e: any) {
     error.value = e?.data?.detail || '加载菜单失败';
   } finally {
@@ -189,7 +189,7 @@ const pageOptions = ref<PageOption[]>([]);
 
 const fetchPageOptions = async () => {
   try {
-    const data = await api<any[]>('/pages');
+    const data = await api<any[]>('/admin/pages');
     pageOptions.value = data.map((p: any) => ({ id: p.id, name_zh: p.name_zh, slug: p.slug, type: p.type }));
   } catch {}
 };

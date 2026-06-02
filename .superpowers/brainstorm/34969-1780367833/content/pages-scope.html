@@ -1,0 +1,112 @@
+<h2>方案确认 — 需要新增/改造的页面与功能</h2>
+<p class="subtitle">基于参考网站的完整分析，以下是需要通过 API 动态填充的模块（标记 ✅ 为已有，➕ 为需新增，🔧 为需改造）</p>
+
+<div class="section">
+  <h3>页面路由映射</h3>
+  <div class="mockup">
+    <div class="mockup-body">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+        <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+          <th style="text-align: left; padding: 10px;">路由</th>
+          <th style="text-align: left; padding: 10px;">页面名称</th>
+          <th style="text-align: left; padding: 10px;">状态</th>
+          <th style="text-align: left; padding: 10px;">关键数据源</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/</td>
+          <td style="padding: 10px;">首页</td>
+          <td style="padding: 10px;">🔧 改造</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Page API (home slug) + Blocks: hero轮播, 服务卡片, 方案卡片, 新闻列表, CTA</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/products</td>
+          <td style="padding: 10px;">产品服务</td>
+          <td style="padding: 10px;">✅ 已有 + 🔧</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Product API: 分类 + 产品列表 + 详情</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/solutions</td>
+          <td style="padding: 10px;">解决方案</td>
+          <td style="padding: 10px;">➕ 新增</td>
+          <td style="padding: 10px; font-size: 0.8rem;">需新建 Solution 模型/Tab切换（园区/医疗/办公/商业）</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/about</td>
+          <td style="padding: 10px;">关于我们</td>
+          <td style="padding: 10px;">🔧 改造</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Page API (about slug) + Blocks: richtext, 团队/历程等</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/news</td>
+          <td style="padding: 10px;">新闻动态</td>
+          <td style="padding: 10px;">✅ 已有 + 🔧</td>
+          <td style="padding: 10px; font-size: 0.8rem;">News API + 分类筛选</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/contact</td>
+          <td style="padding: 10px;">联系我们</td>
+          <td style="padding: 10px;">✅ 已有 + 🔧</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Inquiry API + 公司信息</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/cooperation</td>
+          <td style="padding: 10px;">商务合作</td>
+          <td style="padding: 10px;">➕ 新增</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Page API (cooperation slug) + 合作表单</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-family: mono;">/cases</td>
+          <td style="padding: 10px;">服务案例</td>
+          <td style="padding: 10px;">➕ 新增</td>
+          <td style="padding: 10px; font-size: 0.8rem;">需新建 Case 模型（案例库）</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-family: mono;">/privacy<br/>/terms</td>
+          <td style="padding: 10px;">隐私政策 / 法律声明</td>
+          <td style="padding: 10px;">➕ 新增</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Page API 即可（content 类型页面）</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>全局组件改造清单</h3>
+  <div class="mockup">
+    <div class="mockup-body">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+        <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+          <th style="text-align: left; padding: 10px;">组件</th>
+          <th style="text-align: left; padding: 10px;">改造内容</th>
+          <th style="text-align: left; padding: 10px;">数据来源</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-weight: 600;">Header</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Blue品牌色、sticky显隐动画、mobile汉堡菜单、active下划线动效</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Menu API (header)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-weight: 600;">Footer</td>
+          <td style="padding: 10px; font-size: 0.8rem;">4列网格、Logo+简介+热线、产品/方案/公司链接、ICP备案</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Menu API (footer) + Settings API</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-weight: 600;">Hero Block</td>
+          <td style="padding: 10px; font-size: 0.8rem;">全屏轮播、背景图数组、左右箭头、自动播放、渐变叠加层</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Block content (slides[])</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px; font-weight: 600;">AI Chat</td>
+          <td style="padding: 10px; font-size: 0.8rem;">蓝品牌浮动按钮、对话窗口、预设分类快捷回复、返回顶部</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Chat API（已有）</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: 600;">全局主题</td>
+          <td style="padding: 10px; font-size: 0.8rem;">品牌色emerald→blue、Inter字体、glass效果、radial背景</td>
+          <td style="padding: 10px; font-size: 0.8rem;">Tailwind config (static) + Theme API</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

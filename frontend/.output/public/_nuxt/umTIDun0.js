@@ -1,0 +1,1 @@
+import{ac as u,aA as n}from"./Dd6UE0Uk.js";const r=()=>{const t=n(),a=u(!1),e=u(null),s=u(!1);return{submit:async l=>{a.value=!0,e.value=null,s.value=!1;try{await $fetch(`${t.public.apiBase}/inquiries`,{method:"POST",body:l}),s.value=!0}catch(i){e.value=i.data?.detail||"Submission failed"}finally{a.value=!1}},loading:a,error:e,success:s}};export{r as u};

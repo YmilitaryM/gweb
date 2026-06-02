@@ -1,0 +1,103 @@
+<h2>设计方案 — 完全替换为金捷利风格</h2>
+<p class="subtitle">基于参考网站 100% 还原设计，所有动态数据来源于后端 API</p>
+
+<div class="section">
+  <h3>🎨 第一步：全局设计系统替换</h3>
+  <div class="mockup">
+    <div class="mockup-header">Tailwind v4 Theme 覆写（nuxt.config.ts + main.css）</div>
+    <div class="mockup-body">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
+        <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+          <th style="text-align: left; padding: 8px;">Token</th>
+          <th style="text-align: left; padding: 8px;">当前值</th>
+          <th style="text-align: left; padding: 8px;">→ 目标值</th>
+        </tr>
+        <tr><td style="padding: 6px;">--font-sans</td><td style="padding: 6px;">默认</td><td style="padding: 6px; font-family: Inter;">"Inter", ui-sans-serif</td></tr>
+        <tr><td style="padding: 6px;">--font-mono</td><td style="padding: 6px;">默认</td><td style="padding: 6px; font-family: mono;">"JetBrains Mono"</td></tr>
+        <tr><td style="padding: 6px;">--color-brand-500</td><td style="padding: 6px; color: #059669;">#059669 (emerald)</td><td style="padding: 6px; color: #2563eb;">#2563eb (blue)</td></tr>
+        <tr><td style="padding: 6px;">--color-brand-600</td><td style="padding: 6px; color: #10b981;">#10b981</td><td style="padding: 6px; color: #1d4ed8;">#1d4ed8</td></tr>
+        <tr><td style="padding: 6px;">body bg</td><td style="padding: 6px;">white</td><td style="padding: 6px;">#f8fafc + radial gradient</td></tr>
+        <tr><td style="padding: 6px;">text color</td><td style="padding: 6px;">默认</td><td style="padding: 6px;">#0f172a (slate-900)</td></tr>
+        <tr><td style="padding: 6px;">glass effect</td><td style="padding: 6px;">简单 blur</td><td style="padding: 6px;">bg-white/80 + backdrop-blur-md + border subtle</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🏗️ 第二步：组件改造方案</h3>
+  <div class="mockup">
+    <div class="mockup-header">每个组件的改造要点与 API 数据映射</div>
+    <div class="mockup-body">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+
+        <div style="background: #eff6ff; padding: 16px; border-radius: 12px; border-left: 3px solid #2563eb;">
+          <strong>AppHeader.vue</strong> — 全面重写
+          <ul style="margin: 8px 0 0 16px; font-size: 0.82rem;">
+            <li>品牌色 blue，sticky + scroll 显隐动画 (translateY)</li>
+            <li>桌面端: 导航项 hover 下划线动画 (scale-x-0 → scale-x-100)</li>
+            <li>移动端: 汉堡菜单 + 全屏滑出面板</li>
+            <li>数据源: <code>GET /api/v1/menus?location=header</code></li>
+            <li>Logo: <code>GET /api/v1/settings/public</code> → logo_id</li>
+          </ul>
+        </div>
+
+        <div style="background: #eff6ff; padding: 16px; border-radius: 12px; border-left: 3px solid #2563eb;">
+          <strong>BlockHero.vue</strong> — 升级为轮播
+          <ul style="margin: 8px 0 0 16px; font-size: 0.82rem;">
+            <li>支持多张背景图轮播 (content.slides[])</li>
+            <li>左右箭头 + 自动播放 + 渐变叠加层 (bg-black/12)</li>
+            <li>全屏高度: min-h-[660px] lg:h-[86vh] lg:max-h-[800px]</li>
+            <li>每张 slide: { image_id, title_zh, title_en, subtitle_zh, subtitle_en, buttons[] }</li>
+          </ul>
+        </div>
+
+        <div style="background: #eff6ff; padding: 16px; border-radius: 12px; border-left: 3px solid #2563eb;">
+          <strong>AppFooter.vue</strong> — 扩展为4列网格
+          <ul style="margin: 8px 0 0 16px; font-size: 0.82rem;">
+            <li>第1列: Logo + 公司简介 + 7x24热线（都来自 Settings API）</li>
+            <li>第2列: 产品服务链接（来自 Menu API footer）</li>
+            <li>第3列: 解决方案链接（来自 Menu API footer）</li>
+            <li>第4列: 公司链接 + ICP备案号</li>
+            <li>底部: Copyright + 隐私政策 + 法律声明 + 备案号</li>
+          </ul>
+        </div>
+
+        <div style="background: #dbeafe; padding: 16px; border-radius: 12px; border-left: 3px solid #1d4ed8;">
+          <strong>➕ 新增: ChatFloatingButton.vue</strong> — AI 智能管家
+          <ul style="margin: 8px 0 0 16px; font-size: 0.82rem;">
+            <li>固定右下角浮动 "AI" 按钮 (bg-brand-600, shadow-xl)</li>
+            <li>点击展开对话窗口 (glass, rounded-3xl, shadow)</li>
+            <li>预设快捷分类: 硬件咨询、网关、传感器、方案、合作、联系我们</li>
+            <li>返回顶部按钮 (独立于AI，上滑一定距离出现)</li>
+            <li>改造现有 ChatPanel，保持 API 对接不变</li>
+          </ul>
+        </div>
+
+        <div style="background: #dbeafe; padding: 16px; border-radius: 12px; border-left: 3px solid #1d4ed8;">
+          <strong>➕ 新增 Block: solution_cards</strong>
+          <ul style="margin: 8px 0 0 16px; font-size: 0.82rem;">
+            <li>Tab 切换组件: 产业园区 | 医疗建筑 | 写字楼 | 商业综合体</li>
+            <li>每个 Tab 包含: 标题、描述、图片、特性列表</li>
+            <li>数据源: Block content.tabs[] 通过 Page API 配置</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📊 后端新增清单</h3>
+  <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+    <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+      <th style="text-align: left; padding: 8px;">模块</th>
+      <th style="text-align: left; padding: 8px;">新增内容</th>
+    </tr>
+    <tr><td style="padding: 8px;">Case 模型</td><td style="padding: 8px;">models.py + schemas.py + service.py + router.py + admin CRUD + public list/detail</td></tr>
+    <tr><td style="padding: 8px;">Settings 扩展</td><td style="padding: 8px;">新增 company_name/description/hotline/email/icp_beian/logo_id 等 public key</td></tr>
+    <tr><td style="padding: 8px;">Migration</td><td style="padding: 8px;">Alembic 自动生成 cases 表 + settings 默认值 seed</td></tr>
+    <tr><td style="padding: 8px;">Seed 更新</td><td style="padding: 8px;">预置金捷利示例数据（案例、新闻、方案页、菜单、settings）</td></tr>
+  </table>
+</div>

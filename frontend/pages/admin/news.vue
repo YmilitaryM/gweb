@@ -11,7 +11,7 @@
       <button
         @click="openCreate"
         class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all duration-200 hover:translate-y-[-1px]"
-        style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.2);"
+        style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.2);"
       >
         新建文章
       </button>
@@ -36,7 +36,7 @@
           v-for="article in articles"
           :key="article.id"
           class="flex items-center justify-between px-5 py-4 rounded-xl"
-          style="background: #ffffff; border: 1px solid #e8f5e9;"
+          style="background: #ffffff; border: 1px solid #dbeafe;"
         >
           <div class="flex items-center gap-3 flex-1 min-w-0">
             <img
@@ -50,7 +50,7 @@
                 <span class="text-[14px] font-medium truncate" style="color: #1e293b">{{ article.title_zh }}</span>
                 <span
                   class="text-[11px] px-2 py-0.5 rounded-full flex-shrink-0"
-                  :style="article.is_published ? 'background: rgba(5,150,105,0.12); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
+                  :style="article.is_published ? 'background: rgba(37,99,235,0.12); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'"
                 >
                   {{ article.is_published ? '已发布' : '草稿' }}
                 </span>
@@ -64,7 +64,7 @@
             <button
               @click="openEdit(article)"
               class="text-[12px] border-none cursor-pointer px-3 py-1.5 rounded-lg transition-colors"
-              style="color: #34d399; background: rgba(5,150,105,0.08);"
+              style="color: #60a5fa; background: rgba(37,99,235,0.08);"
             >
               编辑
             </button>
@@ -86,7 +86,7 @@
           :key="p"
           @click="page = p; fetchArticles()"
           class="text-[12px] border-none cursor-pointer w-8 h-8 rounded-lg transition-colors"
-          :style="p === page ? 'background: rgba(5,150,105,0.15); color: #34d399;' : 'background: #f1f5f9; color: #94a3b8;'"
+          :style="p === page ? 'background: rgba(37,99,235,0.15); color: #60a5fa;' : 'background: #f1f5f9; color: #94a3b8;'"
         >
           {{ p }}
         </button>
@@ -128,33 +128,15 @@
           </div>
           <div>
             <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">中文内容</label>
-            <textarea v-model="form.content_zh" rows="4" class="w-full py-2.5 px-3 text-[13px] outline-none rounded-lg resize-y" style="color: #1e293b; background: #ffffff; border: 1px solid #d1d5db;"></textarea>
+            <AdminRichTextEditor v-model="form.content_zh" placeholder="输入中文内容..." />
           </div>
           <div>
             <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">英文内容</label>
-            <textarea v-model="form.content_en" rows="4" class="w-full py-2.5 px-3 text-[13px] outline-none rounded-lg resize-y" style="color: #1e293b; background: #ffffff; border: 1px solid #d1d5db;"></textarea>
+            <AdminRichTextEditor v-model="form.content_en" placeholder="Enter English content..." />
           </div>
           <div>
             <label class="text-[11px] tracking-wider uppercase mb-1.5 block" style="color: #94a3b8;">封面图片</label>
-            <div class="flex items-start gap-4">
-              <div v-if="coverPreview" class="relative flex-shrink-0">
-                <img :src="coverPreview" class="w-32 h-20 rounded-lg object-cover" style="background: #ffffff;" />
-                <button
-                  type="button" @click="removeCover"
-                  class="absolute -top-2 -right-2 w-5 h-5 rounded-full border-none cursor-pointer flex items-center justify-center text-[11px]"
-                  style="background: #ef4444; color: white;"
-                >&times;</button>
-              </div>
-              <label
-                class="flex-shrink-0 w-32 h-20 rounded-lg flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors border border-dashed text-[11px]"
-                style="background: #ffffff; border-color: #d1d5db; color: #94a3b8;"
-                :style="uploadingCover ? 'opacity: 0.5; pointer-events: none;' : ''"
-              >
-                <span class="text-[16px]">&#8593;</span>
-                <span>{{ uploadingCover ? '上传中...' : '点击上传' }}</span>
-                <input type="file" accept="image/*" class="hidden" @change="uploadCover" :disabled="uploadingCover" />
-              </label>
-            </div>
+            <AdminMediaPicker v-model="form.cover_image_id" />
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -171,7 +153,7 @@
             </div>
             <div class="flex items-end pb-1">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input v-model="form.is_published" type="checkbox" class="accent-emerald-600" />
+                <input v-model="form.is_published" type="checkbox" class="accent-blue-600" />
                 <span class="text-[12px]" style="color: #64748b;">发布</span>
               </label>
             </div>
@@ -179,7 +161,7 @@
           <div v-if="formError" class="text-[12px]" style="color: #f87171;">{{ formError }}</div>
           <div class="flex justify-end gap-3 pt-2">
             <button type="button" @click="modalOpen = false" class="text-[13px] border-none cursor-pointer px-4 py-2 rounded-lg" style="color: #64748b; background: #f1f5f9;">取消</button>
-            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #059669, #10b981);">
+            <button type="submit" :disabled="saving" class="text-[13px] font-medium text-white border-none cursor-pointer px-5 py-2 rounded-lg transition-all disabled:opacity-40" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
               {{ saving ? '保存中...' : '保存' }}
             </button>
           </div>
@@ -209,7 +191,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: ['admin-auth'] });
 
-const { api, apiBase, getHeaders } = useAdminApi();
+const { api, apiBase } = useAdminApi();
 
 interface Article {
   id: number;
@@ -259,39 +241,8 @@ const form = ref({
   is_published: false,
 });
 
-const coverPreview = ref<string | null>(null);
-const uploadingCover = ref(false);
-
-const uploadCover = async (e: Event) => {
-  const input = e.target as HTMLInputElement;
-  const file = input.files?.[0];
-  if (!file) return;
-  uploadingCover.value = true;
-  try {
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await api<{ id: number; url: string }>('/admin/media/upload', {
-      method: 'POST',
-      body: fd,
-    });
-    form.value.cover_image_id = res.id;
-    coverPreview.value = `${apiBase}/../../media/id/${res.id}`;
-  } catch {
-    formError.value = '封面上传失败';
-  } finally {
-    uploadingCover.value = false;
-    input.value = '';
-  }
-};
-
-const removeCover = () => {
-  form.value.cover_image_id = null;
-  coverPreview.value = null;
-};
-
 const openCreate = () => {
   editing.value = null;
-  coverPreview.value = null;
   form.value = {
     title_zh: '', title_en: '',
     summary_zh: '', summary_en: '',
@@ -307,7 +258,6 @@ const openCreate = () => {
 
 const openEdit = (article: Article) => {
   editing.value = article;
-  coverPreview.value = article.cover_image_id ? `${apiBase}/../../media/id/${article.cover_image_id}` : null;
   form.value = {
     title_zh: article.title_zh,
     title_en: article.title_en,

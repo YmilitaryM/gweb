@@ -1,11 +1,14 @@
-from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse
 
 from app.apps.audit.service import create_audit_log
 from app.apps.auth.router import get_current_user
 from app.apps.cms.schemas import BlockCreate, BlockUpdate, MenuCreate, MenuUpdate, PageCreate, PageUpdate, PageOut, PageSlugOut, ReorderRequest
 from app.apps.cms.service_block import create_block, delete_block, reorder_blocks, update_block
-from app.apps.cms.service_media import delete_media, list_media, upload_media
+from app.apps.cms.service_media import (
+    delete_media, list_media, list_media_categories,
+    create_media_category, rename_media_category, delete_media_category, upload_media,
+)
 from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
 from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, list_published_page_slugs, update_page, delete_page as svc_delete_page
 from app.core.database import async_session
@@ -27,12 +30,22 @@ admin_router = APIRouter(
 @admin_router.post("/upload", status_code=201)
 async def upload(
     file: UploadFile = File(...),
+    category: str | None = Form(None),
+    name_zh: str | None = Form(None),
+    name_en: str | None = Form(None),
+    description: str | None = Form(None),
     request: Request = None,
     current_user=Depends(get_current_user),
 ):
     data = await file.read()
     media = await upload_media(
-        data, file.filename, file.content_type or "application/octet-stream"
+        data,
+        file.filename,
+        file.content_type or "application/octet-stream",
+        category=category,
+        name_zh=name_zh,
+        name_en=name_en,
+        description=description,
     )
     await create_audit_log(
         user_id=current_user.id,
@@ -57,8 +70,87 @@ async def upload(
 
 
 @admin_router.get("")
-async def list_media_endpoint(page: int = 1, size: int = 20):
-    return await list_media(page, size)
+async def list_media_endpoint(
+    page: int = 1,
+    size: int = 20,
+    category: str | None = None,
+    q: str | None = None,
+    date_from: str | None = None,
+    date_to: str | None = None,
+):
+    return await list_media(page, size, category=category, q=q, date_from=date_from, date_to=date_to)
+
+
+@admin_router.get("/categories")
+async def list_categories():
+    return await list_media_categories()
+
+
+@admin_router.post("/categories", status_code=201)
+async def create_category(
+    data: dict,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    name = data.get("name", "").strip()
+    if not name:
+        raise HTTPException(status_code=400, detail="Category name is required")
+    ok = await create_media_category(name)
+    if not ok:
+        raise HTTPException(status_code=409, detail="Category already exists")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="create",
+        resource_type="media_category",
+        resource_id=0,
+        resource_name=name,
+        ip_address=request.client.host if request.client else None,
+    )
+    return {"ok": True, "name": name}
+
+
+@admin_router.put("/categories/rename")
+async def rename_category(
+    old_name: str,
+    new_name: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    ok = await rename_media_category(old_name, new_name)
+    if not ok:
+        raise HTTPException(status_code=404, detail="Category not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="update",
+        resource_type="media_category",
+        resource_id=0,
+        resource_name=f"{old_name} -> {new_name}",
+        ip_address=request.client.host if request.client else None,
+    )
+    return {"ok": True}
+
+
+@admin_router.delete("/categories/{name}")
+async def delete_category(
+    name: str,
+    request: Request,
+    current_user=Depends(get_current_user),
+):
+    ok = await delete_media_category(name)
+    if not ok:
+        raise HTTPException(status_code=404, detail="Category not found")
+    await create_audit_log(
+        user_id=current_user.id,
+        username=current_user.username,
+        action="delete",
+        resource_type="media_category",
+        resource_id=0,
+        resource_name=name,
+        ip_address=request.client.host if request.client else None,
+    )
+    return {"deleted": True}
 
 
 @admin_router.delete("/{media_id}")
@@ -89,17 +181,17 @@ async def delete_media_endpoint(
 public_router = APIRouter(prefix="/api/v1", tags=["public"])
 
 
+@public_router.get("/pages/slugs", response_model=list[PageSlugOut])
+async def get_page_slugs():
+    return await list_published_page_slugs()
+
+
 @public_router.get("/pages/{slug}", response_model=PageOut)
 async def get_page(slug: str):
     page = await get_page_by_slug(slug)
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
     return page
-
-
-@public_router.get("/pages/slugs", response_model=list[PageSlugOut])
-async def get_page_slugs():
-    return await list_published_page_slugs()
 
 
 @public_router.get("/menus")
@@ -128,6 +220,7 @@ async def admin_list_pages():
             "name_en": p.name_en,
             "slug": p.slug,
             "type": p.type,
+            "sort_order": p.sort_order,
             "is_published": p.is_published,
         }
         for p in pages
@@ -282,6 +375,11 @@ async def admin_delete_block(
 # ---------------------------------------------------------------------------
 # Admin menu CRUD
 # ---------------------------------------------------------------------------
+
+
+@page_admin_router.get("/menus")
+async def admin_list_menus(location: str | None = None):
+    return await get_menu_tree(location, admin=True)
 
 
 @page_admin_router.post("/menus", status_code=201)

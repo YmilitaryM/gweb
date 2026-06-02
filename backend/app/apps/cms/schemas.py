@@ -6,6 +6,8 @@ class PageCreate(BaseModel):
     name_en: str
     slug: str
     type: str = "content"
+    sort_order: int = 0
+    is_published: bool = False
 
 
 class PageUpdate(BaseModel):
@@ -13,6 +15,8 @@ class PageUpdate(BaseModel):
     name_en: str | None = None
     slug: str | None = None
     type: str | None = None
+    sort_order: int | None = None
+    is_published: bool | None = None
 
 
 class BlockCreate(BaseModel):
@@ -48,6 +52,7 @@ class PageOut(BaseModel):
     name_en: str
     slug: str
     type: str
+    sort_order: int
     blocks: list[BlockOut]
 
     model_config = {"from_attributes": True}
@@ -56,6 +61,7 @@ class PageOut(BaseModel):
 class PageSlugOut(BaseModel):
     slug: str
     type: str
+    sort_order: int
 
 
 class MenuCreate(BaseModel):

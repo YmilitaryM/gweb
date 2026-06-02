@@ -1,0 +1,1 @@
+import{aA as o}from"./Dd6UE0Uk.js";import{u as t}from"./DX5NeVza.js";const i=async()=>{const s=o(),{data:a,error:r,refresh:e}=await t(`${s.public.apiBase}/faqs`,"$cvFWnYl9Yp");return{data:a,error:r,refresh:e}};export{i as u};
