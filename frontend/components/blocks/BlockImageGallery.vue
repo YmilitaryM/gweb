@@ -9,7 +9,7 @@
           v-for="(img, i) in content.images"
           :key="i"
           class="relative group overflow-hidden rounded-xl"
-          style="border: 1px solid rgba(5,150,105,0.06);"
+          style="border: 1px solid rgba(37,99,235,0.06);"
         >
           <img
             :src="img.url"

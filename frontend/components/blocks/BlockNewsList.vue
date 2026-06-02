@@ -9,11 +9,11 @@
           v-for="article in items"
           :key="article.id"
           class="bg-white border rounded-xl overflow-hidden transition-shadow hover:shadow-md"
-          style="border-color: #e8f5e9;"
+          style="border-color: #dbeafe;"
         >
           <img
             v-if="content.show_image && article.cover_image_id"
-            :src="`${apiBase}/../../media/${article.cover_image_id}`"
+            :src="`${apiBase}/../../media/id/${article.cover_image_id}`"
             class="w-full h-48 object-cover"
           />
           <div class="p-5">
@@ -29,7 +29,7 @@
               </span>
               <NuxtLink
                 :to="`/news/${article.id}`"
-                class="text-sm font-medium text-emerald-600 hover:text-emerald-700 no-underline"
+                class="text-sm font-medium text-brand-600 hover:text-brand-700 no-underline"
               >
                 {{ locale === 'zh' ? '阅读更多' : 'Read more' }} →
               </NuxtLink>

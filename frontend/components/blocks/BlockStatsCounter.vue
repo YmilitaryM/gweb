@@ -12,11 +12,11 @@
           v-for="(item, i) in content.items"
           :key="i"
           class="flex-1 min-w-[140px] max-w-[180px] text-center py-5 px-4 rounded-2xl border"
-          style="background: rgba(255,255,255,0.65); backdrop-filter: blur(12px); border-color: rgba(5,150,105,0.06); box-shadow: 0 4px 16px rgba(0,0,0,0.015)"
+          style="background: rgba(255,255,255,0.65); backdrop-filter: blur(12px); border-color: rgba(37,99,235,0.06); box-shadow: 0 4px 16px rgba(0,0,0,0.015)"
         >
           <div
             class="text-[30px] font-light tracking-tight"
-            :class="i >= 2 ? 'text-sky-600' : 'text-emerald-600'"
+            :class="i >= 2 ? 'text-sky-600' : 'text-brand-600'"
             style="font-variant-numeric: tabular-nums"
           >
             {{ item.value }}

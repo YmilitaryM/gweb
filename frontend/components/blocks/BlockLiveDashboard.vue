@@ -9,7 +9,7 @@
           v-for="(metric, i) in content.metrics"
           :key="i"
           class="bg-white border rounded-xl p-5"
-          style="border-color: #e8f5e9;"
+          style="border-color: #dbeafe;"
         >
           <div class="text-sm text-slate-400 mb-1">
             {{ locale === 'zh' ? metric.label_zh : metric.label_en }}
@@ -20,7 +20,7 @@
           </div>
           <div class="mt-2 flex items-center gap-1 text-xs font-medium"
             :style="{
-              color: metric.trend === 'up' ? '#059669' : metric.trend === 'down' ? '#ef4444' : '#94a3b8'
+              color: metric.trend === 'up' ? '#2563eb' : metric.trend === 'down' ? '#ef4444' : '#94a3b8'
             }">
             <span>{{ metric.trend === 'up' ? '↑' : metric.trend === 'down' ? '↓' : '→' }}</span>
             {{ metric.trend === 'up' ? 'Up' : metric.trend === 'down' ? 'Down' : 'Stable' }}

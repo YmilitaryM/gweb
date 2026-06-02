@@ -8,7 +8,7 @@
       <div
         v-if="success"
         class="mb-4 p-4 rounded-xl text-sm font-medium"
-        style="background: rgba(5,150,105,0.06); color: #059669; border: 1px solid rgba(5,150,105,0.12);"
+        style="background: rgba(37,99,235,0.06); color: #2563eb; border: 1px solid rgba(37,99,235,0.12);"
       >
         {{ locale === 'zh' ? '提交成功' : 'Submitted successfully' }}
       </div>
@@ -29,7 +29,7 @@
             v-model="form.company_name"
             required
             class="w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-all duration-200 focus:shadow-sm"
-            style="border-color: rgba(5,150,105,0.15); background: rgba(255,255,255,0.8);"
+            style="border-color: rgba(37,99,235,0.15); background: rgba(255,255,255,0.8);"
             :placeholder="locale === 'zh' ? '请输入公司名称' : 'Enter company name'"
           />
         </div>
@@ -42,7 +42,7 @@
             v-model="form.contact_name"
             required
             class="w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-all duration-200 focus:shadow-sm"
-            style="border-color: rgba(5,150,105,0.15); background: rgba(255,255,255,0.8);"
+            style="border-color: rgba(37,99,235,0.15); background: rgba(255,255,255,0.8);"
             :placeholder="locale === 'zh' ? '请输入联系人姓名' : 'Enter contact name'"
           />
         </div>
@@ -56,7 +56,7 @@
             type="tel"
             required
             class="w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-all duration-200 focus:shadow-sm"
-            style="border-color: rgba(5,150,105,0.15); background: rgba(255,255,255,0.8);"
+            style="border-color: rgba(37,99,235,0.15); background: rgba(255,255,255,0.8);"
             :placeholder="locale === 'zh' ? '请输入电话号码' : 'Enter phone number'"
           />
         </div>
@@ -70,7 +70,7 @@
             :rows="4"
             required
             class="w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-all duration-200 focus:shadow-sm resize-none"
-            style="border-color: rgba(5,150,105,0.15); background: rgba(255,255,255,0.8);"
+            style="border-color: rgba(37,99,235,0.15); background: rgba(255,255,255,0.8);"
             :placeholder="locale === 'zh' ? '请输入留言内容' : 'Enter your message'"
           />
         </div>
@@ -79,7 +79,7 @@
           type="submit"
           :disabled="loading"
           class="w-full py-3 rounded-full text-sm font-medium text-white transition-all duration-200 hover:translate-y-[-1px] hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed border-none cursor-pointer"
-          style="background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.25);"
+          style="background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 2px 12px rgba(37,99,235,0.25);"
         >
           {{ loading
             ? (locale === 'zh' ? '提交中...' : 'Submitting...')

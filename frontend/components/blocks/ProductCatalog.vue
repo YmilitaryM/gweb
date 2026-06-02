@@ -16,7 +16,7 @@
           @click="activeCategory = tab.slug; page = 1; fetchProducts()"
           class="text-[13px] border-none cursor-pointer px-5 py-2 rounded-full transition-colors"
           :style="activeCategory === tab.slug
-            ? 'background: rgba(5,150,105,0.12); color: #34d399;'
+            ? 'background: rgba(37,99,235,0.12); color: #60a5fa;'
             : 'background: #ffffff; color: #94a3b8; border: 1px solid #e2e8f0;'"
         >
           {{ locale === 'zh' ? tab.name_zh : tab.name_en }}
@@ -54,7 +54,7 @@
           </div>
           <div class="p-5">
             <div class="flex items-center gap-2 mb-2">
-              <span class="text-[11px] px-2 py-0.5 rounded-full" style="background: rgba(5,150,105,0.08); color: #34d399;">
+              <span class="text-[11px] px-2 py-0.5 rounded-full" style="background: rgba(37,99,235,0.08); color: #60a5fa;">
                 {{ locale === 'zh' ? prod.category?.name_zh : prod.category?.name_en }}
               </span>
             </div>
@@ -76,7 +76,7 @@
           @click="page = p; fetchProducts()"
           class="text-[13px] border-none cursor-pointer w-9 h-9 rounded-lg transition-colors"
           :style="p === page
-            ? 'background: rgba(5,150,105,0.15); color: #34d399;'
+            ? 'background: rgba(37,99,235,0.15); color: #60a5fa;'
             : 'background: #ffffff; color: #94a3b8; border: 1px solid #e2e8f0;'"
         >{{ p }}</button>
       </div>

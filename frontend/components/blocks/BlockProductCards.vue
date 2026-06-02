@@ -12,7 +12,7 @@
           v-for="(card, i) in content.cards"
           :key="i"
           class="bg-white border rounded-xl p-6 transition-shadow hover:shadow-md"
-          style="border-color: #e8f5e9"
+          style="border-color: #dbeafe"
         >
           <img
             v-if="card.image"
@@ -29,7 +29,7 @@
           <NuxtLink
             v-if="card.link"
             :to="card.link"
-            class="text-sm font-medium text-emerald-600 hover:text-emerald-700 no-underline"
+            class="text-sm font-medium text-brand-600 hover:text-brand-700 no-underline"
           >
             {{ locale === 'zh' ? '了解更多 →' : 'Learn more →' }}
           </NuxtLink>

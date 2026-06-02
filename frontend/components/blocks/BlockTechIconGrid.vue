@@ -9,10 +9,10 @@
           v-for="(item, i) in content.items"
           :key="i"
           class="text-center p-6 rounded-xl transition-all duration-200 hover:translate-y-[-2px]"
-          style="background: rgba(255,255,255,0.6); border: 1px solid rgba(5,150,105,0.06);"
+          style="background: rgba(255,255,255,0.6); border: 1px solid rgba(37,99,235,0.06);"
         >
           <div class="w-10 h-10 mx-auto mb-3 rounded-lg flex items-center justify-center"
-            style="background: linear-gradient(135deg, rgba(5,150,105,0.08), rgba(2,132,199,0.08));">
+            style="background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(2,132,199,0.08));">
             <span class="text-lg">{{ item.icon || '◆' }}</span>
           </div>
           <h3 class="font-medium text-slate-700 mb-1 text-sm">

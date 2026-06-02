@@ -18,7 +18,7 @@
             {{ locale === 'zh' ? '产品中心' : 'Products' }}
           </NuxtLink>
           <span v-if="product.category">/</span>
-          <span v-if="product.category" style="color: #34d399;">
+          <span v-if="product.category" style="color: #60a5fa;">
             {{ locale === 'zh' ? product.category.name_zh : product.category.name_en }}
           </span>
           <span>/</span>
@@ -43,7 +43,7 @@
               </div>
             </div>
             <div class="p-8 flex flex-col justify-center">
-              <span v-if="product.category" class="text-[11px] px-2 py-1 rounded-full mb-3 self-start" style="background: rgba(5,150,105,0.08); color: #34d399;">
+              <span v-if="product.category" class="text-[11px] px-2 py-1 rounded-full mb-3 self-start" style="background: rgba(37,99,235,0.08); color: #60a5fa;">
                 {{ locale === 'zh' ? product.category.name_zh : product.category.name_en }}
               </span>
               <h1 class="text-2xl font-light tracking-tight mb-3" style="color: #1e293b">

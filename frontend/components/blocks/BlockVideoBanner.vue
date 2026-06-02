@@ -12,10 +12,10 @@
     />
 
     <div class="relative z-10 text-center px-6 py-14 max-w-4xl mx-4 rounded-3xl"
-      style="background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); border: 1px solid rgba(5,150,105,0.06); box-shadow: 0 8px 40px rgba(0,0,0,0.04);">
+      style="background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); border: 1px solid rgba(37,99,235,0.06); box-shadow: 0 8px 40px rgba(0,0,0,0.04);">
 
       <div class="mx-auto mb-8 w-16 h-[2px] rounded-full"
-        style="background: linear-gradient(90deg, #059669, #0284c7);"></div>
+        style="background: linear-gradient(90deg, #2563eb, #0284c7);"></div>
 
       <h2 class="text-4xl md:text-5xl font-bold mb-4 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}

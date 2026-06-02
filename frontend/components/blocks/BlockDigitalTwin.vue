@@ -7,11 +7,11 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
         <div
           class="lg:col-span-2 rounded-xl flex items-center justify-center min-h-[400px]"
-          style="background: rgba(255,255,255,0.5); border: 1px solid rgba(5,150,105,0.06);"
+          style="background: rgba(255,255,255,0.5); border: 1px solid rgba(37,99,235,0.06);"
         >
-          <div class="text-center" style="color: rgba(5,150,105,0.4);">
+          <div class="text-center" style="color: rgba(37,99,235,0.4);">
             <div class="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center"
-              style="background: linear-gradient(135deg, rgba(5,150,105,0.06), rgba(2,132,199,0.06));">
+              style="background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(2,132,199,0.06));">
               <span class="text-2xl">◈</span>
             </div>
             <p class="text-sm">{{ locale === 'zh' ? '数字孪生模型' : 'Digital Twin Model' }}</p>
@@ -22,10 +22,10 @@
             v-for="(stat, i) in content.stats"
             :key="i"
             class="bg-white border rounded-xl p-5"
-            style="border-color: #e8f5e9;"
+            style="border-color: #dbeafe;"
           >
             <div class="text-2xl font-light tracking-tight"
-              :class="i % 2 === 0 ? 'text-emerald-600' : 'text-sky-600'"
+              :class="i % 2 === 0 ? 'text-brand-600' : 'text-sky-600'"
               style="font-variant-numeric: tabular-nums;">
               {{ stat.value }}
             </div>
