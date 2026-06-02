@@ -1,7 +1,26 @@
 <template>
   <div>
-    <!-- Hero from CMS -->
-    <BlockHero v-if="heroBlock" :config="heroBlock.config" :content="heroBlock.content" />
+    <!-- Hero from CMS (inline, same as BlockHero but works in standalone page) -->
+    <section
+      v-if="heroSlide"
+      class="relative min-h-[350px] md:min-h-[420px] lg:h-[500px] w-full overflow-hidden flex flex-col justify-center items-center text-white bg-slate-900"
+    >
+      <img
+        v-if="heroSlide.image_url"
+        :src="heroSlide.image_url"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+          {{ locale === 'zh' ? heroSlide.title_zh : heroSlide.title_en }}
+        </h1>
+        <p v-if="heroSlide.subtitle_zh || heroSlide.subtitle_en"
+          class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-white/85">
+          {{ locale === 'zh' ? heroSlide.subtitle_zh : heroSlide.subtitle_en }}
+        </p>
+      </div>
+    </section>
 
     <!-- Category filter -->
     <section class="py-12">
@@ -64,8 +83,6 @@
 </template>
 
 <script setup lang="ts">
-import BlockHero from '~/components/blocks/BlockHero.vue'
-
 const { locale } = useI18n()
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
@@ -75,9 +92,15 @@ const activeCategory = ref('')
 const { data: casesPage } = await useAsyncData('cases-page-hero', () =>
   $fetch(`${apiBase}/pages/cases`).catch(() => null)
 )
-const heroBlock = computed(() => {
+const heroSlide = computed(() => {
   const blocks = (casesPage.value as any)?.blocks || []
-  return blocks.find((b: any) => b.type === 'hero') || null
+  const hero = blocks.find((b: any) => b.type === 'hero')
+  if (!hero) return null
+  const slide = hero.content?.slides?.[0] || {}
+  return {
+    ...slide,
+    image_url: slide.image_id ? `${apiBase}/../../media/id/${slide.image_id}` : null,
+  }
 })
 
 const categories = [
