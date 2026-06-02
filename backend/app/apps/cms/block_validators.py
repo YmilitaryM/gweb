@@ -1,14 +1,24 @@
 from pydantic import BaseModel
 
 
+class HeroSlide(BaseModel):
+    title_zh: str = ""
+    title_en: str = ""
+    subtitle_zh: str = ""
+    subtitle_en: str = ""
+    image: str = ""
+    buttons: list[dict] = []
+
+
 class HeroContent(BaseModel):
-    title_zh: str
-    title_en: str
+    title_zh: str = ""
+    title_en: str = ""
     subtitle_zh: str = ""
     subtitle_en: str = ""
     bg_image: int | None = None
     bg_video: int | None = None
     buttons: list[dict] = []
+    slides: list[dict] = []
 
 
 class NewsListContent(BaseModel):
@@ -27,11 +37,12 @@ class ProductCardsContent(BaseModel):
 
 
 class SolutionCardsContent(BaseModel):
-    title_zh: str
-    title_en: str
+    title_zh: str = ""
+    title_en: str = ""
     description_zh: str = ""
     description_en: str = ""
     cards: list[dict] = []
+    tabs: list[dict] = []
 
 
 class StatsCounterContent(BaseModel):
