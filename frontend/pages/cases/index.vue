@@ -64,6 +64,8 @@
 </template>
 
 <script setup lang="ts">
+import BlockHero from '~/components/blocks/BlockHero.vue'
+
 const { locale } = useI18n()
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
