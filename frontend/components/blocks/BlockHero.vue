@@ -1,5 +1,10 @@
 <template>
-  <section class="relative min-h-[660px] md:min-h-[720px] lg:h-[86vh] lg:max-h-[800px] w-full overflow-hidden flex flex-col justify-center items-center text-white">
+  <section
+    class="relative w-full overflow-hidden flex flex-col justify-center items-center text-white"
+    :class="fullHeight
+      ? 'min-h-[660px] md:min-h-[720px] lg:h-[86vh] lg:max-h-[800px]'
+      : 'min-h-[350px] md:min-h-[420px] lg:h-[500px]'"
+  >
     <!-- Background image slides with crossfade -->
     <div class="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
       <div
@@ -98,6 +103,8 @@ const slides = computed<Slide[]>(() => {
     image_url: s.image_id ? `${runtimeConfig.public.apiBase}/../../media/id/${s.image_id}` : undefined,
   }))
 })
+
+const fullHeight = computed(() => props.config.full_height !== false)
 
 const currentIndex = ref(0)
 const currentSlide = computed(() => slides.value[currentIndex.value] || slides.value[0])

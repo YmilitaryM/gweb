@@ -117,7 +117,7 @@ async def seed():
         print(f"  {slug} (id={pg.id})")
 
         # Hero block (3 slides)
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": True}, content={
             "slides": [
                 {
                     "title_zh": "金捷利AI绿色空间运营商",
@@ -374,7 +374,7 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
             "slides": [{
                 "title_zh": "解决方案",
                 "title_en": "Solutions",
@@ -469,7 +469,7 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
             "slides": [{
                 "title_zh": "产品服务",
                 "title_en": "Products & Services",
@@ -552,7 +552,7 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
             "slides": [{
                 "title_zh": "关于金捷利",
                 "title_en": "About GOLDGINNY",
@@ -670,7 +670,7 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
             "slides": [{
                 "title_zh": "商务合作",
                 "title_en": "Business Cooperation",
@@ -726,6 +726,16 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
+            "slides": [{
+                "title_zh": "联系我们",
+                "title_en": "Contact Us",
+                "subtitle_zh": "与金捷利建立连接，我们的专家团队竭诚为您服务",
+                "subtitle_en": "Connect with GOLDGINNY, our expert team is at your service",
+                "image": "",
+                "buttons": [],
+            }],
+        })
         await create_block(pg.id, "contact_form", config={}, content={
             "title_zh": "联系我们",
             "title_en": "Contact Us",
@@ -752,7 +762,7 @@ async def seed():
         slug_to_id[slug] = pg.id
         print(f"  {slug} (id={pg.id})")
 
-        await create_block(pg.id, "hero", config={}, content={
+        await create_block(pg.id, "hero", config={"full_height": False}, content={
             "slides": [{
                 "title_zh": "服务案例",
                 "title_en": "Case Studies",
