@@ -1,72 +1,123 @@
 <template>
-  <section class="relative flex items-center justify-center min-h-[70vh] overflow-hidden">
-    <!-- Background image layer -->
-    <img
-      v-if="bgUrl"
-      :src="bgUrl"
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover opacity-15"
-    />
+  <section class="relative min-h-[660px] md:min-h-[720px] lg:h-[86vh] lg:max-h-[800px] w-full overflow-hidden flex flex-col justify-center items-center text-white">
+    <!-- Background image slides -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden bg-slate-900">
+      <Transition name="fade" mode="out-in">
+        <div :key="currentIndex" class="absolute inset-0">
+          <img
+            v-if="currentSlide?.image_url"
+            :src="currentSlide.image_url"
+            alt=""
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-black/12"></div>
+        </div>
+      </Transition>
+    </div>
 
-    <!-- Glass content card -->
-    <div class="relative z-10 text-center px-6 py-14 max-w-4xl mx-4 rounded-3xl"
-      style="background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); border: 1px solid rgba(5,150,105,0.06); box-shadow: 0 8px 40px rgba(0,0,0,0.04);">
-
-      <!-- Decorative top accent line -->
-      <div class="mx-auto mb-8 w-16 h-[2px] rounded-full"
-        style="background: linear-gradient(90deg, #059669, #0284c7);"></div>
-
-      <h1 class="text-4xl md:text-5xl font-bold mb-5 text-slate-800 tracking-tight leading-tight">
-        {{ locale === 'zh' ? content.title_zh : content.title_en }}
+    <!-- Content overlay -->
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-5 tracking-tight leading-tight drop-shadow-sm">
+        {{ locale === 'zh' ? currentSlide?.title_zh : currentSlide?.title_en }}
       </h1>
-
-      <p
-        v-if="subtitle"
-        class="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed"
-        style="color: rgba(51,65,85,0.7);"
-      >
-        {{ subtitle }}
+      <p v-if="currentSlide?.subtitle_zh || currentSlide?.subtitle_en"
+        class="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed text-white/85">
+        {{ locale === 'zh' ? currentSlide?.subtitle_zh : currentSlide?.subtitle_en }}
       </p>
-
-      <div v-if="content.buttons?.length" class="flex gap-4 justify-center flex-wrap">
-        <a
-          v-for="(btn, i) in content.buttons"
-          :key="i"
-          :href="btn.link"
+      <div v-if="currentSlide?.buttons?.length" class="flex gap-4 justify-center flex-wrap">
+        <a v-for="(btn, i) in currentSlide.buttons" :key="i" :href="btn.link"
           :class="[
-            'inline-flex items-center px-6 py-2.5 rounded-full text-sm font-medium no-underline transition-all duration-200',
+            'inline-flex items-center px-7 py-3 rounded-full text-sm font-semibold transition-all duration-300',
             i === 0
-              ? 'text-white hover:translate-y-[-1px] hover:shadow-lg'
-              : 'border hover:translate-y-[-1px]'
-          ]"
-          :style="i === 0
-            ? 'background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 2px 12px rgba(5,150,105,0.25);'
-            : 'border-color: rgba(5,150,105,0.2); color: #059669; background: rgba(255,255,255,0.6);'"
-        >
+              ? 'bg-brand-600 text-white hover:bg-brand-700 hover:scale-105 shadow-lg shadow-brand-600/30'
+              : 'border border-white/30 text-white hover:bg-white/10 hover:scale-105'
+          ]">
           {{ locale === 'zh' ? btn.label_zh : btn.label_en }}
         </a>
       </div>
+    </div>
+
+    <!-- Navigation arrows (only show if multiple slides) -->
+    <button v-if="slides.length > 1" @click="prev"
+      class="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border border-white/10 bg-black/30 hover:bg-black/60 backdrop-blur-md flex items-center justify-center text-white transition-all z-30 cursor-pointer">
+      <span class="text-2xl">‹</span>
+    </button>
+    <button v-if="slides.length > 1" @click="next"
+      class="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full border border-white/10 bg-black/30 hover:bg-black/60 backdrop-blur-md flex items-center justify-center text-white transition-all z-30 cursor-pointer">
+      <span class="text-2xl">›</span>
+    </button>
+
+    <!-- Dot indicators (only if multiple slides) -->
+    <div v-if="slides.length > 1" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+      <button
+        v-for="(_, i) in slides" :key="i"
+        @click="goTo(i)"
+        class="w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer"
+        :class="i === currentIndex ? 'bg-white w-8' : 'bg-white/40 hover:bg-white/70'"
+      />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  config: Record<string, any>;
-  content: Record<string, any>;
-}>();
-const { locale } = useI18n();
-const config = useRuntimeConfig();
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
-const subtitle = computed(() =>
-  locale.value === 'zh'
-    ? props.content.subtitle_zh
-    : props.content.subtitle_en
-);
+const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>()
+const { locale } = useI18n()
+const runtimeConfig = useRuntimeConfig()
 
-const bgUrl = computed(() =>
-  props.content.bg_image
-    ? `${config.public.apiBase}/../../media/${props.content.bg_image}`
-    : null
-);
+interface Slide {
+  image_id?: number
+  image_url?: string
+  title_zh?: string
+  title_en?: string
+  subtitle_zh?: string
+  subtitle_en?: string
+  buttons?: Array<{ label_zh: string; label_en: string; link: string }>
+}
+
+const slides = computed<Slide[]>(() => {
+  const raw = props.content.slides
+  if (!raw || !Array.isArray(raw) || raw.length === 0) {
+    // Fallback: single slide from old format
+    return [{
+      image_id: props.content.bg_image,
+      image_url: props.content.bg_image ? `${runtimeConfig.public.apiBase}/../../media/id/${props.content.bg_image}` : undefined,
+      title_zh: props.content.title_zh,
+      title_en: props.content.title_en,
+      subtitle_zh: props.content.subtitle_zh,
+      subtitle_en: props.content.subtitle_en,
+      buttons: props.content.buttons || [],
+    }]
+  }
+  return raw.map((s: any) => ({
+    ...s,
+    image_url: s.image_id ? `${runtimeConfig.public.apiBase}/../../media/id/${s.image_id}` : undefined,
+  }))
+})
+
+const currentIndex = ref(0)
+const currentSlide = computed(() => slides.value[currentIndex.value] || slides.value[0])
+
+function next() { currentIndex.value = (currentIndex.value + 1) % slides.value.length }
+function prev() { currentIndex.value = (currentIndex.value - 1 + slides.value.length) % slides.value.length }
+function goTo(i: number) { currentIndex.value = i }
+
+// Auto-play
+let timer: ReturnType<typeof setInterval> | null = null
+const interval = computed(() => props.content.auto_play_interval || 5000)
+
+onMounted(() => {
+  if (slides.value.length > 1) {
+    timer = setInterval(next, interval.value)
+  }
+})
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active { transition: opacity 0.8s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+</style>
