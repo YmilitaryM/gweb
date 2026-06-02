@@ -1,17 +1,7 @@
 <template>
   <div>
-    <!-- Hero -->
-    <section class="relative min-h-[40vh] flex items-center justify-center bg-slate-900 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/30 to-slate-950/50" />
-      <div class="relative z-10 text-center text-white px-6">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-          {{ locale === 'zh' ? '服务案例' : 'Case Studies' }}
-        </h1>
-        <p class="text-lg text-white/70 max-w-xl mx-auto">
-          {{ locale === 'zh' ? '以技术赋能建筑全生命周期，见证每一个成功案例' : 'Witness every successful case empowered by technology' }}
-        </p>
-      </div>
-    </section>
+    <!-- Hero from CMS -->
+    <BlockHero v-if="heroBlock" :config="heroBlock.config" :content="heroBlock.content" />
 
     <!-- Category filter -->
     <section class="py-12">
@@ -78,6 +68,15 @@ const { locale } = useI18n()
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
 const activeCategory = ref('')
+
+// Fetch CMS page hero
+const { data: casesPage } = await useAsyncData('cases-page-hero', () =>
+  $fetch(`${apiBase}/pages/cases`).catch(() => null)
+)
+const heroBlock = computed(() => {
+  const blocks = (casesPage.value as any)?.blocks || []
+  return blocks.find((b: any) => b.type === 'hero') || null
+})
 
 const categories = [
   { key: 'park', label_zh: '产业园区', label_en: 'Industrial Park' },
