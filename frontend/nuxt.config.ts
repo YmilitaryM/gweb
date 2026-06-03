@@ -26,10 +26,16 @@ export default defineNuxtConfig({
     '/admin/**': { ssr: false },
   },
   devServer: { port: 5177 },
+  nitro: {
+    devProxy: {
+      '/api': { target: 'http://localhost:8002/api', changeOrigin: true },
+      '/media': { target: 'http://localhost:8002/media', changeOrigin: true },
+    },
+  },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || '/api/v1',
-      mediaBase: process.env.NUXT_PUBLIC_MEDIA_BASE || '',
+      apiBase: '/api/v1',
+      mediaBase: '',
     },
   },
 });
