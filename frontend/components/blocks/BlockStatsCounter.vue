@@ -1,5 +1,5 @@
 <template>
-  <section :style="sectionStyle" class="relative flex flex-col justify-center" :class="sectionHeight">
+  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden" :class="sectionHeight">
     <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
     <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
     <div class="w-full container mx-auto px-6">
@@ -47,7 +47,7 @@ const props = defineProps<{
 }>();
 const { locale } = useI18n();
 
-const sectionHeight = computed(() => `min-h-[${props.config.height || 624}px]`)
+const sectionHeight = computed(() => `h-[${props.config.height || 624}px]`)
 const sectionStyle = computed(() => ({
   background: props.config.bg || '#0f172a',
 }))

@@ -1,5 +1,5 @@
 <template>
-  <section :style="sectionStyle" class="relative flex flex-col justify-center" :class="sectionHeight">
+  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden" :class="sectionHeight">
     <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
     <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
     <div class="w-full max-w-6xl mx-auto px-6">
@@ -64,7 +64,7 @@ const mediaUrl = useMediaUrl();
 
 const sectionHeight = computed(() => {
   const h = props.config.height || 864
-  return `min-h-[${h}px]`
+  return `h-[${h}px]`
 })
 const sectionStyle = computed(() => ({
   background: props.config.bg || '#fafbfc',
