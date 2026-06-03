@@ -62,3 +62,15 @@ async def delete_page(page_id: int) -> bool:
             await db.commit()
             return True
         return False
+
+
+async def delete_page_with_name(page_id: int) -> tuple[bool, str | None]:
+    """Delete a page and return (success, page_name_for_audit)."""
+    async with async_session() as db:
+        page = await db.get(Page, page_id)
+        if not page:
+            return False, None
+        name = page.name_zh
+        await db.delete(page)
+        await db.commit()
+        return True, name

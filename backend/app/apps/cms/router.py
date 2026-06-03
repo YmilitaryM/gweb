@@ -10,7 +10,7 @@ from app.apps.cms.service_media import (
     create_media_category, rename_media_category, delete_media_category, upload_media,
 )
 from app.apps.cms.service_menu import create_menu_item, delete_menu_item, get_menu_tree, update_menu_item
-from app.apps.cms.service_page import create_page, get_page_by_id, get_page_by_slug, list_pages, list_published_page_slugs, update_page, delete_page as svc_delete_page
+from app.apps.cms.service_page import create_page, delete_page_with_name, get_page_by_id, get_page_by_slug, list_pages, list_published_page_slugs, update_page, delete_page as svc_delete_page
 from app.core.database import async_session
 from app.apps.cms.models import Page as PageModel, Media
 from app.core.storage import storage
@@ -281,8 +281,7 @@ async def admin_delete_page(
     request: Request,
     current_user=Depends(get_current_user),
 ):
-    page = await get_page_by_id(page_id)
-    deleted = await svc_delete_page(page_id)
+    deleted, page_name = await delete_page_with_name(page_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Page not found")
     await create_audit_log(
@@ -291,7 +290,7 @@ async def admin_delete_page(
         action="delete",
         resource_type="page",
         resource_id=page_id,
-        resource_name=page.name_zh if page else None,
+        resource_name=page_name,
         ip_address=request.client.host if request.client else None,
     )
     return {"deleted": True}
