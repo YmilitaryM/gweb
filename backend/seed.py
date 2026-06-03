@@ -87,6 +87,9 @@ async def seed():
         "hotline": "400-888-0000",
         "contact_email": "aaqiuaa@gmail.com",
         "icp_beian": "沪ICP备XXXXXXXX号",
+        "footer_hotline_label": "7x24小时全国智能运维热线",
+        "footer_privacy_text": "隐私政策",
+        "footer_terms_text": "法律声明",
     }
     for k, v in jinjieli_settings.items():
         await set_setting(k, v)
@@ -883,6 +886,28 @@ async def seed():
                 '<p class="mb-4">These Terms of Use are governed by the laws of the People\'s '
                 'Republic of China. Any disputes arising from these terms shall be submitted to '
                 'the competent court at the Company\'s location.</p>'
+            ),
+        })
+
+        # 2i. Footer page (global footer content)
+        slug = "footer"
+        pg = await create_page(
+            name_zh="全局底部", name_en="Global Footer", slug=slug,
+            type="content", sort_order=99, is_published=True,
+        )
+        slug_to_id[slug] = pg.id
+        print(f"  {slug} (id={pg.id})")
+
+        await create_block(pg.id, "richtext", config={}, content={
+            "html_content_zh": (
+                '<p>金捷利科技（北京）有限公司成立于2018年12月，是国内领先的智慧运维综合解决方案服务商，'
+                '致力于通过AIoT物联硬件+数智化软件+专业服务的一体化综合解决方案，'
+                '推动智慧运维行业发展。</p>'
+            ),
+            "html_content_en": (
+                '<p>GOLDGINNY Technology (Beijing) Co., Ltd., founded in December 2018, '
+                'is a leading provider of smart O&M solutions, '
+                'committed to driving the smart building industry forward.</p>'
             ),
         })
 
