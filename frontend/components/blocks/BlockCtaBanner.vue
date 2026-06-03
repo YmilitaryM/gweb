@@ -25,15 +25,9 @@ const { locale } = useI18n();
 const sectionStyle = computed(() => {
   const bg = (props.config.bg || '').trim() || '#f8fafc'
   const h = props.config.height || 714
-  const gradients: string[] = []
-  // Decorative diagonal accent gradient
-  gradients.push('linear-gradient(135deg, rgba(37,99,235,0.03), rgba(2,132,199,0.03))')
-  if (props.config.gradient_top) {
-    gradients.push(`linear-gradient(to bottom, ${props.config.gradient_top} 0%, transparent 80px)`)
-  }
   return {
     minHeight: `${h}px`,
-    background: [...gradients, bg].join(', '),
+    background: 'linear-gradient(135deg, rgba(37,99,235,0.03), rgba(2,132,199,0.03)), ' + bg,
   }
 })
 </script>

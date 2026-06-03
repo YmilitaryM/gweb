@@ -63,14 +63,7 @@ const mediaUrl = useMediaUrl();
 const sectionStyle = computed(() => {
   const bg = (props.config.bg || '').trim() || '#fafbfc'
   const h = props.config.height || 864
-  const gradients: string[] = []
-  if (props.config.gradient_top) {
-    gradients.push(`linear-gradient(to bottom, ${props.config.gradient_top} 0%, transparent 80px)`)
-  }
-  return {
-    minHeight: `${h}px`,
-    background: gradients.length ? [...gradients, bg].join(', ') : bg,
-  }
+  return { minHeight: `${h}px`, background: bg }
 })
 
 const count = computed(() => props.config?.count || props.content?.count || 3);
