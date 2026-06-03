@@ -67,7 +67,7 @@ const sectionHeight = computed(() => {
   return `h-[${h}px]`
 })
 const sectionStyle = computed(() => ({
-  background: props.config.bg || '#fafbfc',
+  background: (props.config.bg || "").trim() || '#fafbfc',
 }))
 
 const count = computed(() => props.config?.count || props.content?.count || 3);

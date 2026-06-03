@@ -72,6 +72,6 @@ const sectionHeight = computed(() => {
   return `h-[${h}px]`
 })
 const sectionStyle = computed(() => ({
-  background: props.config.bg || '#f1f5f9',
+  background: (props.config.bg || "").trim() || '#f1f5f9',
 }))
 </script>

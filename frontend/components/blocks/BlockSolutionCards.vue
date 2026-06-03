@@ -79,7 +79,7 @@ const { locale } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 
 const sectionHeight = computed(() => `h-[${props.config.height || 980}px]`)
-const sectionStyle = computed(() => ({ background: props.config.bg || '#eff6ff' }))
+const sectionStyle = computed(() => ({ background: (props.config.bg || "").trim() || '#eff6ff' }))
 
 interface Tab {
   key: string

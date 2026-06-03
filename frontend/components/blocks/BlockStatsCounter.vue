@@ -49,6 +49,6 @@ const { locale } = useI18n();
 
 const sectionHeight = computed(() => `h-[${props.config.height || 624}px]`)
 const sectionStyle = computed(() => ({
-  background: props.config.bg || '#0f172a',
+  background: (props.config.bg || "").trim() || '#0f172a',
 }))
 </script>

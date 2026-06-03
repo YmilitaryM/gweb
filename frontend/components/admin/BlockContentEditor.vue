@@ -304,7 +304,7 @@ function updateStyle(key: string, value: any) {
   if (value === '' || value === null || value === undefined || (key === 'height' && value === 0)) {
     delete cfg[key]
   } else {
-    cfg[key] = value
+    cfg[key] = typeof value === 'string' ? value.trim() : value
   }
   emit('update:configStr', JSON.stringify(cfg, null, 2))
 }
