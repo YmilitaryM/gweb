@@ -156,13 +156,13 @@ async def seed():
         })
 
         # News list
-        await create_block(pg.id, "news_list", config={}, content={
+        await create_block(pg.id, "news_list", config={"gradient_top": "#0f172a"}, content={
             "title_zh": "公司新闻",
             "title_en": "News & Updates",
         })
 
         # Product cards (8 hardware products)
-        await create_block(pg.id, "product_cards", config={}, content={
+        await create_block(pg.id, "product_cards", config={"gradient_top": "#fafbfc"}, content={
             "title_zh": "产品服务",
             "title_en": "Products & Services",
             "cards": [
@@ -226,7 +226,7 @@ async def seed():
         })
 
         # Solution cards (6 tabs including hotel and datacenter)
-        await create_block(pg.id, "solution_cards", config={}, content={
+        await create_block(pg.id, "solution_cards", config={"gradient_top": "#f1f5f9"}, content={
             "title_zh": "解决方案",
             "title_en": "Solutions",
             "subtitle_zh": "覆盖楼宇控制、系统深度寻优到工业设施控制的全场景化综合能源效率提升解决方案",
@@ -330,7 +330,7 @@ async def seed():
         })
 
         # Stats counter block
-        await create_block(pg.id, "stats_counter", config={}, content={
+        await create_block(pg.id, "stats_counter", config={"gradient_top": "#eff6ff"}, content={
             "title_zh": "效果统计",
             "title_en": "Performance Statistics",
             "subtitle_zh": "数字是最有力的证明，金捷利持续为客户创造可量化的业务价值",
@@ -344,7 +344,7 @@ async def seed():
         })
 
         # CTA banner
-        await create_block(pg.id, "cta_banner", config={}, content={
+        await create_block(pg.id, "cta_banner", config={"gradient_top": "#0f172a"}, content={
             "title_zh": "携手金捷利，共创智慧建筑未来",
             "title_en": "Partner with GOLDGINNY for a Smarter Building Future",
             "description_zh": "立即联系我们，获取专属智慧建筑解决方案",
