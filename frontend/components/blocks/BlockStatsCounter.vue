@@ -47,7 +47,7 @@ const props = defineProps<{
 }>();
 const { locale } = useI18n();
 
-const sectionHeight = computed(() => `h-[${props.config.height || 624}px]`)
+const sectionHeight = computed(() => `min-h-[${props.config.height || 624}px]`)
 const sectionStyle = computed(() => ({
   background: props.config.bg || '#0f172a',
 }))

@@ -25,6 +25,6 @@
 const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>();
 const { locale } = useI18n();
 
-const sectionHeight = computed(() => `h-[${props.config.height || 714}px]`)
+const sectionHeight = computed(() => `min-h-[${props.config.height || 714}px]`)
 const sectionStyle = computed(() => ({ background: props.config.bg || '#f8fafc' }))
 </script>

@@ -78,7 +78,7 @@ const props = defineProps<{ config: Record<string, any>; content: Record<string,
 const { locale } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 
-const sectionHeight = computed(() => `h-[${props.config.height || 980}px]`)
+const sectionHeight = computed(() => `min-h-[${props.config.height || 980}px]`)
 const sectionStyle = computed(() => ({ background: props.config.bg || '#eff6ff' }))
 
 interface Tab {

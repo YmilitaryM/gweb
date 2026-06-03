@@ -69,7 +69,7 @@ const { locale } = useI18n();
 
 const sectionHeight = computed(() => {
   const h = props.config.height || 864
-  return `h-[${h}px]`
+  return `min-h-[${h}px]`
 })
 const sectionStyle = computed(() => ({
   background: props.config.bg || '#f1f5f9',

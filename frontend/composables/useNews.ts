@@ -5,7 +5,8 @@ export const useNewsList = (page: MaybeRef<number> = 1, size: MaybeRef<number> =
   const url = computed(() => {
     const params = new URLSearchParams({ page: String(unref(page)), size: String(unref(size)) });
     const cat = category ? unref(category) : undefined;
-    if (cat) params.set('category', cat);
+    const catVal = Array.isArray(cat) ? cat[0] : cat;
+    if (catVal) params.set('category', catVal);
     return `${config.public.apiBase}/news?${params}`;
   });
   const { data, error, refresh } = useFetch(url);
