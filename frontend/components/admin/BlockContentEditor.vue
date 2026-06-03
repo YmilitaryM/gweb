@@ -190,6 +190,49 @@
       </div>
     </template>
 
+    <!-- Block Style Settings (visual, no JSON required) -->
+    <div class="pt-3 border-t" style="border-color: #e2e8f0;">
+      <button type="button" @click="showStyle = !showStyle"
+        class="text-[11px] font-medium border-none bg-transparent cursor-pointer flex items-center gap-1" style="color: #64748b;">
+        <span>{{ showStyle ? '▼' : '▶' }}</span> 区块样式设置
+      </button>
+      <div v-if="showStyle" class="mt-3 grid grid-cols-2 gap-3">
+        <div>
+          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">高度 (px)</label>
+          <input type="number" :value="styleConfig.height || ''"
+            @input="updateStyle('height', Number(($event.target as HTMLInputElement).value))"
+            class="w-full py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
+            :placeholder="String(defaultStyle.height)" />
+        </div>
+        <div>
+          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">背景颜色</label>
+          <div class="flex gap-1.5">
+            <input type="color" :value="styleConfig.bg || defaultStyle.bg"
+              @input="updateStyle('bg', ($event.target as HTMLInputElement).value)"
+              class="w-8 h-8 rounded border cursor-pointer" style="border-color: #d1d5db; padding: 1px;" />
+            <input :value="styleConfig.bg || ''"
+              @input="updateStyle('bg', ($event.target as HTMLInputElement).value)"
+              class="flex-1 py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
+              :placeholder="defaultStyle.bg" />
+          </div>
+        </div>
+        <div>
+          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">顶部渐变 (rgba)</label>
+          <input :value="styleConfig.gradient_top || ''"
+            @input="updateStyle('gradient_top', ($event.target as HTMLInputElement).value)"
+            class="w-full py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
+            :placeholder="defaultStyle.gradient_top || '不启用'" />
+        </div>
+        <div>
+          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">底部渐变 (rgba)</label>
+          <input :value="styleConfig.gradient_bottom || ''"
+            @input="updateStyle('gradient_bottom', ($event.target as HTMLInputElement).value)"
+            class="w-full py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
+            :placeholder="defaultStyle.gradient_bottom || '不启用'" />
+        </div>
+      </div>
+    </div>
+
     <!-- Toggle: Advanced JSON mode -->
     <div class="pt-2 border-t" style="border-color: #e2e8f0;">
       <button type="button" @click="showAdvanced = !showAdvanced"
@@ -236,6 +279,35 @@ const emit = defineEmits<{
 }>()
 
 const showAdvanced = ref(false)
+const showStyle = ref(false)
+
+// Visual style editor — parses config JSON into simple form
+const styleConfig = computed(() => {
+  try { return JSON.parse(props.configStr) || {} } catch { return {} }
+})
+
+// Default styles per block type
+const defaultStyle = computed(() => {
+  const defaults: Record<string, Record<string, any>> = {
+    hero: { height: 800, bg: '#0f172a' },
+    news_list: { height: 864, bg: '#fafbfc', gradient_bottom: 'rgba(241,245,249,0.9)' },
+    product_cards: { height: 864, bg: '#f1f5f9', gradient_bottom: 'rgba(239,246,255,0.85)' },
+    solution_cards: { height: 980, bg: '#eff6ff', gradient_top: 'rgba(241,245,249,0.9)', gradient_bottom: 'rgba(15,23,42,0.4)' },
+    stats_counter: { height: 624, bg: '#0f172a', gradient_top: 'rgba(15,23,42,0.35)', gradient_bottom: 'rgba(255,255,255,0.4)' },
+    cta_banner: { height: 714, bg: '#f8fafc', gradient_top: 'rgba(15,23,42,0.25)', gradient_bottom: 'rgba(15,23,42,0.7)' },
+  }
+  return defaults[props.blockType] || { height: 600, bg: '#ffffff' }
+})
+
+function updateStyle(key: string, value: any) {
+  const cfg = { ...styleConfig.value }
+  if (value === '' || value === null || value === undefined || (key === 'height' && value === 0)) {
+    delete cfg[key]
+  } else {
+    cfg[key] = value
+  }
+  emit('update:configStr', JSON.stringify(cfg, null, 2))
+}
 
 // For hero type
 const slides = computed({
