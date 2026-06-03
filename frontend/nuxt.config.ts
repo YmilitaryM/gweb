@@ -13,21 +13,11 @@ export default defineNuxtConfig({
     },
   },
   image: { domains: ['localhost'] },
-  routeRules: {
-    '/chat': { ssr: false },
-    '/admin/**': { ssr: false },
-  },
   devServer: { port: 5177 },
-  nitro: {
-    devProxy: {
-      '/api': { target: 'http://localhost:8002/api', changeOrigin: true },
-      '/media': { target: 'http://localhost:8002/media', changeOrigin: true },
-    },
-  },
   runtimeConfig: {
     public: {
-      apiBase: '/api/v1',
-      mediaBase: '',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8002/api/v1',
+      mediaBase: process.env.NUXT_PUBLIC_MEDIA_BASE || 'http://localhost:8002',
     },
   },
 });
