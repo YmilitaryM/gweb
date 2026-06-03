@@ -1,17 +1,8 @@
 <template>
   <section class="relative h-[714px] flex flex-col justify-center bg-white overflow-hidden">
-    <!-- Gradient fade from previous section (top edge) -->
-    <div class="absolute top-0 left-0 right-0 h-20 pointer-events-none"
-         style="background: linear-gradient(to top, transparent, rgba(15,23,42,0.3));">
-    </div>
-    <!-- Subtle decorative gradient overlay -->
-    <div class="absolute inset-0 pointer-events-none"
-         style="background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(2,132,199,0.03));">
-    </div>
-    <!-- Bottom transition to footer dark -->
-    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-         style="background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.5));">
-    </div>
+    <div class="absolute top-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(15,23,42,0.25));"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(2,132,199,0.03));"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.7));"></div>
     <div class="relative w-full max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
