@@ -217,18 +217,11 @@
           </div>
         </div>
         <div>
-          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">顶部渐变 (rgba)</label>
+          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">顶部渐变 (hex/rgba)</label>
           <input :value="styleConfig.gradient_top || ''"
             @input="updateStyle('gradient_top', ($event.target as HTMLInputElement).value)"
             class="w-full py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
             :placeholder="defaultStyle.gradient_top || '不启用'" />
-        </div>
-        <div>
-          <label class="text-[10px] tracking-wider uppercase mb-1 block" style="color: #94a3b8;">底部渐变 (rgba)</label>
-          <input :value="styleConfig.gradient_bottom || ''"
-            @input="updateStyle('gradient_bottom', ($event.target as HTMLInputElement).value)"
-            class="w-full py-1.5 px-2 text-[12px] outline-none rounded border" style="border-color: #d1d5db;"
-            :placeholder="defaultStyle.gradient_bottom || '不启用'" />
         </div>
       </div>
     </div>
@@ -290,11 +283,11 @@ const styleConfig = computed(() => {
 const defaultStyle = computed(() => {
   const defaults: Record<string, Record<string, any>> = {
     hero: { height: 800, bg: '#0f172a' },
-    news_list: { height: 864, bg: '#fafbfc', gradient_bottom: 'rgba(241,245,249,0.9)' },
-    product_cards: { height: 864, bg: '#f1f5f9', gradient_bottom: 'rgba(239,246,255,0.85)' },
-    solution_cards: { height: 980, bg: '#eff6ff', gradient_top: 'rgba(241,245,249,0.9)', gradient_bottom: 'rgba(15,23,42,0.4)' },
-    stats_counter: { height: 624, bg: '#0f172a', gradient_top: 'rgba(15,23,42,0.35)', gradient_bottom: 'rgba(255,255,255,0.4)' },
-    cta_banner: { height: 714, bg: '#f8fafc', gradient_top: 'rgba(15,23,42,0.25)', gradient_bottom: 'rgba(15,23,42,0.7)' },
+    news_list: { height: 864, bg: '#fafbfc', gradient_top: '#0f172a' },
+    product_cards: { height: 864, bg: '#f1f5f9', gradient_top: '#fafbfc' },
+    solution_cards: { height: 980, bg: '#eff6ff', gradient_top: '#f1f5f9' },
+    stats_counter: { height: 624, bg: '#0f172a', gradient_top: '#eff6ff' },
+    cta_banner: { height: 714, bg: '#f8fafc', gradient_top: '#0f172a' },
   }
   return defaults[props.blockType] || { height: 600, bg: '#ffffff' }
 })
