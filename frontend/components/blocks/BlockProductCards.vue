@@ -1,7 +1,7 @@
 <template>
-  <section class="relative h-[864px] flex flex-col justify-center bg-slate-50">
-    <div class="absolute top-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(255,255,255,0.85));"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.9));"></div>
+  <section class="relative h-[864px] flex flex-col justify-center" style="background: #f1f5f9;">
+    <div class="absolute top-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(250,251,252,0.9));"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(239,246,255,0.85));"></div>
     <div class="w-full max-w-7xl mx-auto px-6">
       <h2
         v-if="content.title_zh"
