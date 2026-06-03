@@ -90,6 +90,8 @@ async def seed():
         "footer_hotline_label": "7x24小时全国智能运维热线",
         "footer_privacy_text": "隐私政策",
         "footer_terms_text": "法律声明",
+        "footer_home_bg": "#0f172a",
+        "footer_bg": "#f5f7fa",
     }
     for k, v in jinjieli_settings.items():
         await set_setting(k, v)

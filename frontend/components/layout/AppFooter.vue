@@ -1,8 +1,7 @@
 <template>
   <footer
-    :class="isHomePage
-      ? 'bg-slate-900 text-slate-300 border-slate-800'
-      : 'bg-[#f5f7fa] border-slate-200/60'"
+    :style="footerStyle"
+    :class="isHomePage ? 'text-slate-300 border-slate-800' : 'border-slate-200/60'"
     class="border-t pt-12 pb-8"
   >
     <div class="container mx-auto px-6">
@@ -80,6 +79,13 @@ const config = useRuntimeConfig()
 const route = useRoute()
 
 const isHomePage = computed(() => route.path === '/' || route.path === '/en')
+
+const footerStyle = computed(() => {
+  const bg = isHomePage.value
+    ? (settings.value?.footer_home_bg || '#0f172a')
+    : (settings.value?.footer_bg || '#f5f7fa')
+  return { background: bg }
+})
 
 // Fetch CMS footer page
 const { data: footerPage } = await useFetch<any>(
