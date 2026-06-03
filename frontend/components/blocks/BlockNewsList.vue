@@ -1,7 +1,7 @@
 <template>
-  <section class="relative h-[864px] flex flex-col justify-center" style="background: #fafbfc;">
-    <div class="absolute top-0 left-0 right-0 h-16 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(15,23,42,0.18));"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(241,245,249,0.9));"></div>
+  <section :style="sectionStyle" class="relative flex flex-col justify-center" :class="sectionHeight">
+    <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
+    <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
     <div class="w-full max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-extrabold text-center mb-10 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
@@ -49,6 +49,14 @@ const props = defineProps<{
 }>();
 const { locale } = useI18n();
 const mediaUrl = useMediaUrl();
+
+const sectionHeight = computed(() => {
+  const h = props.config.height || 864
+  return `h-[${h}px]`
+})
+const sectionStyle = computed(() => ({
+  background: props.config.bg || '#fafbfc',
+}))
 
 const { data } = await useNewsList(1, props.content.count || 3);
 const items = computed(() => data.value?.items || []);

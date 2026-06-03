@@ -1,7 +1,7 @@
 <template>
-  <section class="relative h-[980px] flex flex-col justify-center" style="background: #eff6ff;">
-    <div class="absolute top-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(241,245,249,0.9));"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.4));"></div>
+  <section :style="sectionStyle" class="relative flex flex-col justify-center" :class="sectionHeight">
+    <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
+    <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
     <div class="w-full container mx-auto px-6">
       <!-- Section header -->
       <div class="text-center mb-14" v-if="content.title_zh">
@@ -77,6 +77,9 @@ import { ref, computed } from 'vue'
 const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>()
 const { locale } = useI18n()
 const runtimeConfig = useRuntimeConfig()
+
+const sectionHeight = computed(() => `h-[${props.config.height || 980}px]`)
+const sectionStyle = computed(() => ({ background: props.config.bg || '#eff6ff' }))
 
 interface Tab {
   key: string

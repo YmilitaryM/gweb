@@ -1,8 +1,8 @@
 <template>
-  <section class="relative h-[714px] flex flex-col justify-center overflow-hidden" style="background: #f8fafc;">
-    <div class="absolute top-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, transparent, rgba(15,23,42,0.25));"></div>
+  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden" :class="sectionHeight">
+    <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
     <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(2,132,199,0.03));"></div>
-    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style="background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.7));"></div>
+    <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
     <div class="relative w-full max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
@@ -22,6 +22,9 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ config: Record<string, any>; content: Record<string, any> }>();
+const props = defineProps<{ config: Record<string, any>; content: Record<string, any> }>();
 const { locale } = useI18n();
+
+const sectionHeight = computed(() => `h-[${props.config.height || 714}px]`)
+const sectionStyle = computed(() => ({ background: props.config.bg || '#f8fafc' }))
 </script>
