@@ -139,6 +139,29 @@
         </div>
       </div>
 
+      <!-- Custom Settings (key-value editor for all non-standard keys) -->
+      <div class="rounded-xl p-6 mb-6" style="background: #ffffff; border: 1px solid #dbeafe;">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="text-[14px] font-medium flex items-center gap-2" style="color: #1e293b;">
+            <span class="w-1.5 h-1.5 rounded-full" style="background: #f59e0b;"></span>
+            自定义设置
+          </h3>
+          <button @click="addCustomKey" class="text-[11px] border-none cursor-pointer px-3 py-1 rounded-lg"
+            style="color: #60a5fa; background: rgba(37,99,235,0.08);">+ 添加</button>
+        </div>
+        <div v-for="(value, key) in customSettings" :key="key" class="flex items-center gap-3 mb-2">
+          <input :value="key" @input="updateCustomKey(key, 'key', ($event.target as HTMLInputElement).value)"
+            class="w-40 py-1.5 px-2 text-[12px] outline-none rounded border font-mono" style="border-color: #d1d5db;" placeholder="key" />
+          <input :value="value" @input="updateCustomKey(key, 'value', ($event.target as HTMLInputElement).value)"
+            class="flex-1 py-1.5 px-2 text-[12px] outline-none rounded border font-mono" style="border-color: #d1d5db;" placeholder="value" />
+          <button @click="deleteCustomKey(key)" class="text-[11px] border-none cursor-pointer rounded w-6 h-6 flex items-center justify-center"
+            style="color: #f87171; background: rgba(239,68,68,0.08);">✕</button>
+        </div>
+        <p v-if="!Object.keys(customSettings).length" class="text-[11px]" style="color: #94a3b8;">
+          暂无自定义设置。可添加如 footer_home_bg、footer_bg 等。
+        </p>
+      </div>
+
       <div class="flex items-center gap-4">
         <button
           @click="saveAll"
@@ -167,6 +190,14 @@ const showLlmKey = ref(false);
 const showEmbKey = ref(false);
 
 const origSettings = ref<Record<string, string>>({});
+
+const presetKeys = new Set([
+  'llm_provider', 'llm_api_key', 'llm_model',
+  'embedding_provider', 'embedding_api_key', 'embedding_model',
+  'site_name_zh', 'site_name_en', 'contact_email', 'contact_phone',
+])
+
+const customSettings = ref<Record<string, string>>({})
 
 const form = ref({
   llm_provider: 'deepseek',
@@ -197,6 +228,12 @@ const loadSettings = async () => {
   try {
     const data = await api<Record<string, string>>('/admin/settings');
     origSettings.value = data;
+    // Populate custom settings (non-preset keys)
+    const custom: Record<string, string> = {}
+    for (const [k, v] of Object.entries(data)) {
+      if (!presetKeys.has(k)) custom[k] = v
+    }
+    customSettings.value = custom
     for (const [key, val] of Object.entries(data)) {
       const formKey = settingToFormKey[key];
       if (formKey && val) {
@@ -249,6 +286,12 @@ const saveAll = async () => {
       });
       form.value.embedding_api_key = '';
     }
+    // Save custom settings
+    for (const [k, v] of Object.entries(customSettings.value)) {
+      if (v !== (origSettings.value[k] || '')) {
+        await api(`/admin/settings/${k}`, { method: 'PUT', body: { value: v } })
+      }
+    }
     saveOk.value = true;
     saveMsg.value = '设置已保存，即刻生效';
     await loadSettings();
@@ -259,6 +302,33 @@ const saveAll = async () => {
     saving.value = false;
   }
 };
+
+function addCustomKey() {
+  const key = prompt('输入设置键名 (如 footer_bg):')
+  if (key && !customSettings.value[key]) {
+    customSettings.value = { ...customSettings.value, [key]: '' }
+  }
+}
+function updateCustomKey(oldKey: string, field: 'key' | 'value', newVal: string) {
+  const entries = Object.entries(customSettings.value)
+  const idx = entries.findIndex(([k]) => k === oldKey)
+  if (idx === -1) return
+  if (field === 'key') {
+    entries[idx][0] = newVal
+  } else {
+    entries[idx][1] = newVal
+  }
+  const result: Record<string, string> = {}
+  for (const [k, v] of entries) {
+    if (k) result[k] = v
+  }
+  customSettings.value = result
+}
+function deleteCustomKey(key: string) {
+  const result = { ...customSettings.value }
+  delete result[key]
+  customSettings.value = result
+}
 
 onMounted(loadSettings);
 </script>
