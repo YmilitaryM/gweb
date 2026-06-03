@@ -108,7 +108,7 @@
             </div>
             <div v-else class="space-y-2">
               <div
-                v-for="block in page._blocks"
+                v-for="(block, index) in page._blocks"
                 :key="block.id"
                 class="flex items-center justify-between px-4 py-2.5 rounded-lg"
                 style="background: #f8fafc;"
@@ -119,7 +119,21 @@
                   </span>
                   <span class="text-[12px]" style="color: #64748b;">#{{ block.order }}</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1">
+                  <button
+                    @click="moveBlockUp(page, index)"
+                    :disabled="index === 0"
+                    class="text-[13px] border-none cursor-pointer px-1.5 py-0.5 rounded transition-colors"
+                    :style="index === 0 ? 'color: #cbd5e1; cursor: default;' : 'color: #64748b;'"
+                    title="上移"
+                  >&#9650;</button>
+                  <button
+                    @click="moveBlockDown(page, index)"
+                    :disabled="index === (page._blocks?.length || 0) - 1"
+                    class="text-[13px] border-none cursor-pointer px-1.5 py-0.5 rounded transition-colors"
+                    :style="index === (page._blocks?.length || 0) - 1 ? 'color: #cbd5e1; cursor: default;' : 'color: #64748b;'"
+                    title="下移"
+                  >&#9660;</button>
                   <button
                     @click="openEditBlock(block, page.id)"
                     class="text-[11px] border-none cursor-pointer px-2.5 py-1 rounded-lg transition-colors"
@@ -578,6 +592,32 @@ const doDeleteBlock = async () => {
     }
   } catch {}
 };
+
+const moveBlockUp = async (page: Page, index: number) => {
+  if (index <= 0 || !page._blocks) return
+  const blocks = page._blocks
+  ;[blocks[index - 1], blocks[index]] = [blocks[index], blocks[index - 1]]
+  blocks.forEach((b, i) => (b.order = i))
+  try {
+    await api('/admin/blocks/reorder', {
+      method: 'PUT',
+      body: { page_id: page.id, block_ids: blocks.map(b => b.id) },
+    })
+  } catch {}
+}
+
+const moveBlockDown = async (page: Page, index: number) => {
+  if (!page._blocks || index >= page._blocks.length - 1) return
+  const blocks = page._blocks
+  ;[blocks[index], blocks[index + 1]] = [blocks[index + 1], blocks[index]]
+  blocks.forEach((b, i) => (b.order = i))
+  try {
+    await api('/admin/blocks/reorder', {
+      method: 'PUT',
+      body: { page_id: page.id, block_ids: blocks.map(b => b.id) },
+    })
+  } catch {}
+}
 
 onMounted(fetchPages);
 </script>
