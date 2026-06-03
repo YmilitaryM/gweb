@@ -53,7 +53,7 @@
       </div>
 
       <!-- Bottom bar -->
-      <div :class="isHomePage ? 'border-slate-800' : 'border-slate-200/70'" class="pt-6 border-t flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs" :class="isHomePage ? 'text-slate-500' : 'text-slate-400'">
+      <div :class="[isHomePage ? 'border-slate-800 text-slate-500' : 'border-slate-200/70 text-slate-400', 'pt-6 border-t flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs']">
         <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
           <span :class="isHomePage ? 'text-slate-300' : 'text-slate-550'" class="font-semibold">© 2026 {{ settings?.company_name_zh || '' }}</span>
           <span :class="isHomePage ? 'text-slate-700' : 'text-slate-300'" class="hidden sm:inline">|</span>
