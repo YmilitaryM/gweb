@@ -1,3 +1,4 @@
+import warnings
 from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
@@ -7,12 +8,12 @@ class Settings(BaseSettings):
 
     # App
     debug: bool = False
-    secret_key: str = ""
+    secret_key: str = "dev-secret-change-in-production"
 
     @model_validator(mode="after")
     def validate_secret_key(self):
-        if not self.secret_key:
-            raise ValueError("GWEB_SECRET_KEY must be set in environment or .env file")
+        if self.secret_key == "dev-secret-change-in-production":
+            warnings.warn("Using default GWEB_SECRET_KEY — set GWEB_SECRET_KEY in production!", stacklevel=2)
         return self
 
     # Database
