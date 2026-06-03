@@ -1,15 +1,18 @@
 <template>
-  <section class="py-16 px-4">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl font-light text-center mb-10 text-slate-800 tracking-tight">
+  <section class="relative h-[864px] flex flex-col justify-center bg-white">
+    <!-- Gradient fade to next section (bottom edge) -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to bottom, transparent, rgba(248,250,252,0.6));">
+    </div>
+    <div class="w-full max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-extrabold text-center mb-10 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="article in items"
           :key="article.id"
-          class="bg-white border rounded-xl overflow-hidden transition-shadow hover:shadow-md"
-          style="border-color: #dbeafe;"
+          class="bg-white border border-blue-100 rounded-xl overflow-hidden transition-shadow hover:shadow-md"
         >
           <img
             v-if="content.show_image && article.cover_image_id"

@@ -1,6 +1,14 @@
 <template>
-  <section class="py-20 md:py-28 bg-white">
-    <div class="container mx-auto px-6 max-w-7xl">
+  <section class="relative h-[864px] flex flex-col justify-center bg-slate-50">
+    <!-- Gradient fade from previous section (top edge) -->
+    <div class="absolute top-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to top, transparent, rgba(255,255,255,0.6));">
+    </div>
+    <!-- Gradient fade to next section (bottom edge) -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5));">
+    </div>
+    <div class="w-full max-w-7xl mx-auto px-6">
       <h2
         v-if="content.title_zh"
         class="text-3xl md:text-4xl font-extrabold text-center mb-5 text-slate-900 tracking-tight"

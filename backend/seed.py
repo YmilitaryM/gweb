@@ -155,10 +155,16 @@ async def seed():
             ],
         })
 
+        # News list
+        await create_block(pg.id, "news_list", config={}, content={
+            "title_zh": "公司新闻",
+            "title_en": "News & Updates",
+        })
+
         # Product cards (8 hardware products)
         await create_block(pg.id, "product_cards", config={}, content={
-            "title_zh": "核心产品",
-            "title_en": "Core Products",
+            "title_zh": "产品服务",
+            "title_en": "Products & Services",
             "cards": [
                 {
                     "title_zh": "Edge-G100 智能边缘网关",
@@ -234,7 +240,12 @@ async def seed():
                     "title_en": "Smart Operations for Commercial Complexes",
                     "desc_zh": "中央空调智能调优 + 智能照明 + 室内环境监测 + 综合安防，实现一站式智慧管理，综合节能率达28.5%。",
                     "desc_en": "Central HVAC optimization + smart lighting + indoor environment monitoring + integrated security for one-stop smart management with 28.5% energy savings.",
-                    "features": ["冷热源自适应调控", "分区分时照明策略", "室内环境实时监测", "设备预测性维护"],
+                    "features": [
+                        {"text_zh": "冷热源自适应调控", "text_en": "Adaptive cooling/heating source control"},
+                        {"text_zh": "分区分时照明策略", "text_en": "Zone-based scheduled lighting strategy"},
+                        {"text_zh": "室内环境实时监测", "text_en": "Real-time indoor environment monitoring"},
+                        {"text_zh": "设备预测性维护", "text_en": "Predictive equipment maintenance"},
+                    ],
                     "link": "/solutions?tab=commercial",
                 },
                 {
@@ -245,7 +256,12 @@ async def seed():
                     "title_en": "Centralized Management for Industrial Parks",
                     "desc_zh": "多楼宇集中管控 + 能源调度 + 碳排管理 + 智慧安防，降低园区整体运营成本30%以上。",
                     "desc_en": "Multi-building centralized control + energy dispatch + carbon management + smart security, reducing overall park operation costs by 30%+.",
-                    "features": ["多楼宇统一监控", "能源梯级调度", "碳排放实时核算", "园区级安防联动"],
+                    "features": [
+                        {"text_zh": "多楼宇统一监控", "text_en": "Multi-building unified monitoring"},
+                        {"text_zh": "能源梯级调度", "text_en": "Cascaded energy dispatch"},
+                        {"text_zh": "碳排放实时核算", "text_en": "Real-time carbon emission accounting"},
+                        {"text_zh": "园区级安防联动", "text_en": "Park-wide security coordination"},
+                    ],
                     "link": "/solutions?tab=park",
                 },
                 {
@@ -256,7 +272,12 @@ async def seed():
                     "title_en": "Smart Solutions for 5A Office Buildings",
                     "desc_zh": "暖通空调优化 + 智能照明 + 室内环境品质管理 + 智慧停车，提升租户满意度与资产价值。",
                     "desc_en": "HVAC optimization + smart lighting + indoor environmental quality management + smart parking, enhancing tenant satisfaction and asset value.",
-                    "features": ["新风按需供给", "办公环境舒适度管理", "能源分项计量", "智慧停车引导"],
+                    "features": [
+                        {"text_zh": "新风按需供给", "text_en": "Demand-driven fresh air supply"},
+                        {"text_zh": "办公环境舒适度管理", "text_en": "Office comfort management"},
+                        {"text_zh": "能源分项计量", "text_en": "Sub-metering by energy category"},
+                        {"text_zh": "智慧停车引导", "text_en": "Smart parking guidance"},
+                    ],
                     "link": "/solutions?tab=office",
                 },
                 {
@@ -267,7 +288,12 @@ async def seed():
                     "title_en": "Smart Operations for Public Buildings",
                     "desc_zh": "洁净空调管理 + 医疗级环境监控 + 能效合规管理，满足GB/T 51153等国家标准。",
                     "desc_en": "Clean air management + medical-grade environment monitoring + energy compliance, meeting GB/T 51153 and other national standards.",
-                    "features": ["洁净区域环境管控", "医疗设备能耗监测", "环境参数合规记录", "应急联动响应"],
+                    "features": [
+                        {"text_zh": "洁净区域环境管控", "text_en": "Clean-area environment control"},
+                        {"text_zh": "医疗设备能耗监测", "text_en": "Medical equipment energy monitoring"},
+                        {"text_zh": "环境参数合规记录", "text_en": "Environmental compliance recording"},
+                        {"text_zh": "应急联动响应", "text_en": "Emergency coordinated response"},
+                    ],
                     "link": "/solutions?tab=medical",
                 },
                 {
@@ -279,9 +305,9 @@ async def seed():
                     "desc_zh": "打通前台PMS与客房RCU系统，配合大楼暖通总控智能预设开房微环境，兼顾品质体验与低碳运营。",
                     "desc_en": "Integrating front-desk PMS with guest-room RCU systems and building HVAC master control for intelligent room micro-environment presets, balancing quality experience with low-carbon operations.",
                     "features": [
-                        "打通前台PMS与客房RCU系统，配合大楼暖通总控智能预设开房微环境",
-                        "依据开房入住状态智能预设空调冷热载荷",
-                        "兼顾品质体验与低碳运营",
+                        {"text_zh": "打通前台PMS与客房RCU系统，配合大楼暖通总控智能预设开房微环境", "text_en": "Integrate front-desk PMS with guest-room RCU systems, coordinating building HVAC master control for intelligent room micro-environment presets"},
+                        {"text_zh": "依据开房入住状态智能预设空调冷热载荷", "text_en": "Intelligently preset HVAC cooling/heating load based on room occupancy status"},
+                        {"text_zh": "兼顾品质体验与低碳运营", "text_en": "Balance quality guest experience with low-carbon operations"},
                     ],
                     "link": "/solutions?tab=hotel",
                 },
@@ -294,9 +320,9 @@ async def seed():
                     "desc_zh": "结合气流场热力梯度传感器，对不间断工作的计算物理机网格智慧分配冷量，深度逼近极致能效PUE。",
                     "desc_en": "Leveraging airflow thermal gradient sensors for intelligent cooling distribution across continuously operating computing grids, driving PUE toward ultimate efficiency.",
                     "features": [
-                        "结合气流场热力梯度传感器，对不间断工作的计算物理机网格智慧分配冷量",
-                        "冷热源末端预测调节与冷却塔智能变频联合调度",
-                        "深度逼近极致能效PUE",
+                        {"text_zh": "结合气流场热力梯度传感器，对不间断工作的计算物理机网格智慧分配冷量", "text_en": "Leverage airflow thermal gradient sensors for intelligent cooling distribution across continuously operating computing grids"},
+                        {"text_zh": "冷热源末端预测调节与冷却塔智能变频联合调度", "text_en": "Joint dispatch of predictive terminal regulation and smart variable-frequency cooling tower control"},
+                        {"text_zh": "深度逼近极致能效PUE", "text_en": "Drive PUE toward ultimate efficiency limits"},
                     ],
                     "link": "/solutions?tab=datacenter",
                 },
@@ -317,52 +343,15 @@ async def seed():
             ],
         })
 
-        # Cases section (using product_cards block type for card display)
-        await create_block(pg.id, "product_cards", config={}, content={
-            "title_zh": "服务案例",
-            "title_en": "Case Studies",
-            "subtitle_zh": "以技术实力赢得信赖，用实际效果说话",
-            "subtitle_en": "Earning trust through technical excellence and proven results",
-            "cards": [
-                {
-                    "title_zh": "北京某超甲级写字楼智慧运维项目",
-                    "title_en": "Beijing Premium Grade-A Office Smart O&M Project",
-                    "desc_zh": "为北京CBD核心区超甲级写字楼部署金捷利智慧运维系统，实现综合节能率28.5%，年节省电费超600万元。",
-                    "desc_en": "Deployed GOLDGINNY smart O&M system at a premium Grade-A office in Beijing CBD, achieving 28.5% energy savings and saving over 6M RMB annually.",
-                    "link": "/cases",
-                },
-                {
-                    "title_zh": "上海某大型商业综合体全生命周期管理",
-                    "title_en": "Shanghai Large Commercial Complex Full-Lifecycle Management",
-                    "desc_zh": "为上海核心商圈大型综合体提供暖通系统全生命周期运维托管，碳减排量850吨/年，舒适度投诉率降低45%。",
-                    "desc_en": "Provided full-lifecycle HVAC O&M managed services for a major Shanghai commercial complex, reducing carbon emissions by 850t/year and comfort complaints by 45%.",
-                    "link": "/cases",
-                },
-                {
-                    "title_zh": "广州某半导体产业园区智慧后勤保障",
-                    "title_en": "Guangzhou Semiconductor Park Smart Facility Support",
-                    "desc_zh": "为广州某半导体产业园提供关键设备智慧运维保障，实现关键设备停机率0，巡检效率提升150%。",
-                    "desc_en": "Provided smart O&M for critical equipment at a Guangzhou semiconductor park, achieving zero critical equipment downtime and 150% inspection efficiency improvement.",
-                    "link": "/cases",
-                },
-            ],
-        })
-
-        # News list
-        await create_block(pg.id, "news_list", config={}, content={
-            "title_zh": "新闻动态",
-            "title_en": "News & Updates",
-        })
-
         # CTA banner
         await create_block(pg.id, "cta_banner", config={}, content={
             "title_zh": "携手金捷利，共创智慧建筑未来",
             "title_en": "Partner with GOLDGINNY for a Smarter Building Future",
-            "subtitle_zh": "立即联系我们，获取专属智慧建筑解决方案",
-            "subtitle_en": "Contact us now for a tailored smart building solution",
-            "button_zh": "立即咨询",
-            "button_en": "Get Started",
-            "link": "/cooperation",
+            "description_zh": "立即联系我们，获取专属智慧建筑解决方案",
+            "description_en": "Contact us now for a tailored smart building solution",
+            "button_text_zh": "立即咨询",
+            "button_text_en": "Get Started",
+            "button_link": "/cooperation",
         })
 
         # 2b. Solutions ---------------------------------------------------
@@ -399,7 +388,13 @@ async def seed():
                     "title_en": "Smart Operations for Commercial Complexes",
                     "desc_zh": "针对商业综合体能耗高、设备多、人流大的特点，提供涵盖暖通空调优化、智能照明、室内环境监测、综合安防的一站式解决方案。通过金捷利自研的冷热源自适应算法，CBD核心区项目实测综合节能率达28.5%。",
                     "desc_en": "A one-stop solution covering HVAC optimization, smart lighting, indoor environment monitoring, and integrated security for commercial complexes. Our self-developed adaptive algorithm achieved 28.5% energy savings in a CBD core-area project.",
-                    "features": ["冷热源自适应调控", "分区分时照明策略", "室内环境实时监测", "设备预测性维护", "综合安防联动"],
+                    "features": [
+                        {"text_zh": "冷热源自适应调控", "text_en": "Adaptive cooling/heating source control"},
+                        {"text_zh": "分区分时照明策略", "text_en": "Zone-based scheduled lighting strategy"},
+                        {"text_zh": "室内环境实时监测", "text_en": "Real-time indoor environment monitoring"},
+                        {"text_zh": "设备预测性维护", "text_en": "Predictive equipment maintenance"},
+                        {"text_zh": "综合安防联动", "text_en": "Integrated security coordination"},
+                    ],
                     "link": "/cooperation",
                 },
                 {
@@ -410,7 +405,13 @@ async def seed():
                     "title_en": "Centralized Management for Industrial Parks",
                     "desc_zh": "面向大型产业园区多楼宇、多业态的管理需求，通过统一管控平台实现能源调度、碳排管理和智慧安防，降低园区整体运营成本30%以上。",
                     "desc_en": "For large industrial parks with multiple buildings and business types, our unified platform enables energy dispatch, carbon management, and smart security, reducing overall operational costs by 30%+.",
-                    "features": ["多楼宇统一监控", "能源梯级调度", "碳排放实时核算", "园区级安防联动", "智能运维工单"],
+                    "features": [
+                        {"text_zh": "多楼宇统一监控", "text_en": "Multi-building unified monitoring"},
+                        {"text_zh": "能源梯级调度", "text_en": "Cascaded energy dispatch"},
+                        {"text_zh": "碳排放实时核算", "text_en": "Real-time carbon emission accounting"},
+                        {"text_zh": "园区级安防联动", "text_en": "Park-wide security coordination"},
+                        {"text_zh": "智能运维工单", "text_en": "Smart O&M work orders"},
+                    ],
                     "link": "/cooperation",
                 },
                 {
@@ -421,7 +422,13 @@ async def seed():
                     "title_en": "Smart Solutions for 5A Office Buildings",
                     "desc_zh": "为5A级写字楼提供暖通空调优化、智能照明、室内环境品质管理和智慧停车等系统，提升租户满意度与物业资产价值。",
                     "desc_en": "HVAC optimization, smart lighting, indoor environmental quality management, and smart parking for 5A office buildings, enhancing tenant satisfaction and property asset value.",
-                    "features": ["新风按需供给", "办公环境舒适度管理", "能源分项计量", "智慧停车引导", "租户能耗账单"],
+                    "features": [
+                        {"text_zh": "新风按需供给", "text_en": "Demand-driven fresh air supply"},
+                        {"text_zh": "办公环境舒适度管理", "text_en": "Office comfort management"},
+                        {"text_zh": "能源分项计量", "text_en": "Sub-metering by energy category"},
+                        {"text_zh": "智慧停车引导", "text_en": "Smart parking guidance"},
+                        {"text_zh": "租户能耗账单", "text_en": "Tenant energy billing"},
+                    ],
                     "link": "/cooperation",
                 },
                 {
@@ -432,7 +439,13 @@ async def seed():
                     "title_en": "Smart Operations for Public Buildings",
                     "desc_zh": "面向医院、政府办公楼等公共建筑，提供洁净空调管理、医疗级环境监控和能效合规管理，满足GB/T 51153等国家标准要求。",
                     "desc_en": "Clean air management, medical-grade environment monitoring, and energy compliance for hospitals and government buildings, meeting GB/T 51153 standards.",
-                    "features": ["洁净区域环境管控", "医疗设备能耗监测", "环境参数合规记录", "应急联动响应", "后勤运维管理"],
+                    "features": [
+                        {"text_zh": "洁净区域环境管控", "text_en": "Clean-area environment control"},
+                        {"text_zh": "医疗设备能耗监测", "text_en": "Medical equipment energy monitoring"},
+                        {"text_zh": "环境参数合规记录", "text_en": "Environmental compliance recording"},
+                        {"text_zh": "应急联动响应", "text_en": "Emergency coordinated response"},
+                        {"text_zh": "后勤运维管理", "text_en": "Logistics O&M management"},
+                    ],
                     "link": "/cooperation",
                 },
                 {
@@ -443,7 +456,13 @@ async def seed():
                     "title_en": "Smart Energy Efficiency for Upscale Hotels",
                     "desc_zh": "针对中高端酒店客房舒适度与能耗平衡的痛点，打通前台PMS预订系统与客房RCU控制系统，结合大楼暖通总控智能预设开房微环境，依据入住状态动态调节空调冷热载荷，兼顾宾客品质体验与酒店低碳运营目标。",
                     "desc_en": "Addressing the balance between guest comfort and energy consumption in upscale hotels by integrating front-desk PMS with room RCU control systems and building HVAC master control for intelligent room environment presets based on occupancy status.",
-                    "features": ["打通前台PMS与客房RCU系统", "依据开房入住状态智能预设空调冷热载荷", "兼顾品质体验与低碳运营", "公区新风按需调节", "热水系统智能调度"],
+                    "features": [
+                        {"text_zh": "打通前台PMS与客房RCU系统", "text_en": "Integrate front-desk PMS with guest-room RCU systems"},
+                        {"text_zh": "依据开房入住状态智能预设空调冷热载荷", "text_en": "Intelligently preset HVAC load based on occupancy status"},
+                        {"text_zh": "兼顾品质体验与低碳运营", "text_en": "Balance quality experience with low-carbon operations"},
+                        {"text_zh": "公区新风按需调节", "text_en": "Demand-driven fresh air in public areas"},
+                        {"text_zh": "热水系统智能调度", "text_en": "Smart hot water system dispatch"},
+                    ],
                     "link": "/cooperation",
                 },
                 {
@@ -454,7 +473,13 @@ async def seed():
                     "title_en": "High-Efficiency Cooling for Data Centers",
                     "desc_zh": "面向高密度数据中心制冷能效挑战，结合气流场热力梯度传感器网络，对不间断工作的计算物理机网格进行冷量智慧分配。通过冷热源末端预测调节与冷却塔智能变频联合调度，深度逼近极致能效PUE目标。",
                     "desc_en": "For high-density data center cooling challenges, leveraging airflow thermal gradient sensor networks for intelligent cooling distribution across computing grids. Combines terminal predictive regulation with smart variable-frequency cooling tower dispatch to approach ultimate PUE targets.",
-                    "features": ["结合气流场热力梯度传感器智慧分配冷量", "冷热源末端预测调节与冷却塔智能变频联合调度", "深度逼近极致能效PUE", "热点自动识别与消除", "机柜级精细温控"],
+                    "features": [
+                        {"text_zh": "结合气流场热力梯度传感器智慧分配冷量", "text_en": "Leverage thermal gradient sensors for intelligent cooling distribution"},
+                        {"text_zh": "冷热源末端预测调节与冷却塔智能变频联合调度", "text_en": "Joint dispatch of predictive terminal regulation and variable-frequency cooling tower"},
+                        {"text_zh": "深度逼近极致能效PUE", "text_en": "Drive PUE toward ultimate efficiency"},
+                        {"text_zh": "热点自动识别与消除", "text_en": "Automatic hotspot identification and elimination"},
+                        {"text_zh": "机柜级精细温控", "text_en": "Rack-level precision temperature control"},
+                    ],
                     "link": "/cooperation",
                 },
             ],

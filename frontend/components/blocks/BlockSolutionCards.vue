@@ -1,6 +1,14 @@
 <template>
-  <section class="py-20 md:py-28 bg-white">
-    <div class="container mx-auto px-6">
+  <section class="relative h-[980px] flex flex-col justify-center bg-white">
+    <!-- Gradient fade from previous section (top edge) -->
+    <div class="absolute top-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to top, transparent, rgba(248,250,252,0.5));">
+    </div>
+    <!-- Bottom transition to dark stats section -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.3));">
+    </div>
+    <div class="w-full container mx-auto px-6">
       <!-- Section header -->
       <div class="text-center mb-14" v-if="content.title_zh">
         <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">

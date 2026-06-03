@@ -1,6 +1,14 @@
 <template>
-  <section class="py-20 md:py-28 bg-slate-900">
-    <div class="container mx-auto px-6">
+  <section class="relative h-[624px] flex flex-col justify-center bg-slate-900">
+    <!-- Gradient fade from previous section (top edge) -->
+    <div class="absolute top-0 left-0 right-0 h-24 pointer-events-none"
+         style="background: linear-gradient(to top, transparent, rgba(255,255,255,0.3));">
+    </div>
+    <!-- Bottom transition to light CTA -->
+    <div class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+         style="background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));">
+    </div>
+    <div class="w-full container mx-auto px-6">
       <!-- Section label -->
       <div class="text-center mb-6" v-if="content.subtitle_zh || content.subtitle_en">
         <span class="text-brand-400 text-sm font-semibold uppercase tracking-widest">
