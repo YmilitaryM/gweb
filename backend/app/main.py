@@ -39,7 +39,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="GWeb API", version="0.1.0", lifespan=lifespan)
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5177").split(",")
+origins = os.getenv("CORS_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"]
 )
