@@ -4,6 +4,7 @@ from httpx import ASGITransport, AsyncClient
 
 # Override database URL to use SQLite for testing before any app imports
 os.environ["GWEB_DATABASE_URL"] = "sqlite+aiosqlite:///file::memory:?cache=shared&uri=true"
+os.environ["GWEB_SECRET_KEY"] = "test-secret-key-for-tests-only"
 
 from app.main import app
 from app.core.database import engine

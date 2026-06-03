@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -38,8 +39,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="GWeb API", version="0.1.0", lifespan=lifespan)
+origins = os.getenv("CORS_ORIGINS", "http://localhost:5177").split(",")
 app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
+    CORSMiddleware, allow_origins=origins, allow_methods=["*"], allow_headers=["*"]
 )
 app.include_router(auth_router)
 app.include_router(users_router)

@@ -1,3 +1,4 @@
+from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
 
@@ -6,7 +7,13 @@ class Settings(BaseSettings):
 
     # App
     debug: bool = False
-    secret_key: str = "change-me-in-production"
+    secret_key: str = ""
+
+    @model_validator(mode="after")
+    def validate_secret_key(self):
+        if not self.secret_key:
+            raise ValueError("GWEB_SECRET_KEY must be set in environment or .env file")
+        return self
 
     # Database
     database_url: str = "postgresql+asyncpg://gweb:gweb@localhost:5432/gweb"
