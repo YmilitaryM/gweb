@@ -6,7 +6,19 @@
       <h2 class="text-3xl font-extrabold text-center mb-10 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Loading -->
+      <div v-if="pending" class="text-center py-12 text-slate-400 text-sm">加载中...</div>
+
+      <!-- Empty -->
+      <div v-else-if="!items.length" class="text-center py-12 text-slate-400 text-sm">
+        暂无新闻，请在管理端 <a href="/admin/news" class="text-brand-600">新闻管理</a> 中添加
+      </div>
+
+      <!-- Error -->
+      <div v-else-if="error" class="text-center py-12 text-red-400 text-sm">加载失败，请检查后端服务</div>
+
+      <!-- News grid -->
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="article in items"
           :key="article.id"
@@ -58,6 +70,8 @@ const sectionStyle = computed(() => ({
   background: props.config.bg || '#fafbfc',
 }))
 
-const { data } = await useNewsList(1, props.content.count || 3);
+const count = computed(() => props.config?.count || props.content?.count || 3);
+
+const { data, pending, error } = await useNewsList(1, count);
 const items = computed(() => data.value?.items || []);
 </script>

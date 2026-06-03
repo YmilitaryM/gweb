@@ -8,6 +8,7 @@ Usage:
 import asyncio, os
 
 os.environ["GWEB_DATABASE_URL"] = "postgresql+asyncpg://gweb:gweb@127.0.0.1:5432/gweb"
+os.environ["GWEB_SECRET_KEY"] = "dev-secret-key-for-seed-only"
 
 from app.core.database import async_session, engine
 from app.shared.models import Base
