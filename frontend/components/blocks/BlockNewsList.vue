@@ -1,21 +1,19 @@
 <template>
-  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden" :class="sectionHeight">
-    <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-20 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
-    <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
+  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden">
     <div class="w-full max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-extrabold text-center mb-10 text-slate-800 tracking-tight">
         {{ locale === 'zh' ? content.title_zh : content.title_en }}
       </h2>
       <!-- Loading -->
-      <div v-if="pending" class="text-center py-12 text-slate-400 text-sm">加载中...</div>
+      <div v-if="pending" class="text-center text-slate-400 text-sm">加载中...</div>
 
       <!-- Empty -->
-      <div v-else-if="!items.length" class="text-center py-12 text-slate-400 text-sm">
+      <div v-else-if="!items.length" class="text-center text-slate-400 text-sm">
         暂无新闻，请在管理端 <a href="/admin/news" class="text-brand-600">新闻管理</a> 中添加
       </div>
 
       <!-- Error -->
-      <div v-else-if="error" class="text-center py-12 text-red-400 text-sm">加载失败，请检查后端服务</div>
+      <div v-else-if="error" class="text-center text-red-400 text-sm">加载失败，请检查后端服务</div>
 
       <!-- News grid -->
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -62,13 +60,18 @@ const props = defineProps<{
 const { locale } = useI18n();
 const mediaUrl = useMediaUrl();
 
-const sectionHeight = computed(() => {
+const sectionStyle = computed(() => {
+  const bg = (props.config.bg || '').trim() || '#fafbfc'
   const h = props.config.height || 864
-  return `h-[${h}px]`
+  const gradients: string[] = []
+  if (props.config.gradient_top) {
+    gradients.push(`linear-gradient(to bottom, ${props.config.gradient_top} 0%, transparent 80px)`)
+  }
+  return {
+    minHeight: `${h}px`,
+    background: gradients.length ? [...gradients, bg].join(', ') : bg,
+  }
 })
-const sectionStyle = computed(() => ({
-  background: (props.config.bg || "").trim() || '#fafbfc',
-}))
 
 const count = computed(() => props.config?.count || props.content?.count || 3);
 

@@ -1,7 +1,5 @@
 <template>
-  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden" :class="sectionHeight">
-    <div v-if="config.gradient_top" class="absolute top-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to top, transparent, ${config.gradient_top})` }"></div>
-    <div v-if="config.gradient_bottom" class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" :style="{ background: `linear-gradient(to bottom, transparent, ${config.gradient_bottom})` }"></div>
+  <section :style="sectionStyle" class="relative flex flex-col justify-center overflow-hidden">
     <div class="w-full max-w-7xl mx-auto px-6">
       <h2
         v-if="content.title_zh"
@@ -67,11 +65,16 @@ const props = defineProps<{
 }>();
 const { locale } = useI18n();
 
-const sectionHeight = computed(() => {
+const sectionStyle = computed(() => {
+  const bg = (props.config.bg || '').trim() || '#f1f5f9'
   const h = props.config.height || 864
-  return `h-[${h}px]`
+  const gradients: string[] = []
+  if (props.config.gradient_top) {
+    gradients.push(`linear-gradient(to bottom, ${props.config.gradient_top} 0%, transparent 80px)`)
+  }
+  return {
+    minHeight: `${h}px`,
+    background: gradients.length ? [...gradients, bg].join(', ') : bg,
+  }
 })
-const sectionStyle = computed(() => ({
-  background: (props.config.bg || "").trim() || '#f1f5f9',
-}))
 </script>
